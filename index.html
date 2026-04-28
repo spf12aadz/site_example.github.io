@@ -633,9 +633,9 @@
     <span class="filter-label">Group</span>
     <div class="vr"></div>
     <button class="btn-group" data-group="Security Product"><span class="dot"></span>Security Product</button>
+    <button class="btn-group" data-group="Cloud"><span class="dot"></span>Cloud</button>
     <button class="btn-group" data-group="SOC"><span class="dot"></span>SOC</button>
     <button class="btn-group" data-group="NOC"><span class="dot"></span>NOC</button>
-    <button class="btn-group" data-group="Cloud"><span class="dot"></span>Cloud</button>
     <button class="btn-group" data-group="Operation Product"><span class="dot"></span>Operation Product</button>
   </div>
 
@@ -692,6 +692,7 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    DATA — sourced directly from MTTH_Technology_FY26Q2.xlsx  (Update 26.04.28)
    Vendor names exactly as in file row 2.
+   Group order follows the file: Security Product → Cloud → SOC → NOC → Operation Product
    Type: N = Normal, B = Best Seller, T = Trend
    ═══════════════════════════════════════════════════════════════════════════ */
 const DATA = [
@@ -707,12 +708,12 @@ const DATA = [
       { cap: "Identity Security (PAM / Secret Manager / EP)",  vendors: [{ name:"CyberArk",             type:"N" }] },
       { cap: "SSO",                                            vendors: [{ name:"CyberArk",             type:"N" }] },
       { cap: "Certificate Management",                         vendors: [{ name:"CyberArk",             type:"T" }] },
-      { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                  type:"B" }, { name:"SilverFort",          type:"B" }] },
+      { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                  type:"B" }, { name:"SilverFort",          type:"N" }] },
       { cap: "Identity Governance Lifecycle (IGL)",            vendors: [{ name:"RSA",                  type:"N" }] },
       { cap: "Fraud and Risk Intelligence (FRI)",              vendors: [{ name:"RSA",                  type:"N" }] },
       { cap: "Data Classification",                            vendors: [{ name:"BigID",                type:"N" }, { name:"Fortra",              type:"N" }] },
       { cap: "Data Loss Prevention (DLP) / ITM",               vendors: [{ name:"BigID",                type:"N" }, { name:"Fortra",              type:"N" }] },
-      { cap: "DDoS / Anti-Bot",                                vendors: [{ name:"Thales / Imperva",     type:"N" }, { name:"Citrix / NetScaler",  type:"N" }] },
+      { cap: "Anti-DDoS / Anti-Bot",                           vendors: [{ name:"Thales / Imperva",     type:"N" }, { name:"Citrix / NetScaler",  type:"N" }] },
       { cap: "Web Application Firewall (WAF)",                 vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"B" }, { name:"Citrix / NetScaler",  type:"N" }] },
       { cap: "Database Activity Monitoring (DAM)",             vendors: [{ name:"Thales / Imperva",     type:"B" }] },
       { cap: "Runtime Application Self-Protection (RASP)",     vendors: [] },
@@ -727,32 +728,33 @@ const DATA = [
       { cap: "Application Security",                           vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"N" }] },
       { cap: "Exposure Management (VA Scan)",                  vendors: [] },
       { cap: "CTEM / EASM",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"Watchtowr",           type:"T" }] },
-      { cap: "External Penetration Test",                      vendors: [{ name:"Watchtowr",            type:"N" }] },
       { cap: "OT & ICS Security",                              vendors: [] },
       { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Fortra",              type:"N" }] },
+      { cap: "External Penetration Test",                      vendors: [{ name:"Watchtowr",            type:"N" }] },
       { cap: "Offensive Security",                             vendors: [{ name:"Fortra",               type:"N" }] },
       { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"SentinelOne",         type:"T" }] },
     ]
   },
   {
-    group: "Operation Product",
+    group: "Cloud",
     items: [
-      { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",             type:"N" }, { name:"SentinelOne",         type:"N" }] },
-      { cap: "Remote HelpDesk",                                vendors: [{ name:"SolarWinds",           type:"N" }] },
-      { cap: "ITSM",                                           vendors: [{ name:"Ivanti",               type:"N" }, { name:"SolarWinds",          type:"N" }] },
+      { cap: "CNAPP, CSPM",                                   vendors: [{ name:"SentinelOne",          type:"N" }] },
+      { cap: "SSE",                                           vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"NetSkope",           type:"T" }] },
     ]
   },
   {
     group: "SOC",
     items: [
-      { cap: "Compliance (FIM)",                               vendors: [{ name:"Fortra",               type:"B" }] },
+      { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",             type:"N" }, { name:"SentinelOne",         type:"N" }] },
       { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",              type:"N" }, { name:"Exabeam / LR",        type:"N" }, { name:"Netwitness",          type:"N" }, { name:"SolarWinds",   type:"N" }] },
-      { cap: "Identity Threat Detection (ITDR)",               vendors: [{ name:"SentinelOne",          type:"N" }, { name:"SilverFort",          type:"N" }] },
+      { cap: "Threat Intelligence",                           vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }] },
+      { cap: "Identity Threat Detection (ITDR)",               vendors: [{ name:"SentinelOne",          type:"N" }, { name:"SilverFort",          type:"B" }] },
       { cap: "EDR",                                            vendors: [{ name:"SentinelOne",          type:"B" }] },
       { cap: "Network Packet Broker / SSL Decryption",         vendors: [{ name:"Gigamon",              type:"N" }] },
       { cap: "NDR",                                            vendors: [{ name:"Vectra",               type:"B" }] },
       { cap: "CDR (Cloud)",                                    vendors: [{ name:"Vectra",               type:"N" }] },
       { cap: "XDR",                                            vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }, { name:"SentinelOne",    type:"N" }] },
+      { cap: "Compliance (FIM)",                               vendors: [{ name:"Fortra",               type:"B" }] },
     ]
   },
   {
@@ -765,11 +767,10 @@ const DATA = [
     ]
   },
   {
-    group: "Cloud",
+    group: "Operation Product",
     items: [
-      { cap: "CNAPP, CSPM",                                   vendors: [{ name:"SentinelOne",          type:"N" }] },
-      { cap: "SSE",                                           vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"NetSkope",           type:"T" }] },
-      { cap: "Threat Intelligence",                           vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }] },
+      { cap: "Remote HelpDesk",                                vendors: [{ name:"SolarWinds",           type:"N" }] },
+      { cap: "ITSM",                                           vendors: [{ name:"Ivanti",               type:"N" }, { name:"SolarWinds",          type:"N" }] },
     ]
   },
 ];
@@ -820,6 +821,9 @@ const CAP_ICONS = {
 
   "Data Loss Prevention (DLP) / ITM":
     `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+
+  "Anti-DDoS / Anti-Bot":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>`,
 
   "DDoS / Anti-Bot":
     `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>`,
