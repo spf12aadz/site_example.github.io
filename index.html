@@ -469,6 +469,32 @@
   .cap-card:hover  { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
   .cap-card.highlighted-card { box-shadow: 0 0 0 2px var(--text); }
 
+  /* icon + name row */
+  .cap-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .cap-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.82;
+  }
+  .cap-icon svg { display: block; }
+
+  /* Tint icons by group */
+  .cap-card[data-group="Security Product"]  .cap-icon { color: var(--sec); }
+  .cap-card[data-group="SOC"]               .cap-icon { color: var(--soc); }
+  .cap-card[data-group="NOC"]               .cap-icon { color: var(--noc); }
+  .cap-card[data-group="Cloud"]             .cap-icon { color: var(--cloud); }
+  .cap-card[data-group="Operation Product"] .cap-icon { color: var(--ops); }
+
   .cap-card[data-group="Security Product"]  { border-left-color: var(--sec); }
   .cap-card[data-group="SOC"]               { border-left-color: var(--soc); }
   .cap-card[data-group="NOC"]               { border-left-color: var(--noc); }
@@ -481,7 +507,6 @@
   .cap-name {
     font-weight: 500;
     font-size: 12.5px;
-    margin-bottom: 8px;
     line-height: 1.35;
     color: var(--text);
   }
@@ -571,7 +596,8 @@
 
 <header>
   <h1>MTTH Technology — Cybersecurity &amp; Network Portfolio</h1>
-  <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.27</span>
+  <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.28</span>
+
 </header>
 
 <!-- Active filter chips summary -->
@@ -664,97 +690,270 @@
 
 <script>
 /* ═══════════════════════════════════════════════════════════════════════════
-   DATA — sourced directly from MTTH_Technology_FY26Q2.xlsx
-   Vendor names exactly as in the file row 2.
+   DATA — sourced directly from MTTH_Technology_FY26Q2.xlsx  (Update 26.04.28)
+   Vendor names exactly as in file row 2.
    Type: N = Normal, B = Best Seller, T = Trend
    ═══════════════════════════════════════════════════════════════════════════ */
 const DATA = [
   {
     group: "Security Product",
     items: [
-      { cap: "Next-Gen Firewall",                              vendors: [{ name:"CheckPoint",         type:"B" }] },
-      { cap: "Web Security Gateway",                           vendors: [{ name:"NetSkope",            type:"T" }] },
-      { cap: "Email Security Gateway",                         vendors: [{ name:"CheckPoint",          type:"B" }] },
-      { cap: "EndPoint Management",                            vendors: [{ name:"Ivanti",              type:"N" }, { name:"Tanium",             type:"N" }] },
-      { cap: "EndPoint Patch Management",                      vendors: [{ name:"Ivanti",              type:"T" }, { name:"Tanium",             type:"T" }] },
-      { cap: "Mobile Device Management",                       vendors: [{ name:"Ivanti",              type:"N" }] },
-      { cap: "Identity Security (PAM / Secret Manager / EP)",  vendors: [{ name:"CyberArk",            type:"N" }] },
-      { cap: "SSO",                                            vendors: [{ name:"CyberArk",            type:"N" }] },
-      { cap: "Certificate Management",                         vendors: [{ name:"CyberArk",            type:"T" }] },
-      { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                 type:"B" }, { name:"SilverFort",         type:"B" }] },
-      { cap: "Identity Governance Lifecycle (IGL)",            vendors: [{ name:"RSA",                 type:"N" }] },
-      { cap: "Fraud and Risk Intelligence (FRI)",              vendors: [{ name:"RSA",                 type:"N" }] },
-      { cap: "Data Classification",                            vendors: [{ name:"BigID",               type:"N" }, { name:"Fortra",             type:"N" }] },
-      { cap: "Data Loss Prevention (DLP) / ITM",               vendors: [{ name:"BigID",               type:"N" }, { name:"Fortra",             type:"N" }] },
-      { cap: "DDoS / Anti-Bot",                                vendors: [{ name:"Thales / Imperva",    type:"N" }, { name:"Citrix / NetScaler", type:"N" }] },
-      { cap: "Web Application Firewall (WAF)",                 vendors: [{ name:"Thales / Imperva",    type:"B" }, { name:"Citrix / NetScaler", type:"N" }] },
-      { cap: "Database Activity Monitoring (DAM)",             vendors: [{ name:"Thales / Imperva",    type:"N" }] },
+      { cap: "Next-Gen Firewall",                              vendors: [{ name:"CheckPoint",          type:"B" }] },
+      { cap: "Web Security Gateway",                           vendors: [{ name:"NetSkope",             type:"T" }] },
+      { cap: "Email Security Gateway",                         vendors: [{ name:"CheckPoint",           type:"B" }] },
+      { cap: "EndPoint Management",                            vendors: [{ name:"Ivanti",               type:"N" }, { name:"Tanium",              type:"N" }] },
+      { cap: "EndPoint Patch Management",                      vendors: [{ name:"Ivanti",               type:"T" }, { name:"Tanium",              type:"T" }] },
+      { cap: "Mobile Device Management",                       vendors: [{ name:"Ivanti",               type:"N" }] },
+      { cap: "Identity Security (PAM / Secret Manager / EP)",  vendors: [{ name:"CyberArk",             type:"N" }] },
+      { cap: "SSO",                                            vendors: [{ name:"CyberArk",             type:"N" }] },
+      { cap: "Certificate Management",                         vendors: [{ name:"CyberArk",             type:"T" }] },
+      { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                  type:"B" }, { name:"SilverFort",          type:"B" }] },
+      { cap: "Identity Governance Lifecycle (IGL)",            vendors: [{ name:"RSA",                  type:"N" }] },
+      { cap: "Fraud and Risk Intelligence (FRI)",              vendors: [{ name:"RSA",                  type:"N" }] },
+      { cap: "Data Classification",                            vendors: [{ name:"BigID",                type:"N" }, { name:"Fortra",              type:"N" }] },
+      { cap: "Data Loss Prevention (DLP) / ITM",               vendors: [{ name:"BigID",                type:"N" }, { name:"Fortra",              type:"N" }] },
+      { cap: "DDoS / Anti-Bot",                                vendors: [{ name:"Thales / Imperva",     type:"N" }, { name:"Citrix / NetScaler",  type:"N" }] },
+      { cap: "Web Application Firewall (WAF)",                 vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"B" }, { name:"Citrix / NetScaler",  type:"N" }] },
+      { cap: "Database Activity Monitoring (DAM)",             vendors: [{ name:"Thales / Imperva",     type:"B" }] },
       { cap: "Runtime Application Self-Protection (RASP)",     vendors: [] },
-      { cap: "API Security",                                   vendors: [{ name:"Thales / Imperva",    type:"T" }, { name:"Citrix / NetScaler", type:"N" }] },
-      { cap: "HSM / Tokenization / e-Payment",                vendors: [{ name:"Thales / Imperva",    type:"N" }] },
-      { cap: "Virtual Desktop Infrastructure (VDI)",           vendors: [{ name:"Citrix / NetScaler",  type:"B" }] },
+      { cap: "API Security",                                   vendors: [{ name:"Thales / Imperva",     type:"T" }, { name:"Citrix / NetScaler",  type:"T" }] },
+      { cap: "HSM / Tokenization / e-Payment",                vendors: [{ name:"Thales / Imperva",     type:"T" }] },
+      { cap: "Key Management",                                 vendors: [{ name:"Thales / Imperva",     type:"N" }] },
+      { cap: "Virtual Desktop Infrastructure (VDI)",           vendors: [{ name:"Citrix / NetScaler",   type:"B" }] },
       { cap: "Deception",                                      vendors: [] },
-      { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",               type:"N" }] },
+      { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",                type:"N" }] },
       { cap: "File Gateway (CDR)",                             vendors: [] },
       { cap: "Firmware Security",                              vendors: [] },
-      { cap: "Application Security",                           vendors: [{ name:"CheckPoint",          type:"N" }, { name:"Thales / Imperva",  type:"N" }] },
+      { cap: "Application Security",                           vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"N" }] },
       { cap: "Exposure Management (VA Scan)",                  vendors: [] },
-      { cap: "External Attack Surface Management (EASM)",      vendors: [{ name:"CheckPoint",          type:"N" }, { name:"Watchtowr",          type:"N" }] },
-      { cap: "External Penetration Test",                      vendors: [{ name:"Watchtowr",           type:"N" }] },
+      { cap: "CTEM / EASM",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"Watchtowr",           type:"T" }] },
+      { cap: "External Penetration Test",                      vendors: [{ name:"Watchtowr",            type:"N" }] },
       { cap: "OT & ICS Security",                              vendors: [] },
-      { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",          type:"N" }, { name:"Fortra",             type:"N" }] },
-      { cap: "Offensive Security",                             vendors: [{ name:"Fortra",              type:"N" }] },
-      { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",          type:"T" }, { name:"SentinelOne",        type:"T" }] },
+      { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Fortra",              type:"N" }] },
+      { cap: "Offensive Security",                             vendors: [{ name:"Fortra",               type:"N" }] },
+      { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"SentinelOne",         type:"T" }] },
     ]
   },
   {
     group: "Operation Product",
     items: [
-      { cap: "Remote HelpDesk",                                vendors: [{ name:"SolarWinds",          type:"N" }] },
-      { cap: "ITSM",                                           vendors: [{ name:"Ivanti",              type:"N" }, { name:"SolarWinds",         type:"N" }] },
+      { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",             type:"N" }, { name:"SentinelOne",         type:"N" }] },
+      { cap: "Remote HelpDesk",                                vendors: [{ name:"SolarWinds",           type:"N" }] },
+      { cap: "ITSM",                                           vendors: [{ name:"Ivanti",               type:"N" }, { name:"SolarWinds",          type:"N" }] },
     ]
   },
   {
     group: "SOC",
     items: [
-      { cap: "Compliance (FIM)",                               vendors: [{ name:"Fortra",              type:"B" }] },
-      { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",             type:"N" }, { name:"Exabeam / LR",       type:"N" }, { name:"Netwitness",         type:"N" }, { name:"SolarWinds",  type:"N" }] },
-      { cap: "Identity Threat Detection (ITDR)",               vendors: [{ name:"SentinelOne",         type:"N" }, { name:"SilverFort",         type:"N" }] },
-      { cap: "EDR",                                            vendors: [{ name:"SentinelOne",         type:"B" }] },
-      { cap: "Network Packet Broker / SSL Decryption",         vendors: [{ name:"Gigamon",             type:"N" }] },
-      { cap: "NDR",                                            vendors: [{ name:"Vectra",              type:"B" }] },
-      { cap: "CDR (Cloud)",                                    vendors: [{ name:"Vectra",              type:"N" }] },
-      { cap: "XDR",                                            vendors: [{ name:"Anomali",             type:"N" }, { name:"CheckPoint",         type:"N" }, { name:"SentinelOne",  type:"N" }] },
+      { cap: "Compliance (FIM)",                               vendors: [{ name:"Fortra",               type:"B" }] },
+      { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",              type:"N" }, { name:"Exabeam / LR",        type:"N" }, { name:"Netwitness",          type:"N" }, { name:"SolarWinds",   type:"N" }] },
+      { cap: "Identity Threat Detection (ITDR)",               vendors: [{ name:"SentinelOne",          type:"N" }, { name:"SilverFort",          type:"N" }] },
+      { cap: "EDR",                                            vendors: [{ name:"SentinelOne",          type:"B" }] },
+      { cap: "Network Packet Broker / SSL Decryption",         vendors: [{ name:"Gigamon",              type:"N" }] },
+      { cap: "NDR",                                            vendors: [{ name:"Vectra",               type:"B" }] },
+      { cap: "CDR (Cloud)",                                    vendors: [{ name:"Vectra",               type:"N" }] },
+      { cap: "XDR",                                            vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }, { name:"SentinelOne",    type:"N" }] },
     ]
   },
   {
     group: "NOC",
     items: [
-      { cap: "NAPM / Observability",                           vendors: [{ name:"SolarWinds",          type:"B" }, { name:"Riverbed",           type:"N" }] },
-      { cap: "SD-WAN / WANO",                                 vendors: [{ name:"Riverbed",            type:"N" }] },
-      { cap: "ADC",                                           vendors: [{ name:"Citrix / NetScaler",  type:"B" }] },
-      { cap: "Traffic / Bandwidth Management",                vendors: [{ name:"Allot",               type:"N" }] },
+      { cap: "NAPM / Observability",                           vendors: [{ name:"SolarWinds",           type:"B" }, { name:"Riverbed",            type:"N" }] },
+      { cap: "SD-WAN / WANO",                                 vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Riverbed",            type:"N" }] },
+      { cap: "ADC",                                           vendors: [{ name:"Citrix / NetScaler",   type:"B" }] },
+      { cap: "Traffic / Bandwidth Management",                vendors: [{ name:"Allot",                type:"N" }] },
     ]
   },
   {
     group: "Cloud",
     items: [
-      { cap: "CNAPP, CSPM",                                   vendors: [{ name:"SentinelOne",         type:"N" }] },
-      { cap: "SSE",                                           vendors: [{ name:"Fortra",              type:"N" }, { name:"NetSkope",           type:"T" }] },
-      { cap: "Threat Intelligence",                           vendors: [{ name:"Anomali",             type:"N" }, { name:"CheckPoint",         type:"N" }] },
+      { cap: "CNAPP, CSPM",                                   vendors: [{ name:"SentinelOne",          type:"N" }] },
+      { cap: "SSE",                                           vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"NetSkope",           type:"T" }] },
+      { cap: "Threat Intelligence",                           vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }] },
     ]
   },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   CAPABILITY ICONS  — flat SVG paths keyed by capability name
+   ═══════════════════════════════════════════════════════════════════════════ */
+const CAP_ICONS = {
+  /* ── Security Product ── */
+  "Next-Gen Firewall":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>`,
+
+  "Web Security Gateway":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+
+  "Email Security Gateway":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+
+  "EndPoint Management":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+
+  "EndPoint Patch Management":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M9 10l2 2 4-4"/></svg>`,
+
+  "Mobile Device Management":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>`,
+
+  "Identity Security (PAM / Secret Manager / EP)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><path d="M15 11.5l1.5 1.5-3 3-1.5-1.5"/></svg>`,
+
+  "SSO":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>`,
+
+  "Certificate Management":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`,
+
+  "Multi Factor Authentication":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>`,
+
+  "Identity Governance Lifecycle (IGL)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+
+  "Fraud and Risk Intelligence (FRI)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+
+  "Data Classification":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+
+  "Data Loss Prevention (DLP) / ITM":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+
+  "DDoS / Anti-Bot":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>`,
+
+  "Web Application Firewall (WAF)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h10M7 12h6"/></svg>`,
+
+  "Database Activity Monitoring (DAM)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><circle cx="17" cy="17" r="3" fill="none"/><line x1="21" y1="21" x2="19.1" y2="19.1"/></svg>`,
+
+  "Runtime Application Self-Protection (RASP)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+
+  "API Security":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="19" y1="12" x2="5" y2="12" stroke-dasharray="2 2"/></svg>`,
+
+  "HSM / Tokenization / e-Payment":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+
+  "Key Management":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg>`,
+
+  "Virtual Desktop Infrastructure (VDI)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><rect x="6" y="7" width="5" height="4" rx="1"/><rect x="13" y="7" width="5" height="4" rx="1"/></svg>`,
+
+  "Deception":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg>`,
+
+  "Firewall Optimization and Security Policy":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/><polyline points="2 6 4 8 2 10" /><polyline points="6 12 8 14 6 16"/></svg>`,
+
+  "File Gateway (CDR)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="12" x2="15" y2="12"/></svg>`,
+
+  "Firmware Security":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h.01M10 14h.01M14 14h.01M18 14h.01"/><path d="M7 2v4M17 2v4M7 18v4M17 18v4"/></svg>`,
+
+  "Application Security":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><path d="M12 2v20" stroke-dasharray="3 2"/></svg>`,
+
+  "Exposure Management (VA Scan)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
+
+  "CTEM / EASM":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/><line x1="12" y1="2" x2="12" y2="22" stroke-dasharray="2 2"/></svg>`,
+
+  "External Penetration Test":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-8 10-8 10 8 10 8"/><path d="M2 12s4 8 10 8 10-8 10-8"/><circle cx="12" cy="12" r="3"/><path d="M20 4L4 20" stroke-dasharray="2 2"/></svg>`,
+
+  "OT & ICS Security":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 4v3M12 4v3M16 4v3M8 13v3M12 13v3M16 13v3"/><circle cx="12" cy="9.5" r="1.5"/></svg>`,
+
+  "Security Awareness Training":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+
+  "Offensive Security":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10.5L20 5"/><path d="M20 5h-5M20 5v5"/><path d="M10 14l-6.5 6.5"/><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>`,
+
+  "AI Security":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/><path d="M9 9.5V12M15 9.5V12M12 12v3"/><path d="M9 15h6"/></svg>`,
+
+  /* ── Operation Product ── */
+  "Data Pipeline Management":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12H2"/><path d="M5 12V7a7 7 0 0 1 14 0v5"/><path d="M5 12v5a7 7 0 0 0 14 0v-5"/></svg>`,
+
+  "Remote HelpDesk":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+
+  "ITSM":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="13" y2="12"/></svg>`,
+
+  /* ── SOC ── */
+  "Compliance (FIM)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/><polyline points="9 9 10 10 12 8"/></svg>`,
+
+  "SIEM / SOAR / UEBA":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+
+  "Identity Threat Detection (ITDR)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><line x1="17" y1="11" x2="22" y2="16"/><line x1="22" y1="11" x2="17" y2="16"/></svg>`,
+
+  "EDR":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><polyline points="6 8 9 11 6 14"/><line x1="12" y1="11" x2="16" y2="11"/></svg>`,
+
+  "Network Packet Broker / SSL Decryption":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/><path d="M12 10v4"/></svg>`,
+
+  "NDR":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l5 5-5 5"/><path d="M23 6l-5 5 5 5"/><path d="M8 12h8"/><circle cx="12" cy="12" r="10" stroke-dasharray="3 2"/></svg>`,
+
+  "CDR (Cloud)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><line x1="13" y1="13" x2="17" y2="17"/><line x1="17" y1="13" x2="13" y2="17"/></svg>`,
+
+  "XDR":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/><circle cx="12" cy="12" r="4"/></svg>`,
+
+  /* ── NOC ── */
+  "NAPM / Observability":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+
+  "SD-WAN / WANO":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="12" y1="7" x2="12" y2="17"/></svg>`,
+
+  "ADC":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/><path d="M15 6h2M15 18h2"/></svg>`,
+
+  "Traffic / Bandwidth Management":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 5 3-3 4 6"/><path d="M3 3v18h18"/></svg>`,
+
+  /* ── Cloud ── */
+  "CNAPP, CSPM":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><polyline points="12 13 12 17"/><polyline points="10 15 14 15"/></svg>`,
+
+  "SSE":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" stroke-dasharray="3 2"/></svg>`,
+
+  "Threat Intelligence":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M11 8v3l2 2"/></svg>`,
+};
+
+/* fallback icon for unmapped capabilities */
+const ICON_FALLBACK = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>`;
+
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
    STATE
    ═══════════════════════════════════════════════════════════════════════════ */
 const state = {
-  groups:   new Set(),
-  types:    new Set(),
-  vendors:  new Set(),
-  caps:     new Set(),   // selected capability names (exact)
-  search:   ""
+  groups:  new Set(),
+  types:   new Set(),
+  vendors: new Set(),
+  caps:    new Set(),
+  search:  ""
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -784,10 +983,10 @@ ALL_VENDORS.forEach(v => {
 /* ═══════════════════════════════════════════════════════════════════════════
    BUILD CAPABILITY DROPDOWN (Row 5)
    ═══════════════════════════════════════════════════════════════════════════ */
-const capSearchEl    = document.getElementById('capSearch');
-const capDropdownEl  = document.getElementById('capDropdown');
-const capPillsEl     = document.getElementById('capSelectedPills');
-const capFilterWrap  = document.getElementById('capFilterWrap');
+const capSearchEl   = document.getElementById('capSearch');
+const capDropdownEl = document.getElementById('capDropdown');
+const capPillsEl    = document.getElementById('capSelectedPills');
+const capFilterWrap = document.getElementById('capFilterWrap');
 
 function renderCapDropdown(query) {
   capDropdownEl.innerHTML = '';
@@ -807,36 +1006,21 @@ function renderCapDropdown(query) {
       <span class="cap-item-name">${cap}</span>
       <span class="cap-item-group cap-group-tag" data-g="${group}">${group}</span>
     `;
-    item.addEventListener('mousedown', e => {
-      e.preventDefault();
-      toggleCap(cap);
-    });
+    item.addEventListener('mousedown', e => { e.preventDefault(); toggleCap(cap); });
     capDropdownEl.appendChild(item);
   });
 }
 
-function openDropdown() {
-  capDropdownEl.classList.add('open');
-  renderCapDropdown(capSearchEl.value);
-}
-function closeDropdown() {
-  capDropdownEl.classList.remove('open');
-}
+function openDropdown()  { capDropdownEl.classList.add('open');    renderCapDropdown(capSearchEl.value); }
+function closeDropdown() { capDropdownEl.classList.remove('open'); }
 
 capSearchEl.addEventListener('focus', () => openDropdown());
 capSearchEl.addEventListener('input', () => renderCapDropdown(capSearchEl.value));
-capSearchEl.addEventListener('blur', () => setTimeout(closeDropdown, 150));
-
-document.addEventListener('click', e => {
-  if (!capFilterWrap.contains(e.target)) closeDropdown();
-});
+capSearchEl.addEventListener('blur',  () => setTimeout(closeDropdown, 150));
+document.addEventListener('click', e => { if (!capFilterWrap.contains(e.target)) closeDropdown(); });
 
 function toggleCap(capName) {
-  if (state.caps.has(capName)) {
-    state.caps.delete(capName);
-  } else {
-    state.caps.add(capName);
-  }
+  state.caps.has(capName) ? state.caps.delete(capName) : state.caps.add(capName);
   renderCapPills();
   renderCapDropdown(capSearchEl.value);
   applyFilters();
@@ -896,7 +1080,7 @@ DATA.forEach(groupData => {
       });
     }
 
-    card.innerHTML = `<div class="cap-name">${item.cap}</div><div class="vendor-row">${tagsHtml}</div>`;
+    card.innerHTML = `<div class="cap-header"><span class="cap-icon">${CAP_ICONS[item.cap] || ICON_FALLBACK}</span><div class="cap-name">${item.cap}</div></div><div class="vendor-row">${tagsHtml}</div>`;
 
     card.querySelectorAll('.vendor-tag').forEach(tag => {
       tag.addEventListener('click', () => toggleVendor(tag.dataset.vendor));
@@ -909,7 +1093,14 @@ DATA.forEach(groupData => {
 });
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   FILTER ENGINE
+   FILTER ENGINE  —  OR logic within each dimension, AND across dimensions
+   ─────────────────────────────────────────────────────────────────────────
+   Within Group:       card shown if its group matches ANY selected group
+   Within Product Type: card shown if it has ANY vendor whose type matches
+                        ANY selected type
+   Within Product Name: card shown if it contains ANY selected vendor
+   Within Capability:  card shown if its name matches ANY selected cap
+   Across dimensions:  card must satisfy ALL active dimensions (AND)
    ═══════════════════════════════════════════════════════════════════════════ */
 function applyFilters() {
   const q = state.search.toLowerCase();
@@ -921,7 +1112,7 @@ function applyFilters() {
     const grid    = document.getElementById(`grid-${gkey}`);
     const cntEl   = document.getElementById(`cnt-${gkey}`);
 
-    // ── Group filter
+    // ── Group dimension: OR — show if group matches ANY selected group
     const groupOk = state.groups.size === 0 || state.groups.has(groupData.group);
     section.classList.toggle('hidden', !groupOk);
     if (!groupOk) return;
@@ -932,21 +1123,20 @@ function applyFilters() {
       const capName    = card.dataset.cap;
       const capLow     = card.dataset.capLow;
 
-      // ── Capability name filter (exact card match)
+      // ── Capability dimension: OR — card matches if its name is ANY selected cap
       const capOk = state.caps.size === 0 || state.caps.has(capName);
 
-      // ── Product type filter: card must have ≥1 vendor matching each selected type
+      // ── Product Type dimension: OR — card matches if it has at least one vendor
+      //    whose type matches ANY of the selected types
       let typeOk = true;
       if (state.types.size > 0) {
-        const cardTypes = new Set(vendorData.map(v => v.type));
-        typeOk = [...state.types].every(t => cardTypes.has(t));
+        typeOk = vendorData.some(v => state.types.has(v.type));
       }
 
-      // ── Vendor (product name) filter: card must contain ALL selected vendors
+      // ── Product Name dimension: OR — card matches if it contains ANY selected vendor
       let vendorOk = true;
       if (state.vendors.size > 0) {
-        const cardVNames = vendorData.map(v => v.nameLow);
-        vendorOk = [...state.vendors].every(sv => cardVNames.includes(sv.toLowerCase()));
+        vendorOk = vendorData.some(v => state.vendors.has(v.name));
       }
 
       // ── Free-text search: matches cap name OR any vendor name
@@ -956,17 +1146,17 @@ function applyFilters() {
         searchOk = capLow.includes(q) || vNames.includes(q);
       }
 
+      // ── Cross-dimension: AND (all active dimensions must pass)
       const show = capOk && typeOk && vendorOk && searchOk;
       card.classList.toggle('hidden', !show);
       if (show) { vis++; total++; }
 
-      // Highlight vendor tags that match active vendor filter
+      // Highlight matching vendor tags
       card.querySelectorAll('.vendor-tag').forEach(tag => {
-        tag.classList.toggle('highlighted',
-          state.vendors.has(tag.dataset.vendor));
+        tag.classList.toggle('highlighted', state.vendors.has(tag.dataset.vendor));
       });
 
-      // Highlight card outline if it matches a selected capability
+      // Outline card when it matches a pinned capability
       card.classList.toggle('highlighted-card', state.caps.has(capName) && show);
     });
 
@@ -997,11 +1187,7 @@ function toggleType(type) {
 }
 
 function toggleVendor(vendorName) {
-  if (state.vendors.has(vendorName)) {
-    state.vendors.delete(vendorName);
-  } else {
-    state.vendors.add(vendorName);
-  }
+  state.vendors.has(vendorName) ? state.vendors.delete(vendorName) : state.vendors.add(vendorName);
   document.querySelectorAll('.btn-vendor').forEach(b =>
     b.classList.toggle('active', state.vendors.has(b.dataset.vendor)));
   applyFilters();
@@ -1031,13 +1217,13 @@ function renderChips() {
   bar.querySelectorAll('.filter-chip').forEach(c => c.remove());
 
   const hasAny = state.groups.size || state.types.size || state.vendors.size
-              || state.caps.size || state.search;
+              || state.caps.size   || state.search;
   bar.classList.toggle('visible', !!hasAny);
 
-  state.groups.forEach(g  => bar.appendChild(chip(`Group: ${g}`,           () => toggleGroup(g))));
-  state.types.forEach(t   => bar.appendChild(chip(`Type: ${TYPE_LABELS[t]}`,() => toggleType(t))));
-  state.vendors.forEach(v => bar.appendChild(chip(`Product: ${v}`,         () => toggleVendor(v))));
-  state.caps.forEach(c    => bar.appendChild(chip(`Cap: ${c}`,             () => toggleCap(c))));
+  state.groups.forEach(g  => bar.appendChild(chip(`Group: ${g}`,            () => toggleGroup(g))));
+  state.types.forEach(t   => bar.appendChild(chip(`Type: ${TYPE_LABELS[t]}`, () => toggleType(t))));
+  state.vendors.forEach(v => bar.appendChild(chip(`Product: ${v}`,           () => toggleVendor(v))));
+  state.caps.forEach(c    => bar.appendChild(chip(`Cap: ${c}`,               () => toggleCap(c))));
   if (state.search) bar.appendChild(chip(`"${state.search}"`, () => {
     state.search = '';
     document.getElementById('searchInput').value = '';
