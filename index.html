@@ -707,7 +707,7 @@ const DATA = [
       { cap: "Mobile Device Management",                       vendors: [{ name:"Ivanti",               type:"N" }] },
       { cap: "Privilege Access Management (PAM)",              vendors: [{ name:"CyberArk",             type:"N" }] },
       { cap: "Secret Manager",                                 vendors: [{ name:"CyberArk",             type:"N" }] },
-      { cap: "SSO",                                            vendors: [{ name:"CyberArk",             type:"N" }] },
+      { cap: "Single Sign-On (SSO)",                           vendors: [{ name:"CyberArk",             type:"N" }, { name:"RSA",                  type:"N" }] },
       { cap: "Certificate Management",                         vendors: [{ name:"CyberArk",             type:"T" }] },
       { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                  type:"B" }, { name:"SilverFort",          type:"N" }] },
       { cap: "Identity Governance Lifecycle (IGL)",            vendors: [{ name:"RSA",                  type:"N" }] },
@@ -726,7 +726,7 @@ const DATA = [
       { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",                type:"N" }] },
       { cap: "File Gateway (CDR)",                             vendors: [] },
       { cap: "Firmware Security",                              vendors: [] },
-      { cap: "Application Security",                           vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"N" }] },
+      { cap: "Application Security (DEVSECOPS)",               vendors: [{ name:"CheckPoint",           type:"N" }] },
       { cap: "Exposure Management (VA Scan)",                  vendors: [] },
       { cap: "CTEM / EASM",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"Watchtowr",           type:"T" }] },
       { cap: "OT & ICS Security",                              vendors: [] },
@@ -755,7 +755,7 @@ const DATA = [
       { cap: "NDR",                                            vendors: [{ name:"Vectra",               type:"B" }] },
       { cap: "CDR (Cloud)",                                    vendors: [{ name:"Vectra",               type:"N" }] },
       { cap: "XDR",                                            vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }, { name:"SentinelOne",    type:"N" }] },
-      { cap: "Data Security Posture Management (DSPM)",        vendors: [{ name:"NetSkope",             type:"N" }] },
+      { cap: "Data Security Posture Management (DSPM)",        vendors: [{ name:"BigID",                type:"N" }, { name:"NetSkope",             type:"N" }] },
       { cap: "Compliance (FIM)",                               vendors: [{ name:"Fortra",               type:"B" }] },
     ]
   },
@@ -804,6 +804,9 @@ const CAP_ICONS = {
     `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><path d="M15 11.5l1.5 1.5-3 3-1.5-1.5"/></svg>`,
 
   "SSO":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>`,
+
+  "Single Sign-On (SSO)":
     `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>`,
 
   "Certificate Management":
@@ -879,6 +882,9 @@ const CAP_ICONS = {
     `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h.01M10 14h.01M14 14h.01M18 14h.01"/><path d="M7 2v4M17 2v4M7 18v4M17 18v4"/></svg>`,
 
   "Application Security":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><path d="M12 2v20" stroke-dasharray="3 2"/></svg>`,
+
+  "Application Security (DEVSECOPS)":
     `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><path d="M12 2v20" stroke-dasharray="3 2"/></svg>`,
 
   "Exposure Management (VA Scan)":
