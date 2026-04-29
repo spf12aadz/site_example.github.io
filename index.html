@@ -27,75 +27,6 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 13px; overflow-x: hidden; }
 
-/* ═══════════════════════════ VERSION PICKER ═══════════════════════════ */
-#version-picker {
-  position: fixed; inset: 0; z-index: 9999;
-  background: var(--text);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 0;
-}
-.vp-logo {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 0.14em; color: #666;
-  text-transform: uppercase; margin-bottom: 12px;
-}
-.vp-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 22px; font-weight: 500;
-  color: #fff; letter-spacing: 0.04em;
-  text-align: center; line-height: 1.3;
-  margin-bottom: 6px;
-}
-.vp-sub {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px; color: #555;
-  margin-bottom: 52px; letter-spacing: 0.06em;
-}
-.vp-cards {
-  display: flex; gap: 16px;
-  flex-wrap: wrap; justify-content: center;
-  padding: 0 24px;
-}
-.vp-card {
-  width: 180px;
-  background: #111;
-  border: 1.5px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 28px 20px 24px;
-  cursor: pointer;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 12px;
-  transition: border-color 0.18s, background 0.18s, transform 0.18s;
-  text-decoration: none;
-}
-.vp-card:hover { border-color: #555; background: #1a1a1a; transform: translateY(-3px); }
-.vp-card-icon {
-  width: 52px; height: 52px;
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.vp-card-icon.web   { background: #1e3a5f; }
-.vp-card-icon.mob   { background: #1a3d2e; }
-.vp-card-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px; font-weight: 500;
-  color: #e0e0e0; letter-spacing: 0.06em;
-}
-.vp-card-desc {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 11px; color: #555;
-  text-align: center; line-height: 1.45;
-}
-.vp-footer {
-  position: absolute; bottom: 24px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px; color: #333;
-  letter-spacing: 0.05em;
-}
-
 /* ═══════════════════════════ WEB VIEW ═══════════════════════════ */
 #web-view { display: none; }
 #web-view.active { display: block; }
@@ -109,14 +40,42 @@ body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: v
 #web-view header h1 { font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500; letter-spacing:.04em; }
 #web-view header .hd-right { display:flex; align-items:center; gap:12px; margin-left:auto; }
 #web-view header span { font-size:11px; color:#aaa; font-family:'IBM Plex Mono',monospace; }
-.btn-switch-view {
-  padding: 4px 11px; border-radius: 4px;
-  border: 1px solid #444; background: transparent;
-  color: #888; font-family:'IBM Plex Mono',monospace;
-  font-size: 10px; cursor: pointer; letter-spacing:.04em;
-  transition: all .14s; white-space: nowrap;
+.btn-switch-view { display: none; } /* replaced by shared toggle */
+
+/* ── Shared floating toggle pill ── */
+#view-toggle {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 3px;
+  gap: 2px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
 }
-.btn-switch-view:hover { border-color:#888; color:#ccc; }
+.vt-btn {
+  padding: 4px 13px;
+  border-radius: 16px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+}
+.vt-btn.active {
+  background: #fff;
+  color: #111;
+}
+.vt-btn:not(.active):hover { color: #aaa; }
 
 /* active filters */
 .active-filters { padding:7px 32px; background:#ebebea; border-bottom:1px solid var(--border); display:none; gap:6px; align-items:center; flex-wrap:wrap; }
@@ -288,8 +247,7 @@ main.web-main { padding:24px 32px 72px; }
 .mob-header-left { display:flex; flex-direction:column; gap:2px; }
 .mob-header h1 { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; letter-spacing:.04em; }
 .mob-header span { font-size:9px; color:#666; font-family:'IBM Plex Mono',monospace; }
-.mob-switch { padding:5px 10px; border-radius:4px; border:1px solid #333; background:transparent; color:#777; font-family:'IBM Plex Mono',monospace; font-size:9px; cursor:pointer; transition:all .14s; }
-.mob-switch:hover { border-color:#666; color:#aaa; }
+.mob-switch { display: none; } /* replaced by shared toggle */
 
 /* mobile search bar */
 .mob-search-bar {
@@ -437,32 +395,10 @@ main.web-main { padding:24px 32px 72px; }
 </head>
 <body>
 
-<!-- ═══════════ VERSION PICKER ═══════════ -->
-<div id="version-picker">
-  <div class="vp-logo">MTTH Technology &nbsp;·&nbsp; FY26 Q2</div>
-  <div class="vp-title">Cybersecurity &amp;<br>Network Portfolio</div>
-  <div class="vp-sub">Update 26.04.29 &nbsp;·&nbsp; Choose your experience</div>
-  <div class="vp-cards">
-    <div class="vp-card" id="pick-web">
-      <div class="vp-card-icon web">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4fa3e3" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
-        </svg>
-      </div>
-      <div class="vp-card-label">Web</div>
-      <div class="vp-card-desc">Full desktop experience with multi-row filters &amp; sidebar layout</div>
-    </div>
-    <div class="vp-card" id="pick-mob">
-      <div class="vp-card-icon mob">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4fa87a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="#4fa87a"/>
-        </svg>
-      </div>
-      <div class="vp-card-label">Mobile</div>
-      <div class="vp-card-desc">Touch-optimised list view with slide-up filter drawer</div>
-    </div>
-  </div>
-  <div class="vp-footer">Update 26.04.29</div>
+<!-- ═══════════ SHARED VIEW TOGGLE ═══════════ -->
+<div id="view-toggle">
+  <button class="vt-btn active" id="vt-web">Web</button>
+  <button class="vt-btn"        id="vt-mob">Mobile</button>
 </div>
 
 <!-- ═══════════ WEB VIEW ═══════════ -->
@@ -471,7 +407,6 @@ main.web-main { padding:24px 32px 72px; }
   <h1>MTTH Technology — Cybersecurity &amp; Network Portfolio</h1>
   <div class="hd-right">
     <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.29</span>
-    <button class="btn-switch-view" id="web-to-mob">⇄ Mobile</button>
   </div>
 </header>
 <div class="active-filters" id="activeFilters"><label>Active&nbsp;filters:</label></div>
@@ -537,7 +472,6 @@ main.web-main { padding:24px 32px 72px; }
       <h1>MTTH Cybersecurity Portfolio</h1>
       <span>FY26 Q2 · Update 26.04.29</span>
     </div>
-    <button class="mob-switch" id="mob-to-web">⇄ Web</button>
   </div>
   <div class="mob-search-bar">
     <div class="mob-search-wrap">
@@ -990,131 +924,6 @@ const ALL_CAPS = DATA.flatMap(g =>
 );
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   BUILD VENDOR PILLS (Row 4 — Product Name)
-   ═══════════════════════════════════════════════════════════════════════════ */
-const vendorFiltersEl = document.getElementById('vendorFilters');
-ALL_VENDORS.forEach(v => {
-  const btn = document.createElement('button');
-  btn.className = 'btn-vendor';
-  btn.textContent = v;
-  btn.dataset.vendor = v;
-  btn.addEventListener('click', () => toggleVendor(v));
-  vendorFiltersEl.appendChild(btn);
-});
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   BUILD CAPABILITY DROPDOWN (Row 5)
-   ═══════════════════════════════════════════════════════════════════════════ */
-const capSearchEl   = document.getElementById('capSearch');
-const capDropdownEl = document.getElementById('capDropdown');
-const capPillsEl    = document.getElementById('capSelectedPills');
-const capFilterWrap = document.getElementById('capFilterWrap');
-
-function renderCapDropdown(query) {
-  capDropdownEl.innerHTML = '';
-  const q = query.toLowerCase().trim();
-  const filtered = q
-    ? ALL_CAPS.filter(c => c.cap.toLowerCase().includes(q))
-    : ALL_CAPS;
-
-  if (filtered.length === 0) {
-    capDropdownEl.innerHTML = `<div class="cap-empty">No match found</div>`;
-    return;
-  }
-  filtered.forEach(({ cap, group }) => {
-    const item = document.createElement('div');
-    item.className = 'cap-dropdown-item' + (state.caps.has(cap) ? ' selected' : '');
-    item.innerHTML = `
-      <span class="cap-item-name">${cap}</span>
-      <span class="cap-item-group cap-group-tag" data-g="${group}">${group}</span>
-    `;
-    item.addEventListener('mousedown', e => { e.preventDefault(); toggleCap(cap); });
-    capDropdownEl.appendChild(item);
-  });
-}
-
-function openDropdown()  { capDropdownEl.classList.add('open');    renderCapDropdown(capSearchEl.value); }
-function closeDropdown() { capDropdownEl.classList.remove('open'); }
-
-capSearchEl.addEventListener('focus', () => openDropdown());
-capSearchEl.addEventListener('input', () => renderCapDropdown(capSearchEl.value));
-capSearchEl.addEventListener('blur',  () => setTimeout(closeDropdown, 150));
-document.addEventListener('click', e => { if (!capFilterWrap.contains(e.target)) closeDropdown(); });
-
-function toggleCap(capName) {
-  state.caps.has(capName) ? state.caps.delete(capName) : state.caps.add(capName);
-  renderCapPills();
-  renderCapDropdown(capSearchEl.value);
-  applyFilters();
-}
-
-function renderCapPills() {
-  capPillsEl.innerHTML = '';
-  state.caps.forEach(cap => {
-    const pill = document.createElement('span');
-    pill.className = 'cap-pill';
-    pill.innerHTML = `${cap}<span class="x">×</span>`;
-    pill.addEventListener('click', () => toggleCap(cap));
-    capPillsEl.appendChild(pill);
-  });
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   BUILD CARDS
-   ═══════════════════════════════════════════════════════════════════════════ */
-const mainEl = document.getElementById('main');
-
-DATA.forEach(groupData => {
-  const gkey = groupData.group.replace(/\s+/g, '_');
-
-  const section = document.createElement('div');
-  section.className = 'group-section';
-  section.dataset.group = groupData.group;
-
-  section.innerHTML = `
-    <div class="group-header" data-group="${groupData.group}">
-      <span class="group-title" data-group="${groupData.group}">${groupData.group}</span>
-      <span class="group-count" id="cnt-${gkey}"></span>
-    </div>
-    <div class="cap-grid" id="grid-${gkey}"></div>
-  `;
-
-  const grid = section.querySelector('.cap-grid');
-
-  groupData.items.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'cap-card' + (item.vendors.length === 0 ? ' no-vendor' : '');
-    card.dataset.group   = groupData.group;
-    card.dataset.cap     = item.cap;
-    card.dataset.capLow  = item.cap.toLowerCase();
-    card.dataset.vendors = JSON.stringify(
-      item.vendors.map(v => ({ name: v.name, nameLow: v.name.toLowerCase(), type: v.type }))
-    );
-
-    let tagsHtml = '';
-    if (item.vendors.length === 0) {
-      tagsHtml = `<span class="no-vendor-label">— no vendor assigned</span>`;
-    } else {
-      item.vendors.forEach(v => {
-        tagsHtml += `<span class="vendor-tag" data-vendor="${v.name}" data-type="${v.type}">
-          <span class="type-badge ${v.type}">${v.type}</span>${v.name}
-        </span>`;
-      });
-    }
-
-    card.innerHTML = `<div class="cap-header"><span class="cap-icon">${CAP_ICONS[item.cap] || ICON_FALLBACK}</span><div class="cap-name">${item.cap}</div></div><div class="vendor-row">${tagsHtml}</div>`;
-
-    card.querySelectorAll('.vendor-tag').forEach(tag => {
-      tag.addEventListener('click', () => toggleVendor(tag.dataset.vendor));
-    });
-
-    grid.appendChild(card);
-  });
-
-  mainEl.appendChild(section);
-});
-
-/* ═══════════════════════════════════════════════════════════════════════════
    FILTER ENGINE  —  OR logic within each dimension, AND across dimensions
    ─────────────────────────────────────────────────────────────────────────
    Within Group:       card shown if its group matches ANY selected group
@@ -1130,9 +939,11 @@ function applyFilters() {
 
   DATA.forEach(groupData => {
     const gkey    = groupData.group.replace(/\s+/g, '_');
-    const section = document.querySelector(`.group-section[data-group="${groupData.group}"]`);
+    const section = document.querySelector(`#main .group-section[data-group="${groupData.group}"]`);
     const grid    = document.getElementById(`grid-${gkey}`);
     const cntEl   = document.getElementById(`cnt-${gkey}`);
+
+    if (!section || !grid) return;   // web cards not built yet — skip safely
 
     // ── Group dimension: OR — show if group matches ANY selected group
     const groupOk = state.groups.size === 0 || state.groups.has(groupData.group);
@@ -1201,8 +1012,8 @@ function applyFilters() {
   const totalAll = state.showGaps
     ? DATA.reduce((s, g) => s + g.items.length, 0)
     : DATA.reduce((s, g) => s + g.items.filter(i => i.vendors.length > 0).length, 0);
-  document.getElementById('resultCount').textContent = `${total} of ${totalAll} capabilities`;
-  document.getElementById('emptyState').classList.toggle('visible', total === 0);
+  const rc = document.getElementById('resultCount'); if (rc) rc.textContent = `${total} of ${totalAll} capabilities`;
+  const es = document.getElementById('emptyState'); if (es) es.classList.toggle('visible', total === 0);
   renderChips();
 }
 
@@ -1230,6 +1041,26 @@ function toggleVendor(vendorName) {
   applyFilters();
 }
 
+function toggleCap(capName) {
+  state.caps.has(capName) ? state.caps.delete(capName) : state.caps.add(capName);
+  // Rebuild cap pills
+  const pillsEl = window._capPillsEl || document.getElementById('capSelectedPills');
+  if (pillsEl) {
+    pillsEl.innerHTML = '';
+    state.caps.forEach(cap => {
+      const pill = document.createElement('span');
+      pill.className = 'cap-pill';
+      pill.innerHTML = `${cap}<span class="x">×</span>`;
+      pill.addEventListener('click', () => toggleCap(cap));
+      pillsEl.appendChild(pill);
+    });
+  }
+  if (window._renderCapDropdown && window._capSearchEl) {
+    window._renderCapDropdown(window._capSearchEl.value);
+  }
+  applyFilters();
+}
+
 function clearAll() {
   state.groups.clear();
   state.types.clear();
@@ -1238,8 +1069,8 @@ function clearAll() {
   state.search   = '';
   state.showGaps = false;
   document.getElementById('searchInput').value = '';
-  capSearchEl.value = '';
-  capPillsEl.innerHTML = '';
+  const _cs = document.getElementById('capSearch'); if (_cs) _cs.value = '';
+  const _cp = document.getElementById('capSelectedPills'); if (_cp) _cp.innerHTML = '';
   document.getElementById('gapToggle').classList.remove('active');
   document.getElementById('gapToggle').textContent = '';
   document.getElementById('gapToggle').innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/></svg> Show gaps`;
@@ -1255,6 +1086,9 @@ const TYPE_LABELS = { N: 'Normal', B: 'Best Seller', T: 'Trend' };
 
 function renderChips() {
   const bar = document.getElementById('activeFilters');
+  if (!bar) return;
+
+  // Clear existing chips first
   bar.querySelectorAll('.filter-chip').forEach(c => c.remove());
 
   const hasAny = state.groups.size || state.types.size || state.vendors.size
@@ -1281,60 +1115,39 @@ function chip(label, onRemove) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   EVENT LISTENERS
+   MODE SWITCHING
    ═══════════════════════════════════════════════════════════════════════════ */
-document.querySelectorAll('.btn-group').forEach(btn =>
-  btn.addEventListener('click', () => toggleGroup(btn.dataset.group)));
-
-document.querySelectorAll('.btn-type').forEach(btn =>
-  btn.addEventListener('click', () => toggleType(btn.dataset.type)));
-
-document.getElementById('searchInput').addEventListener('input', e => {
-  state.search = e.target.value.trim();
-  applyFilters();
-});
-
-document.getElementById('gapToggle').addEventListener('click', () => {
-  state.showGaps = !state.showGaps;
-  const btn = document.getElementById('gapToggle');
-  btn.classList.toggle('active', state.showGaps);
-  btn.innerHTML = state.showGaps
-    ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/></svg> Hide gaps`
-    : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/></svg> Show gaps`;
-  applyFilters();
-});
-
-document.getElementById('clearBtn').addEventListener('click', clearAll);
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   VERSION PICKER & MODE SWITCHING
-   ═══════════════════════════════════════════════════════════════════════════ */
-const picker  = document.getElementById('version-picker');
 const webView = document.getElementById('web-view');
 const mobView = document.getElementById('mob-view');
 
 function showWeb() {
-  picker.style.display  = 'none';
   mobView.classList.remove('active');
   webView.classList.add('active');
   document.body.style.overflowX = '';
   if (!webBuilt) { buildWebCards(); buildVendorPills(); buildCapDropdown(); webBuilt = true; }
+  updateToggle('web');
   applyFilters();
 }
 function showMob() {
-  picker.style.display  = 'none';
   webView.classList.remove('active');
   mobView.classList.add('active');
   if (!mobBuilt) { buildMobCards(); buildMobVendorChips(); mobBuilt = true; }
+  updateToggle('mob');
   applyMobFilters();
 }
 
 let webBuilt = false, mobBuilt = false;
 
-document.getElementById('pick-web').addEventListener('click', showWeb);
-document.getElementById('pick-mob').addEventListener('click', showMob);
-document.getElementById('web-to-mob').addEventListener('click', showMob);
-document.getElementById('mob-to-web').addEventListener('click', showWeb);
+/* ── View toggle pill ── */
+const vtWeb = document.getElementById('vt-web');
+const vtMob = document.getElementById('vt-mob');
+vtWeb.addEventListener('click', showWeb);
+vtMob.addEventListener('click', showMob);
+
+function updateToggle(mode) {
+  vtWeb.classList.toggle('active', mode === 'web');
+  vtMob.classList.toggle('active', mode === 'mob');
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    WEB — build vendor pills & cap dropdown (same as before, using ALL_VENDORS/ALL_CAPS)
@@ -1371,22 +1184,10 @@ function buildCapDropdown() {
   capSearchEl.addEventListener('input', () => renderCapDropdown(capSearchEl.value));
   capSearchEl.addEventListener('blur',  () => setTimeout(() => capDropdownEl.classList.remove('open'), 150));
   document.addEventListener('click', e => { if (!capFilterWrap.contains(e.target)) capDropdownEl.classList.remove('open'); });
-  // Patch toggleCap to re-render pills
-  const origToggleCap = window._toggleCap || toggleCap;
-  window.toggleCap = function(capName) {
-    state.caps.has(capName) ? state.caps.delete(capName) : state.caps.add(capName);
-    // rebuild pills
-    capPillsEl.innerHTML = '';
-    state.caps.forEach(cap => {
-      const pill = document.createElement('span');
-      pill.className = 'cap-pill';
-      pill.innerHTML = `${cap}<span class="x">×</span>`;
-      pill.addEventListener('click', () => window.toggleCap(cap));
-      capPillsEl.appendChild(pill);
-    });
-    renderCapDropdown(capSearchEl.value);
-    applyFilters();
-  };
+  // expose renderCapDropdown so toggleCap can refresh the dropdown
+  window._renderCapDropdown = renderCapDropdown;
+  window._capSearchEl = capSearchEl;
+  window._capPillsEl  = capPillsEl;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1620,11 +1421,8 @@ document.getElementById('mobGapBtn').addEventListener('click', () => {
 /* ═══════════════════════════════════════════════════════════════════════════
    INIT — auto-detect device, show picker
    ═══════════════════════════════════════════════════════════════════════════ */
-// If narrow viewport, default-select mobile; otherwise default web
-// (user still sees picker but gets a visual hint)
-const isMobile = window.innerWidth < 768;
-if (isMobile) document.getElementById('pick-mob').style.borderColor = '#3a3a3a';
-else          document.getElementById('pick-web').style.borderColor = '#3a3a3a';
+// Launch web version by default
+showWeb();
 </script>
 </body>
 </html>
