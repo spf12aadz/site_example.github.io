@@ -27,13 +27,13 @@
 
     --type-n:      #555550;
     --type-b:      #8a6200;
-    --type-t:      #0a6b55;
+    --type-t:      #1d4ed8;
     --type-n-bg:   #f0f0ee;
     --type-b-bg:   #fdf7e3;
-    --type-t-bg:   #e6f7f3;
+    --type-t-bg:   #eff6ff;
     --type-n-bdr:  #ccccc8;
     --type-b-bdr:  #c9a227;
-    --type-t-bdr:  #3aab8a;
+    --type-t-bdr:  #2563eb;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -246,8 +246,8 @@
     flex-shrink: 0;
   }
   .type-badge.N { background: var(--type-n-bg); color: var(--type-n); border: 1px solid var(--type-n-bdr); }
-  .type-badge.B { background: var(--type-b-bg); color: var(--type-b); border: 1px solid var(--type-b-bdr); }
-  .type-badge.T { background: var(--type-t-bg); color: var(--type-t); border: 1px solid var(--type-t-bdr); }
+  .type-badge.B { background: #f5c842; color: #5a3e00; border: 1px solid #c9a227; font-weight: 600; }
+  .type-badge.T { background: #2563eb; color: #fff;    border: 1px solid #1d4ed8; font-weight: 600; }
 
   /* ── PRODUCT NAME (VENDOR) PILLS ── */
   .vendor-filters {
@@ -528,15 +528,36 @@
     transition: all 0.11s ease;
     user-select: none;
   }
-  .vendor-tag:hover { border-color: #999; color: var(--text); }
+
+  /* Best Seller vendor tags — golden accent */
+  .vendor-tag[data-type="B"] {
+    background: #fffbee;
+    border-color: #c9a227;
+    color: #7a5800;
+    font-weight: 500;
+  }
+
+  /* Trend vendor tags — blue accent */
+  .vendor-tag[data-type="T"] {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #1e3a8a;
+    font-weight: 500;
+  }
+
+  .vendor-tag:hover { border-color: #999; color: var(--text); background: #f0f0ee; }
+  .vendor-tag[data-type="B"]:hover { border-color: #8a6200; background: #fef3cc; color: #5a3e00; }
+  .vendor-tag[data-type="T"]:hover { border-color: #1d4ed8; background: #dbeafe; color: #1e3a8a; }
+
   .vendor-tag.highlighted {
     background: var(--text);
     color: #fff;
     border-color: var(--text);
+    font-weight: 400;
   }
   .vendor-tag.highlighted .type-badge { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #fff; }
   .vendor-tag.highlighted .type-badge.B { color: #ffe58a; }
-  .vendor-tag.highlighted .type-badge.T { color: #7effd8; }
+  .vendor-tag.highlighted .type-badge.T { color: #93c5fd; }
 
   .no-vendor-label {
     font-family: 'IBM Plex Mono', monospace;
