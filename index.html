@@ -959,17 +959,25 @@ function applyFilters() {
       // ── Capability dimension: OR — card matches if its name is ANY selected cap
       const capOk = state.caps.size === 0 || state.caps.has(capName);
 
-      // ── Product Type dimension: OR — card matches if it has at least one vendor
-      //    whose type matches ANY of the selected types
+      // ── Product Type dimension: OR across selected types
       let typeOk = true;
       if (state.types.size > 0) {
         typeOk = vendorData.some(v => state.types.has(v.type));
       }
 
-      // ── Product Name dimension: OR — card matches if it contains ANY selected vendor
+      // ── Product Name dimension: OR across selected vendors
       let vendorOk = true;
       if (state.vendors.size > 0) {
         vendorOk = vendorData.some(v => state.vendors.has(v.name));
+      }
+
+      // ── When BOTH vendor and type are active, the same vendor entry must
+      //    satisfy both (AND on the same vendor, not across separate vendors)
+      if (state.vendors.size > 0 && state.types.size > 0) {
+        vendorOk = vendorData.some(v =>
+          state.vendors.has(v.name) && state.types.has(v.type)
+        );
+        typeOk = vendorOk; // unified — single check covers both
       }
 
       // ── Free-text search: matches cap name OR any vendor name
@@ -1303,8 +1311,16 @@ function applyMobFilters() {
       const vendorData = JSON.parse(row.dataset.vendors || '[]');
       const capLow     = row.dataset.capLow;
       const isGap      = vendorData.length === 0;
-      const typeOk     = mobState.types.size === 0 || vendorData.some(v => mobState.types.has(v.type));
-      const vendorOk   = mobState.vendors.size === 0 || vendorData.some(v => mobState.vendors.has(v.name));
+      const typeOk_alone   = mobState.types.size === 0   || vendorData.some(v => mobState.types.has(v.type));
+      const vendorOk_alone = mobState.vendors.size === 0 || vendorData.some(v => mobState.vendors.has(v.name));
+      // When both vendor and type are active, require the SAME vendor to satisfy both
+      let typeOk, vendorOk;
+      if (mobState.vendors.size > 0 && mobState.types.size > 0) {
+        const combined = vendorData.some(v => mobState.vendors.has(v.name) && mobState.types.has(v.type));
+        typeOk = combined; vendorOk = combined;
+      } else {
+        typeOk = typeOk_alone; vendorOk = vendorOk_alone;
+      }
       const searchOk   = !q || capLow.includes(q) || vendorData.map(v => v.nameLow).join(' ').includes(q);
       const show = typeOk && vendorOk && searchOk;
       if (isGap) {
