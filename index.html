@@ -2,672 +2,484 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MTTH Technology — FY26 Q2 Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:       #f5f5f3;
-    --surface:  #ffffff;
-    --border:   #e0e0dc;
-    --text:     #1a1a1a;
-    --muted:    #888880;
+/* ═══════════════════════════ SHARED TOKENS ═══════════════════════════ */
+:root {
+  --bg:       #f5f5f3;
+  --surface:  #ffffff;
+  --border:   #e0e0dc;
+  --text:     #1a1a1a;
+  --muted:    #888880;
 
-    --sec:      #C55A11;
-    --soc:      #375623;
-    --noc:      #5B2C8A;
-    --cloud:    #006B9F;
-    --ops:      #1B4E8A;
+  --sec:      #C55A11;  --sec-light:   #fdf0e8;
+  --soc:      #375623;  --soc-light:   #edf5ea;
+  --noc:      #5B2C8A;  --noc-light:   #f2ecf9;
+  --cloud:    #006B9F;  --cloud-light: #e5f3fb;
+  --ops:      #1B4E8A;  --ops-light:   #e8eef8;
 
-    --sec-light:   #fdf0e8;
-    --soc-light:   #edf5ea;
-    --noc-light:   #f2ecf9;
-    --cloud-light: #e5f3fb;
-    --ops-light:   #e8eef8;
+  --type-n:    #555550; --type-n-bg:  #f0f0ee; --type-n-bdr: #ccccc8;
+  --type-b:    #8a6200; --type-b-bg:  #fdf7e3; --type-b-bdr: #c9a227;
+  --type-t:    #1d4ed8; --type-t-bg:  #eff6ff; --type-t-bdr: #2563eb;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 13px; overflow-x: hidden; }
 
-    --type-n:      #555550;
-    --type-b:      #8a6200;
-    --type-t:      #1d4ed8;
-    --type-n-bg:   #f0f0ee;
-    --type-b-bg:   #fdf7e3;
-    --type-t-bg:   #eff6ff;
-    --type-n-bdr:  #ccccc8;
-    --type-b-bdr:  #c9a227;
-    --type-t-bdr:  #2563eb;
-  }
+/* ═══════════════════════════ VERSION PICKER ═══════════════════════════ */
+#version-picker {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--text);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0;
+}
+.vp-logo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; color: #666;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.vp-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px; font-weight: 500;
+  color: #fff; letter-spacing: 0.04em;
+  text-align: center; line-height: 1.3;
+  margin-bottom: 6px;
+}
+.vp-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: #555;
+  margin-bottom: 52px; letter-spacing: 0.06em;
+}
+.vp-cards {
+  display: flex; gap: 16px;
+  flex-wrap: wrap; justify-content: center;
+  padding: 0 24px;
+}
+.vp-card {
+  width: 180px;
+  background: #111;
+  border: 1.5px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 28px 20px 24px;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px;
+  transition: border-color 0.18s, background 0.18s, transform 0.18s;
+  text-decoration: none;
+}
+.vp-card:hover { border-color: #555; background: #1a1a1a; transform: translateY(-3px); }
+.vp-card-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.vp-card-icon.web   { background: #1e3a5f; }
+.vp-card-icon.mob   { background: #1a3d2e; }
+.vp-card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px; font-weight: 500;
+  color: #e0e0e0; letter-spacing: 0.06em;
+}
+.vp-card-desc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 11px; color: #555;
+  text-align: center; line-height: 1.45;
+}
+.vp-footer {
+  position: absolute; bottom: 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; color: #333;
+  letter-spacing: 0.05em;
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ═══════════════════════════ WEB VIEW ═══════════════════════════ */
+#web-view { display: none; }
+#web-view.active { display: block; }
 
-  body {
-    font-family: 'IBM Plex Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 13px;
-  }
+/* ── header */
+#web-view header {
+  background: var(--text); color: #fff;
+  padding: 20px 32px 18px;
+  display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+}
+#web-view header h1 { font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500; letter-spacing:.04em; }
+#web-view header .hd-right { display:flex; align-items:center; gap:12px; margin-left:auto; }
+#web-view header span { font-size:11px; color:#aaa; font-family:'IBM Plex Mono',monospace; }
+.btn-switch-view {
+  padding: 4px 11px; border-radius: 4px;
+  border: 1px solid #444; background: transparent;
+  color: #888; font-family:'IBM Plex Mono',monospace;
+  font-size: 10px; cursor: pointer; letter-spacing:.04em;
+  transition: all .14s; white-space: nowrap;
+}
+.btn-switch-view:hover { border-color:#888; color:#ccc; }
 
-  /* ── HEADER ── */
-  header {
-    background: var(--text);
-    color: #fff;
-    padding: 20px 32px 18px;
-    display: flex;
-    align-items: baseline;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  header h1 {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-  }
-  header span {
-    font-size: 11px;
-    color: #aaa;
-    font-family: 'IBM Plex Mono', monospace;
-  }
+/* active filters */
+.active-filters { padding:7px 32px; background:#ebebea; border-bottom:1px solid var(--border); display:none; gap:6px; align-items:center; flex-wrap:wrap; }
+.active-filters.visible { display:flex; }
+.active-filters > label { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; flex-shrink:0; }
+.filter-chip { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:20px; font-family:'IBM Plex Mono',monospace; font-size:10px; background:var(--text); color:#fff; cursor:pointer; transition:opacity .12s; user-select:none; }
+.filter-chip:hover { opacity:.70; }
+.filter-chip .x { font-size:12px; line-height:1; margin-left:1px; opacity:.7; }
 
-  /* ── ACTIVE FILTER CHIPS ── */
-  .active-filters {
-    padding: 6px 32px;
-    background: #ebebea;
-    border-bottom: 1px solid var(--border);
-    display: none;
-    gap: 6px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .active-filters.visible { display: flex; }
-  .active-filters > label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9.5px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    flex-shrink: 0;
-  }
-  .filter-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    background: var(--text);
-    color: #fff;
-    cursor: pointer;
-    transition: opacity 0.12s;
-    user-select: none;
-  }
-  .filter-chip:hover { opacity: 0.70; }
-  .filter-chip .x { font-size: 12px; line-height: 1; margin-left: 1px; opacity: 0.7; }
+/* filter bar */
+.filter-bar { background:var(--surface); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; box-shadow:0 1px 6px rgba(0,0,0,.07); }
+.filter-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:9px 32px; border-bottom:1px solid var(--border); }
+.filter-row:last-child { border-bottom:none; }
+.filter-label { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; white-space:nowrap; flex-shrink:0; width:82px; }
+.vr { width:1px; height:18px; background:var(--border); flex-shrink:0; }
+.search-wrap { position:relative; display:flex; align-items:center; flex-shrink:0; }
+.search-icon { position:absolute; left:8px; color:var(--muted); pointer-events:none; line-height:0; }
+input[type="search"] { padding:5px 10px 5px 28px; border:1.5px solid var(--border); border-radius:4px; font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--bg); color:var(--text); width:220px; outline:none; transition:border-color .15s,background .15s; }
+input[type="search"]:focus { border-color:var(--text); background:#fff; }
+input[type="search"]::placeholder { color:#b5b5ad; }
 
-  /* ── FILTER BAR ── */
-  .filter-bar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
-  }
+/* group buttons */
+.btn-group { display:inline-flex; align-items:center; gap:6px; padding:5px 12px 5px 8px; border-radius:4px; border:1.5px solid var(--border); cursor:pointer; font-family:'IBM Plex Sans',sans-serif; font-size:11.5px; font-weight:500; background:var(--bg); color:var(--muted); transition:all .14s; white-space:nowrap; flex-shrink:0; }
+.btn-group .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; transition:transform .14s; }
+.btn-group:hover { border-color:#bbb; color:var(--text); }
+.btn-group[data-group="Security Product"] .dot { background:var(--sec); }
+.btn-group[data-group="SOC"] .dot             { background:var(--soc); }
+.btn-group[data-group="NOC"] .dot             { background:var(--noc); }
+.btn-group[data-group="Cloud"] .dot           { background:var(--cloud); }
+.btn-group[data-group="Operation Product"] .dot { background:var(--ops); }
+.btn-group.active[data-group="Security Product"]  { background:var(--sec-light);   border-color:var(--sec);   color:var(--sec); }
+.btn-group.active[data-group="SOC"]               { background:var(--soc-light);   border-color:var(--soc);   color:var(--soc); }
+.btn-group.active[data-group="NOC"]               { background:var(--noc-light);   border-color:var(--noc);   color:var(--noc); }
+.btn-group.active[data-group="Cloud"]             { background:var(--cloud-light); border-color:var(--cloud); color:var(--cloud); }
+.btn-group.active[data-group="Operation Product"] { background:var(--ops-light);   border-color:var(--ops);   color:var(--ops); }
+.btn-group.active .dot { transform:scale(1.25); }
 
-  /* Each filter row inside the bar */
-  .filter-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-    padding: 9px 32px;
-    border-bottom: 1px solid var(--border);
-  }
-  .filter-row:last-child { border-bottom: none; }
+/* type buttons */
+.btn-type { display:inline-flex; align-items:center; gap:7px; padding:5px 13px 5px 9px; border-radius:4px; border:1.5px solid var(--border); cursor:pointer; font-family:'IBM Plex Sans',sans-serif; font-size:11.5px; font-weight:500; background:var(--bg); color:var(--muted); transition:all .14s; white-space:nowrap; flex-shrink:0; }
+.btn-type:hover { border-color:#bbb; color:var(--text); }
+.btn-type.active[data-type="N"] { background:var(--type-n-bg); border-color:var(--type-n); color:var(--type-n); }
+.btn-type.active[data-type="B"] { background:var(--type-b-bg); border-color:var(--type-b); color:var(--type-b); }
+.btn-type.active[data-type="T"] { background:var(--type-t-bg); border-color:var(--type-t); color:var(--type-t); }
 
-  .filter-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9.5px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    white-space: nowrap;
-    flex-shrink: 0;
-    width: 82px;        /* fixed width so all rows align */
-  }
+/* type badges */
+.type-badge { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:3px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:500; flex-shrink:0; }
+.type-badge.N { background:var(--type-n-bg); color:var(--type-n); border:1px solid var(--type-n-bdr); }
+.type-badge.B { background:#f5c842; color:#5a3e00; border:1px solid #c9a227; font-weight:600; }
+.type-badge.T { background:#2563eb; color:#fff;    border:1px solid #1d4ed8; font-weight:600; }
 
-  .vr {
-    width: 1px;
-    height: 18px;
-    background: var(--border);
-    flex-shrink: 0;
-  }
+/* vendor pills */
+.vendor-filters { display:flex; flex-wrap:wrap; gap:4px; }
+.btn-vendor { padding:4px 9px; border-radius:20px; border:1px solid var(--border); cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:10px; background:var(--bg); color:var(--muted); transition:all .13s; white-space:nowrap; flex-shrink:0; }
+.btn-vendor:hover { border-color:#999; color:var(--text); }
+.btn-vendor.active { background:var(--text); border-color:var(--text); color:#fff; }
 
-  /* ── SEARCH ── */
-  .search-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .search-icon {
-    position: absolute;
-    left: 8px;
-    color: var(--muted);
-    pointer-events: none;
-    line-height: 0;
-  }
-  input[type="search"] {
-    padding: 5px 10px 5px 28px;
-    border: 1.5px solid var(--border);
-    border-radius: 4px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    background: var(--bg);
-    color: var(--text);
-    width: 220px;
-    outline: none;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  input[type="search"]:focus { border-color: var(--text); background: #fff; }
-  input[type="search"]::placeholder { color: #b5b5ad; }
+/* cap dropdown */
+.cap-filter-wrap { position:relative; display:flex; align-items:center; flex-shrink:0; }
+input#capSearch { padding:5px 10px 5px 28px; border:1.5px solid var(--border); border-radius:4px; font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--bg); color:var(--text); width:240px; outline:none; transition:border-color .15s,background .15s; }
+input#capSearch:focus { border-color:var(--text); background:#fff; }
+input#capSearch::placeholder { color:#b5b5ad; }
+.cap-dropdown { display:none; position:absolute; top:calc(100% + 4px); left:0; min-width:300px; max-width:420px; background:var(--surface); border:1.5px solid var(--border); border-radius:6px; box-shadow:0 6px 20px rgba(0,0,0,.10); z-index:200; max-height:260px; overflow-y:auto; }
+.cap-dropdown.open { display:block; }
+.cap-dropdown-item { padding:7px 12px; font-family:'IBM Plex Sans',sans-serif; font-size:12px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; border-bottom:1px solid var(--border); transition:background .1s; }
+.cap-dropdown-item:last-child { border-bottom:none; }
+.cap-dropdown-item:hover { background:var(--bg); }
+.cap-dropdown-item.selected { background:#f0f0ee; }
+.cap-dropdown-item .cap-item-name { flex:1; }
+.cap-dropdown-item .cap-item-group { font-family:'IBM Plex Mono',monospace; font-size:9px; padding:2px 6px; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+.cap-group-tag[data-g="Security Product"]  { background:var(--sec-light);   color:var(--sec); }
+.cap-group-tag[data-g="SOC"]               { background:var(--soc-light);   color:var(--soc); }
+.cap-group-tag[data-g="NOC"]               { background:var(--noc-light);   color:var(--noc); }
+.cap-group-tag[data-g="Cloud"]             { background:var(--cloud-light); color:var(--cloud); }
+.cap-group-tag[data-g="Operation Product"] { background:var(--ops-light);   color:var(--ops); }
+.cap-selected-pills { display:flex; flex-wrap:wrap; gap:4px; margin-left:2px; }
+.cap-pill { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:20px; background:var(--text); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; cursor:pointer; transition:opacity .12s; white-space:nowrap; }
+.cap-pill:hover { opacity:.72; }
+.cap-pill .x { opacity:.7; margin-left:1px; }
+.cap-empty { padding:14px 12px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); text-align:center; }
 
-  /* ── GROUP BUTTONS ── */
-  .btn-group {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px 5px 8px;
-    border-radius: 4px;
-    border: 1.5px solid var(--border);
-    cursor: pointer;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 11.5px;
-    font-weight: 500;
-    background: var(--bg);
-    color: var(--muted);
-    transition: all 0.14s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .btn-group .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    transition: transform 0.14s;
-  }
-  .btn-group:hover { border-color: #bbb; color: var(--text); }
+/* bar-right */
+.bar-right { display:flex; align-items:center; gap:8px; margin-left:auto; flex-shrink:0; }
+.result-count { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); white-space:nowrap; padding:4px 9px; background:var(--bg); border-radius:3px; border:1px solid var(--border); }
+.btn-clear { padding:5px 13px; border-radius:4px; border:1.5px solid var(--border); cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:10px; background:transparent; color:var(--muted); letter-spacing:.05em; text-transform:uppercase; transition:all .14s; white-space:nowrap; }
+.btn-clear:hover { border-color:#c00; color:#c00; background:#fff5f5; }
 
-  .btn-group[data-group="Security Product"]  .dot { background: var(--sec); }
-  .btn-group[data-group="SOC"]               .dot { background: var(--soc); }
-  .btn-group[data-group="NOC"]               .dot { background: var(--noc); }
-  .btn-group[data-group="Cloud"]             .dot { background: var(--cloud); }
-  .btn-group[data-group="Operation Product"] .dot { background: var(--ops); }
+/* gap toggle */
+.btn-gap { display:inline-flex; align-items:center; gap:5px; padding:4px 10px 4px 8px; border-radius:4px; border:1.5px dashed var(--border); cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:400; background:transparent; color:var(--muted); letter-spacing:.03em; transition:all .14s; white-space:nowrap; }
+.btn-gap:hover { border-color:#999; color:var(--text); background:#f5f5f3; }
+.btn-gap.active { border-style:solid; border-color:var(--text); color:var(--text); background:#f0f0ee; }
 
-  .btn-group.active[data-group="Security Product"]  { background: var(--sec-light);   border-color: var(--sec);   color: var(--sec); }
-  .btn-group.active[data-group="SOC"]               { background: var(--soc-light);   border-color: var(--soc);   color: var(--soc); }
-  .btn-group.active[data-group="NOC"]               { background: var(--noc-light);   border-color: var(--noc);   color: var(--noc); }
-  .btn-group.active[data-group="Cloud"]             { background: var(--cloud-light); border-color: var(--cloud); color: var(--cloud); }
-  .btn-group.active[data-group="Operation Product"] { background: var(--ops-light);   border-color: var(--ops);   color: var(--ops); }
-  .btn-group.active .dot { transform: scale(1.25); }
+/* main grid */
+main.web-main { padding:24px 32px 72px; }
+.group-section { margin-bottom:28px; }
+.group-section.hidden { display:none; }
+.group-header { display:flex; align-items:center; gap:10px; margin-bottom:11px; padding-bottom:8px; border-bottom:2px solid; }
+.group-header[data-group="Security Product"]  { border-color:var(--sec); }
+.group-header[data-group="SOC"]               { border-color:var(--soc); }
+.group-header[data-group="NOC"]               { border-color:var(--noc); }
+.group-header[data-group="Cloud"]             { border-color:var(--cloud); }
+.group-header[data-group="Operation Product"] { border-color:var(--ops); }
+.group-title { font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500; letter-spacing:.09em; text-transform:uppercase; }
+.group-title[data-group="Security Product"]  { color:var(--sec); }
+.group-title[data-group="SOC"]               { color:var(--soc); }
+.group-title[data-group="NOC"]               { color:var(--noc); }
+.group-title[data-group="Cloud"]             { color:var(--cloud); }
+.group-title[data-group="Operation Product"] { color:var(--ops); }
+.group-count { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); margin-left:auto; }
+.cap-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:7px; }
 
-  /* ── PRODUCT TYPE BUTTONS ── */
-  .btn-type {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 5px 13px 5px 9px;
-    border-radius: 4px;
-    border: 1.5px solid var(--border);
-    cursor: pointer;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 11.5px;
-    font-weight: 500;
-    background: var(--bg);
-    color: var(--muted);
-    transition: all 0.14s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .btn-type:hover { border-color: #bbb; color: var(--text); }
-  .btn-type.active[data-type="N"] { background: var(--type-n-bg); border-color: var(--type-n); color: var(--type-n); }
-  .btn-type.active[data-type="B"] { background: var(--type-b-bg); border-color: var(--type-b); color: var(--type-b); }
-  .btn-type.active[data-type="T"] { background: var(--type-t-bg); border-color: var(--type-t); color: var(--type-t); }
+/* cards */
+.cap-card { background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:11px 13px; border-left:3px solid transparent; transition:box-shadow .13s,border-color .13s; }
+.cap-card.hidden { display:none; }
+.cap-card:hover  { box-shadow:0 2px 8px rgba(0,0,0,.07); }
+.cap-card.highlighted-card { box-shadow:0 0 0 2px var(--text); }
+.cap-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.cap-icon { flex-shrink:0; width:22px; height:22px; border-radius:5px; display:flex; align-items:center; justify-content:center; opacity:.82; }
+.cap-icon svg { display:block; }
+.cap-card[data-group="Security Product"]  .cap-icon { color:var(--sec); }
+.cap-card[data-group="SOC"]               .cap-icon { color:var(--soc); }
+.cap-card[data-group="NOC"]               .cap-icon { color:var(--noc); }
+.cap-card[data-group="Cloud"]             .cap-icon { color:var(--cloud); }
+.cap-card[data-group="Operation Product"] .cap-icon { color:var(--ops); }
+.cap-card[data-group="Security Product"]  { border-left-color:var(--sec); }
+.cap-card[data-group="SOC"]               { border-left-color:var(--soc); }
+.cap-card[data-group="NOC"]               { border-left-color:var(--noc); }
+.cap-card[data-group="Cloud"]             { border-left-color:var(--cloud); }
+.cap-card[data-group="Operation Product"] { border-left-color:var(--ops); }
+.cap-card.no-vendor { display:none; }
+.cap-card.no-vendor.show-gap { display:flex; flex-direction:column; border-style:dashed; opacity:.5; }
+.cap-name { font-weight:500; font-size:12.5px; line-height:1.35; color:var(--text); }
+.vendor-row { display:flex; flex-wrap:wrap; gap:4px; }
+.vendor-tag { display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:2px 7px 2px 5px; border-radius:3px; border:1px solid var(--border); color:var(--muted); background:var(--bg); cursor:pointer; transition:all .11s; user-select:none; }
+.vendor-tag[data-type="B"] { background:#fffbee; border-color:#c9a227; color:#7a5800; font-weight:500; }
+.vendor-tag[data-type="T"] { background:#eff6ff; border-color:#2563eb; color:#1e3a8a; font-weight:500; }
+.vendor-tag:hover { border-color:#999; color:var(--text); background:#f0f0ee; }
+.vendor-tag[data-type="B"]:hover { border-color:#8a6200; background:#fef3cc; color:#5a3e00; }
+.vendor-tag[data-type="T"]:hover { border-color:#1d4ed8; background:#dbeafe; color:#1e3a8a; }
+.vendor-tag.highlighted { background:var(--text); color:#fff; border-color:var(--text); font-weight:400; }
+.vendor-tag.highlighted .type-badge { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.3); color:#fff; }
+.vendor-tag.highlighted .type-badge.B { color:#ffe58a; }
+.vendor-tag.highlighted .type-badge.T { color:#93c5fd; }
+.no-vendor-label { font-family:'IBM Plex Mono',monospace; font-size:10px; color:#c0c0bc; font-style:italic; }
 
-  .type-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px; height: 16px;
-    border-radius: 3px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9.5px;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-  .type-badge.N { background: var(--type-n-bg); color: var(--type-n); border: 1px solid var(--type-n-bdr); }
-  .type-badge.B { background: #f5c842; color: #5a3e00; border: 1px solid #c9a227; font-weight: 600; }
-  .type-badge.T { background: #2563eb; color: #fff;    border: 1px solid #1d4ed8; font-weight: 600; }
+/* legend */
+.legend { display:flex; gap:14px; align-items:center; padding:9px 32px; background:var(--surface); border-top:1px solid var(--border); position:fixed; bottom:0; left:0; right:0; z-index:90; }
+.legend-label { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+.legend-item { display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); }
+.legend-note { font-family:'IBM Plex Mono',monospace; font-size:9px; color:#c8c8c4; margin-left:8px; }
 
-  /* ── PRODUCT NAME (VENDOR) PILLS ── */
-  .vendor-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  .btn-vendor {
-    padding: 4px 9px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    background: var(--bg);
-    color: var(--muted);
-    transition: all 0.13s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .btn-vendor:hover { border-color: #999; color: var(--text); }
-  .btn-vendor.active { background: var(--text); border-color: var(--text); color: #fff; }
+/* empty state */
+.empty-state { display:none; text-align:center; padding:72px 32px; color:var(--muted); }
+.empty-state.visible { display:block; }
+.empty-state .icon { font-size:32px; margin-bottom:10px; }
+.empty-state p { font-family:'IBM Plex Mono',monospace; font-size:12px; }
+.empty-state small { font-size:11px; color:#bbb; margin-top:6px; display:block; }
 
-  /* ── CAPABILITY NAME SEARCH DROPDOWN ── */
-  .cap-filter-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .cap-filter-wrap svg {
-    position: absolute;
-    left: 8px;
-    color: var(--muted);
-    pointer-events: none;
-  }
-  input#capSearch {
-    padding: 5px 10px 5px 28px;
-    border: 1.5px solid var(--border);
-    border-radius: 4px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    background: var(--bg);
-    color: var(--text);
-    width: 240px;
-    outline: none;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  input#capSearch:focus { border-color: var(--text); background: #fff; }
-  input#capSearch::placeholder { color: #b5b5ad; }
+/* ═══════════════════════════ MOBILE VIEW ═══════════════════════════ */
+#mob-view { display:none; }
+#mob-view.active { display:flex; flex-direction:column; min-height:100vh; }
 
-  .cap-dropdown {
-    display: none;
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    min-width: 300px;
-    max-width: 420px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.10);
-    z-index: 200;
-    max-height: 260px;
-    overflow-y: auto;
-  }
-  .cap-dropdown.open { display: block; }
-  .cap-dropdown-item {
-    padding: 7px 12px;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
-  }
-  .cap-dropdown-item:last-child { border-bottom: none; }
-  .cap-dropdown-item:hover { background: var(--bg); }
-  .cap-dropdown-item.selected { background: #f0f0ee; }
-  .cap-dropdown-item .cap-item-name { flex: 1; }
-  .cap-dropdown-item .cap-item-group {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .cap-group-tag[data-g="Security Product"]  { background: var(--sec-light);   color: var(--sec); }
-  .cap-group-tag[data-g="SOC"]               { background: var(--soc-light);   color: var(--soc); }
-  .cap-group-tag[data-g="NOC"]               { background: var(--noc-light);   color: var(--noc); }
-  .cap-group-tag[data-g="Cloud"]             { background: var(--cloud-light); color: var(--cloud); }
-  .cap-group-tag[data-g="Operation Product"] { background: var(--ops-light);   color: var(--ops); }
+/* mobile header */
+.mob-header {
+  background: var(--text); color:#fff;
+  padding: 14px 16px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top:0; z-index:100;
+}
+.mob-header-left { display:flex; flex-direction:column; gap:2px; }
+.mob-header h1 { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; letter-spacing:.04em; }
+.mob-header span { font-size:9px; color:#666; font-family:'IBM Plex Mono',monospace; }
+.mob-switch { padding:5px 10px; border-radius:4px; border:1px solid #333; background:transparent; color:#777; font-family:'IBM Plex Mono',monospace; font-size:9px; cursor:pointer; transition:all .14s; }
+.mob-switch:hover { border-color:#666; color:#aaa; }
 
-  .cap-selected-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-left: 2px;
-  }
-  .cap-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    background: var(--text);
-    color: #fff;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    cursor: pointer;
-    transition: opacity 0.12s;
-    white-space: nowrap;
-  }
-  .cap-pill:hover { opacity: 0.72; }
-  .cap-pill .x { opacity: 0.7; margin-left: 1px; }
+/* mobile search bar */
+.mob-search-bar {
+  background:var(--surface); border-bottom:1px solid var(--border);
+  padding:10px 16px; display:flex; gap:8px; align-items:center;
+  position:sticky; top:42px; z-index:99;
+}
+.mob-search-wrap { flex:1; position:relative; display:flex; align-items:center; }
+.mob-search-wrap svg { position:absolute; left:8px; color:var(--muted); pointer-events:none; }
+.mob-search-input { width:100%; padding:8px 10px 8px 30px; border:1.5px solid var(--border); border-radius:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; background:var(--bg); color:var(--text); outline:none; transition:border-color .15s; }
+.mob-search-input:focus { border-color:var(--text); background:#fff; }
+.mob-search-input::placeholder { color:#b5b5ad; }
+.mob-filter-btn {
+  flex-shrink:0; padding:8px 12px; border-radius:8px;
+  border:1.5px solid var(--border); background:var(--bg);
+  color:var(--muted); font-family:'IBM Plex Mono',monospace;
+  font-size:10px; cursor:pointer; display:flex; align-items:center; gap:5px;
+  transition:all .14s; white-space:nowrap;
+}
+.mob-filter-btn.has-filters { border-color:var(--text); color:var(--text); background:#f0f0ee; }
 
-  .cap-empty {
-    padding: 14px 12px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    text-align: center;
-  }
+/* mobile filter drawer */
+.mob-filter-drawer {
+  position:fixed; bottom:0; left:0; right:0; z-index:500;
+  background:var(--surface);
+  border-top-left-radius:20px; border-top-right-radius:20px;
+  box-shadow:0 -8px 40px rgba(0,0,0,.18);
+  transform:translateY(100%); transition:transform .3s cubic-bezier(.32,.72,0,1);
+  max-height:85vh; overflow-y:auto;
+}
+.mob-filter-drawer.open { transform:translateY(0); }
+.mob-drawer-handle {
+  display:flex; justify-content:center; padding:12px 0 8px;
+  position:sticky; top:0; background:var(--surface); z-index:1;
+  border-bottom:1px solid var(--border);
+}
+.mob-drawer-handle::before { content:''; width:36px; height:4px; background:#ddd; border-radius:2px; }
+.mob-drawer-title {
+  position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+  text-align:center; font-family:'IBM Plex Mono',monospace;
+  font-size:11px; color:var(--muted); pointer-events:none;
+  letter-spacing:.06em; text-transform:uppercase;
+}
+.mob-drawer-section { padding:16px 20px; border-bottom:1px solid var(--border); }
+.mob-drawer-section:last-child { border-bottom:none; padding-bottom:32px; }
+.mob-drawer-label { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; margin-bottom:10px; }
+.mob-drawer-chips { display:flex; flex-wrap:wrap; gap:7px; }
+.mob-chip {
+  padding:7px 13px; border-radius:20px;
+  border:1.5px solid var(--border); background:var(--bg);
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+  color:var(--muted); cursor:pointer; transition:all .13s;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.mob-chip .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.mob-chip[data-group="Security Product"] .dot { background:var(--sec); }
+.mob-chip[data-group="SOC"] .dot             { background:var(--soc); }
+.mob-chip[data-group="NOC"] .dot             { background:var(--noc); }
+.mob-chip[data-group="Cloud"] .dot           { background:var(--cloud); }
+.mob-chip[data-group="Operation Product"] .dot { background:var(--ops); }
+.mob-chip.active { background:var(--text); border-color:var(--text); color:#fff; }
+.mob-chip.active .dot { background:#fff !important; }
+.mob-type-chip { display:inline-flex; align-items:center; gap:7px; }
+.mob-chip.type-active-B { background:var(--type-b-bg); border-color:var(--type-b); color:var(--type-b); }
+.mob-chip.type-active-T { background:var(--type-t-bg); border-color:var(--type-t); color:var(--type-t); }
+.mob-chip.type-active-N { background:var(--type-n-bg); border-color:var(--type-n); color:var(--type-n); }
+.mob-vendor-chip { font-size:10px; padding:6px 11px; }
+.mob-drawer-footer { padding:16px 20px 8px; display:flex; gap:10px; position:sticky; bottom:0; background:var(--surface); border-top:1px solid var(--border); }
+.mob-apply-btn { flex:1; padding:12px; border-radius:10px; border:none; background:var(--text); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:12px; cursor:pointer; }
+.mob-clear-btn { padding:12px 18px; border-radius:10px; border:1.5px solid var(--border); background:transparent; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:12px; cursor:pointer; }
+.mob-overlay { position:fixed; inset:0; z-index:499; background:rgba(0,0,0,.4); display:none; }
+.mob-overlay.visible { display:block; }
 
-  /* ── BAR RIGHT ── */
-  .bar-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-  .result-count {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    white-space: nowrap;
-    padding: 4px 9px;
-    background: var(--bg);
-    border-radius: 3px;
-    border: 1px solid var(--border);
-  }
-  .btn-clear {
-    padding: 5px 13px;
-    border-radius: 4px;
-    border: 1.5px solid var(--border);
-    cursor: pointer;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    background: transparent;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    transition: all 0.14s ease;
-    white-space: nowrap;
-  }
-  .btn-clear:hover { border-color: #c00; color: #c00; background: #fff5f5; }
+/* mobile active chips bar */
+.mob-active-chips { padding:8px 16px; background:var(--bg); border-bottom:1px solid var(--border); display:none; gap:6px; flex-wrap:wrap; align-items:center; }
+.mob-active-chips.visible { display:flex; }
 
-  /* ── MAIN GRID ── */
-  main { padding: 24px 32px 72px; }
+/* mobile group sections */
+.mob-main { flex:1; padding:12px 16px 80px; }
+.mob-group-section { margin-bottom:20px; }
+.mob-group-section.hidden { display:none; }
+.mob-group-header { display:flex; align-items:center; gap:8px; padding:10px 0 8px; border-bottom:2px solid; margin-bottom:8px; }
+.mob-group-header[data-group="Security Product"]  { border-color:var(--sec); }
+.mob-group-header[data-group="SOC"]               { border-color:var(--soc); }
+.mob-group-header[data-group="NOC"]               { border-color:var(--noc); }
+.mob-group-header[data-group="Cloud"]             { border-color:var(--cloud); }
+.mob-group-header[data-group="Operation Product"] { border-color:var(--ops); }
+.mob-group-title { font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:500; letter-spacing:.09em; text-transform:uppercase; }
+.mob-group-title[data-group="Security Product"]  { color:var(--sec); }
+.mob-group-title[data-group="SOC"]               { color:var(--soc); }
+.mob-group-title[data-group="NOC"]               { color:var(--noc); }
+.mob-group-title[data-group="Cloud"]             { color:var(--cloud); }
+.mob-group-title[data-group="Operation Product"] { color:var(--ops); }
+.mob-group-count { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); margin-left:auto; }
+.mob-cap-list { display:flex; flex-direction:column; gap:6px; }
 
-  .group-section { margin-bottom: 28px; }
-  .group-section.hidden { display: none; }
+/* mobile cap row */
+.mob-cap-row {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:8px; padding:10px 12px;
+  border-left:3px solid transparent;
+  display:flex; flex-direction:column; gap:6px;
+  transition:box-shadow .13s;
+}
+.mob-cap-row.hidden { display:none; }
+.mob-cap-row:active { box-shadow:0 2px 8px rgba(0,0,0,.07); }
+.mob-cap-row.no-vendor { display:none; }
+.mob-cap-row.no-vendor.show-gap { display:flex; border-style:dashed; opacity:.55; }
+.mob-cap-row[data-group="Security Product"]  { border-left-color:var(--sec); }
+.mob-cap-row[data-group="SOC"]               { border-left-color:var(--soc); }
+.mob-cap-row[data-group="NOC"]               { border-left-color:var(--noc); }
+.mob-cap-row[data-group="Cloud"]             { border-left-color:var(--cloud); }
+.mob-cap-row[data-group="Operation Product"] { border-left-color:var(--ops); }
+.mob-cap-header { display:flex; align-items:center; gap:7px; }
+.mob-cap-icon { flex-shrink:0; color:var(--muted); opacity:.75; }
+.mob-cap-row[data-group="Security Product"]  .mob-cap-icon { color:var(--sec); }
+.mob-cap-row[data-group="SOC"]               .mob-cap-icon { color:var(--soc); }
+.mob-cap-row[data-group="NOC"]               .mob-cap-icon { color:var(--noc); }
+.mob-cap-row[data-group="Cloud"]             .mob-cap-icon { color:var(--cloud); }
+.mob-cap-row[data-group="Operation Product"] .mob-cap-icon { color:var(--ops); }
+.mob-cap-name { font-weight:500; font-size:13px; line-height:1.3; color:var(--text); flex:1; }
+.mob-vendor-row { display:flex; flex-wrap:wrap; gap:4px; }
+.mob-vendor-tag { display:inline-flex; align-items:center; gap:4px; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:3px 8px 3px 6px; border-radius:4px; border:1px solid var(--border); color:var(--muted); background:var(--bg); }
+.mob-vendor-tag[data-type="B"] { background:#fffbee; border-color:#c9a227; color:#7a5800; font-weight:500; }
+.mob-vendor-tag[data-type="T"] { background:#eff6ff; border-color:#2563eb; color:#1e3a8a; font-weight:500; }
+.mob-no-vendor { font-family:'IBM Plex Mono',monospace; font-size:10px; color:#c0c0bc; font-style:italic; }
 
-  .group-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 11px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid;
-  }
-  .group-header[data-group="Security Product"]  { border-color: var(--sec); }
-  .group-header[data-group="SOC"]               { border-color: var(--soc); }
-  .group-header[data-group="NOC"]               { border-color: var(--noc); }
-  .group-header[data-group="Cloud"]             { border-color: var(--cloud); }
-  .group-header[data-group="Operation Product"] { border-color: var(--ops); }
+/* mobile legend / bottom bar */
+.mob-legend {
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--surface); border-top:1px solid var(--border);
+  padding:8px 16px;
+  display:flex; align-items:center; gap:10px; z-index:90;
+}
+.mob-legend-item { display:inline-flex; align-items:center; gap:4px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); }
+.mob-result-count { margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); }
+.mob-gap-btn { padding:3px 8px; border-radius:4px; border:1px dashed var(--border); background:transparent; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:9px; cursor:pointer; transition:all .14s; }
+.mob-gap-btn.active { border-style:solid; border-color:var(--text); color:var(--text); }
 
-  .group-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    font-weight: 500;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-  .group-title[data-group="Security Product"]  { color: var(--sec); }
-  .group-title[data-group="SOC"]               { color: var(--soc); }
-  .group-title[data-group="NOC"]               { color: var(--noc); }
-  .group-title[data-group="Cloud"]             { color: var(--cloud); }
-  .group-title[data-group="Operation Product"] { color: var(--ops); }
-
-  .group-count {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    margin-left: auto;
-  }
-
-  .cap-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 7px;
-  }
-
-  /* ── CAPABILITY CARD ── */
-  .cap-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 11px 13px;
-    border-left: 3px solid transparent;
-    transition: box-shadow 0.13s, border-color 0.13s;
-  }
-  .cap-card.hidden { display: none; }
-  .cap-card:hover  { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-  .cap-card.highlighted-card { box-shadow: 0 0 0 2px var(--text); }
-
-  /* icon + name row */
-  .cap-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .cap-icon {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.82;
-  }
-  .cap-icon svg { display: block; }
-
-  /* Tint icons by group */
-  .cap-card[data-group="Security Product"]  .cap-icon { color: var(--sec); }
-  .cap-card[data-group="SOC"]               .cap-icon { color: var(--soc); }
-  .cap-card[data-group="NOC"]               .cap-icon { color: var(--noc); }
-  .cap-card[data-group="Cloud"]             .cap-icon { color: var(--cloud); }
-  .cap-card[data-group="Operation Product"] .cap-icon { color: var(--ops); }
-
-  .cap-card[data-group="Security Product"]  { border-left-color: var(--sec); }
-  .cap-card[data-group="SOC"]               { border-left-color: var(--soc); }
-  .cap-card[data-group="NOC"]               { border-left-color: var(--noc); }
-  .cap-card[data-group="Cloud"]             { border-left-color: var(--cloud); }
-  .cap-card[data-group="Operation Product"] { border-left-color: var(--ops); }
-
-  /* No vendor → hidden by default; shown when toggled */
-  .cap-card.no-vendor { display: none; }
-  .cap-card.no-vendor.show-gap { display: flex; flex-direction: column; border-style: dashed; opacity: 0.5; }
-
-  /* Gap toggle — mini button top-right */
-  .btn-gap {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px 4px 8px;
-    border-radius: 4px;
-    border: 1.5px dashed var(--border);
-    cursor: pointer;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    font-weight: 400;
-    background: transparent;
-    color: var(--muted);
-    letter-spacing: 0.03em;
-    transition: all 0.14s ease;
-    white-space: nowrap;
-  }
-  .btn-gap:hover { border-color: #999; color: var(--text); background: #f5f5f3; }
-  .btn-gap.active {
-    border-style: solid;
-    border-color: var(--text);
-    color: var(--text);
-    background: #f0f0ee;
-  }
-
-  .cap-name {
-    font-weight: 500;
-    font-size: 12.5px;
-    line-height: 1.35;
-    color: var(--text);
-  }
-
-  .vendor-row { display: flex; flex-wrap: wrap; gap: 4px; }
-
-  .vendor-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    padding: 2px 7px 2px 5px;
-    border-radius: 3px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    background: var(--bg);
-    cursor: pointer;
-    transition: all 0.11s ease;
-    user-select: none;
-  }
-
-  /* Best Seller vendor tags — golden accent */
-  .vendor-tag[data-type="B"] {
-    background: #fffbee;
-    border-color: #c9a227;
-    color: #7a5800;
-    font-weight: 500;
-  }
-
-  /* Trend vendor tags — blue accent */
-  .vendor-tag[data-type="T"] {
-    background: #eff6ff;
-    border-color: #2563eb;
-    color: #1e3a8a;
-    font-weight: 500;
-  }
-
-  .vendor-tag:hover { border-color: #999; color: var(--text); background: #f0f0ee; }
-  .vendor-tag[data-type="B"]:hover { border-color: #8a6200; background: #fef3cc; color: #5a3e00; }
-  .vendor-tag[data-type="T"]:hover { border-color: #1d4ed8; background: #dbeafe; color: #1e3a8a; }
-
-  .vendor-tag.highlighted {
-    background: var(--text);
-    color: #fff;
-    border-color: var(--text);
-    font-weight: 400;
-  }
-  .vendor-tag.highlighted .type-badge { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #fff; }
-  .vendor-tag.highlighted .type-badge.B { color: #ffe58a; }
-  .vendor-tag.highlighted .type-badge.T { color: #93c5fd; }
-
-  .no-vendor-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: #c0c0bc;
-    font-style: italic;
-  }
-
-  /* ── LEGEND ── */
-  .legend {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    padding: 9px 32px;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    z-index: 90;
-  }
-  .legend-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-  }
-  .legend-note {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    color: #c8c8c4;
-    margin-left: 8px;
-  }
-
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    display: none;
-    text-align: center;
-    padding: 72px 32px;
-    color: var(--muted);
-  }
-  .empty-state.visible { display: block; }
-  .empty-state .icon { font-size: 32px; margin-bottom: 10px; }
-  .empty-state p { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
-  .empty-state small { font-size: 11px; color: #bbb; margin-top: 6px; display: block; }
+.mob-empty { display:none; text-align:center; padding:60px 20px; color:var(--muted); }
+.mob-empty.visible { display:block; }
+.mob-empty .icon { font-size:28px; margin-bottom:8px; }
+.mob-empty p { font-family:'IBM Plex Mono',monospace; font-size:12px; }
 </style>
 </head>
 <body>
 
+<!-- ═══════════ VERSION PICKER ═══════════ -->
+<div id="version-picker">
+  <div class="vp-logo">MTTH Technology &nbsp;·&nbsp; FY26 Q2</div>
+  <div class="vp-title">Cybersecurity &amp;<br>Network Portfolio</div>
+  <div class="vp-sub">Update 26.04.29 &nbsp;·&nbsp; Choose your experience</div>
+  <div class="vp-cards">
+    <div class="vp-card" id="pick-web">
+      <div class="vp-card-icon web">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4fa3e3" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+        </svg>
+      </div>
+      <div class="vp-card-label">Web</div>
+      <div class="vp-card-desc">Full desktop experience with multi-row filters &amp; sidebar layout</div>
+    </div>
+    <div class="vp-card" id="pick-mob">
+      <div class="vp-card-icon mob">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4fa87a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="#4fa87a"/>
+        </svg>
+      </div>
+      <div class="vp-card-label">Mobile</div>
+      <div class="vp-card-desc">Touch-optimised list view with slide-up filter drawer</div>
+    </div>
+  </div>
+  <div class="vp-footer">Update 26.04.29</div>
+</div>
+
+<!-- ═══════════ WEB VIEW ═══════════ -->
+<div id="web-view">
 <header>
   <h1>MTTH Technology — Cybersecurity &amp; Network Portfolio</h1>
-  <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.29</span>
-
-</header>
-
-<!-- ════════════════════════════════════════════════
-     STICKY FILTER BAR  — active chips + 4 filter rows
-     ════════════════════════════════════════════════ -->
-<div class="filter-bar">
-
-  <!-- Active filter chips — inside sticky bar so they stay visible on scroll -->
-  <div class="active-filters" id="activeFilters">
-    <label>Active&nbsp;filters:</label>
+  <div class="hd-right">
+    <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.29</span>
+    <button class="btn-switch-view" id="web-to-mob">⇄ Mobile</button>
   </div>
-
-  <!-- Row 1: Search (free text) -->
+</header>
+<div class="active-filters" id="activeFilters"><label>Active&nbsp;filters:</label></div>
+<div class="filter-bar">
   <div class="filter-row">
-    <span class="filter-label">Search</span>
-    <div class="vr"></div>
+    <span class="filter-label">Search</span><div class="vr"></div>
     <div class="search-wrap">
-      <span class="search-icon">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-        </svg>
-      </span>
+      <span class="search-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
       <input type="search" id="searchInput" placeholder="Search anything…" autocomplete="off">
     </div>
     <div class="bar-right">
@@ -679,59 +491,36 @@
       <button class="btn-clear" id="clearBtn">✕&nbsp;Clear all</button>
     </div>
   </div>
-
-  <!-- Row 2: Group -->
   <div class="filter-row">
-    <span class="filter-label">Group</span>
-    <div class="vr"></div>
+    <span class="filter-label">Group</span><div class="vr"></div>
     <button class="btn-group" data-group="Security Product"><span class="dot"></span>Security Product</button>
     <button class="btn-group" data-group="Cloud"><span class="dot"></span>Cloud</button>
     <button class="btn-group" data-group="SOC"><span class="dot"></span>SOC</button>
     <button class="btn-group" data-group="NOC"><span class="dot"></span>NOC</button>
     <button class="btn-group" data-group="Operation Product"><span class="dot"></span>Operation Product</button>
   </div>
-
-  <!-- Row 3: Product Type -->
   <div class="filter-row">
-    <span class="filter-label">Product Type</span>
-    <div class="vr"></div>
+    <span class="filter-label">Product Type</span><div class="vr"></div>
     <button class="btn-type" data-type="B"><span class="type-badge B">B</span>Best Seller</button>
     <button class="btn-type" data-type="T"><span class="type-badge T">T</span>Trend</button>
     <button class="btn-type" data-type="N"><span class="type-badge N">N</span>Normal</button>
   </div>
-
-  <!-- Row 4: Product Name (vendor pills) -->
   <div class="filter-row">
-    <span class="filter-label">Product Name</span>
-    <div class="vr"></div>
+    <span class="filter-label">Product Name</span><div class="vr"></div>
     <div class="vendor-filters" id="vendorFilters"></div>
   </div>
-
-  <!-- Row 5: Capability Name (searchable dropdown multi-select) -->
   <div class="filter-row">
-    <span class="filter-label">Capability</span>
-    <div class="vr"></div>
+    <span class="filter-label">Capability</span><div class="vr"></div>
     <div class="cap-filter-wrap" id="capFilterWrap">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="position:absolute;left:8px;color:var(--muted);pointer-events:none;">
-        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-      </svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="position:absolute;left:8px;color:var(--muted);pointer-events:none;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input id="capSearch" type="search" placeholder="Search capability name…" autocomplete="off">
       <div class="cap-dropdown" id="capDropdown"></div>
     </div>
     <div class="cap-selected-pills" id="capSelectedPills"></div>
   </div>
-
 </div>
-
-<!-- Content -->
-<main id="main"></main>
-<div class="empty-state" id="emptyState">
-  <div class="icon">◯</div>
-  <p>No capabilities match the current filters.</p>
-  <small>Try adjusting or clearing your filters.</small>
-</div>
-
-<!-- Fixed legend bottom bar -->
+<main id="main" class="web-main"></main>
+<div class="empty-state" id="emptyState"><div class="icon">◯</div><p>No capabilities match the current filters.</p><small>Try adjusting or clearing your filters.</small></div>
 <div class="legend">
   <span class="legend-label">Product Type</span>
   <span class="legend-item"><span class="type-badge B">B</span>Best Seller</span>
@@ -739,8 +528,73 @@
   <span class="legend-item"><span class="type-badge N">N</span>Normal</span>
   <span class="legend-note">· Dashed border = capability gap (no vendor assigned)</span>
 </div>
+</div><!-- #web-view -->
+
+<!-- ═══════════ MOBILE VIEW ═══════════ -->
+<div id="mob-view">
+  <div class="mob-header">
+    <div class="mob-header-left">
+      <h1>MTTH Cybersecurity Portfolio</h1>
+      <span>FY26 Q2 · Update 26.04.29</span>
+    </div>
+    <button class="mob-switch" id="mob-to-web">⇄ Web</button>
+  </div>
+  <div class="mob-search-bar">
+    <div class="mob-search-wrap">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="mob-search-input" id="mobSearchInput" placeholder="Search…" autocomplete="off">
+    </div>
+    <button class="mob-filter-btn" id="mobFilterBtn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      Filter
+    </button>
+  </div>
+  <div class="mob-active-chips" id="mobActiveChips"></div>
+  <main class="mob-main" id="mobMain"></main>
+  <div class="mob-empty" id="mobEmpty"><div class="icon">◯</div><p>No capabilities match.</p></div>
+  <div class="mob-legend">
+    <span class="mob-legend-item"><span class="type-badge B">B</span>Best</span>
+    <span class="mob-legend-item"><span class="type-badge T">T</span>Trend</span>
+    <span class="mob-legend-item"><span class="type-badge N">N</span>Normal</span>
+    <button class="mob-gap-btn" id="mobGapBtn">Show gaps</button>
+    <span class="mob-result-count" id="mobResultCount">—</span>
+  </div>
+</div><!-- #mob-view -->
+
+<!-- filter drawer -->
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-filter-drawer" id="mobFilterDrawer">
+  <div class="mob-drawer-handle"><span class="mob-drawer-title">Filters</span></div>
+  <div class="mob-drawer-section">
+    <div class="mob-drawer-label">Group</div>
+    <div class="mob-drawer-chips" id="mobGroupChips">
+      <div class="mob-chip" data-group="Security Product"><span class="dot"></span>Security Product</div>
+      <div class="mob-chip" data-group="Cloud"><span class="dot"></span>Cloud</div>
+      <div class="mob-chip" data-group="SOC"><span class="dot"></span>SOC</div>
+      <div class="mob-chip" data-group="NOC"><span class="dot"></span>NOC</div>
+      <div class="mob-chip" data-group="Operation Product"><span class="dot"></span>Operation Product</div>
+    </div>
+  </div>
+  <div class="mob-drawer-section">
+    <div class="mob-drawer-label">Product Type</div>
+    <div class="mob-drawer-chips">
+      <div class="mob-chip mob-type-chip" data-type="B"><span class="type-badge B">B</span>Best Seller</div>
+      <div class="mob-chip mob-type-chip" data-type="T"><span class="type-badge T">T</span>Trend</div>
+      <div class="mob-chip mob-type-chip" data-type="N"><span class="type-badge N">N</span>Normal</div>
+    </div>
+  </div>
+  <div class="mob-drawer-section">
+    <div class="mob-drawer-label">Product Name</div>
+    <div class="mob-drawer-chips" id="mobVendorChips"></div>
+  </div>
+  <div class="mob-drawer-footer">
+    <button class="mob-clear-btn" id="mobClearBtn">Clear all</button>
+    <button class="mob-apply-btn" id="mobApplyBtn">Apply</button>
+  </div>
+</div>
 
 <script>
+
 /* ═══════════════════════════════════════════════════════════════════════════
    DATA — sourced directly from MTTH_Technology_FY26Q2.xlsx  (Update 26.04.29)
    Group order: Security Product → Cloud → SOC → NOC → Operation Product
@@ -1453,9 +1307,324 @@ document.getElementById('gapToggle').addEventListener('click', () => {
 document.getElementById('clearBtn').addEventListener('click', clearAll);
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   INIT
+   VERSION PICKER & MODE SWITCHING
    ═══════════════════════════════════════════════════════════════════════════ */
-applyFilters();
+const picker  = document.getElementById('version-picker');
+const webView = document.getElementById('web-view');
+const mobView = document.getElementById('mob-view');
+
+function showWeb() {
+  picker.style.display  = 'none';
+  mobView.classList.remove('active');
+  webView.classList.add('active');
+  document.body.style.overflowX = '';
+  if (!webBuilt) { buildWebCards(); buildVendorPills(); buildCapDropdown(); webBuilt = true; }
+  applyFilters();
+}
+function showMob() {
+  picker.style.display  = 'none';
+  webView.classList.remove('active');
+  mobView.classList.add('active');
+  if (!mobBuilt) { buildMobCards(); buildMobVendorChips(); mobBuilt = true; }
+  applyMobFilters();
+}
+
+let webBuilt = false, mobBuilt = false;
+
+document.getElementById('pick-web').addEventListener('click', showWeb);
+document.getElementById('pick-mob').addEventListener('click', showMob);
+document.getElementById('web-to-mob').addEventListener('click', showMob);
+document.getElementById('mob-to-web').addEventListener('click', showWeb);
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   WEB — build vendor pills & cap dropdown (same as before, using ALL_VENDORS/ALL_CAPS)
+   ═══════════════════════════════════════════════════════════════════════════ */
+function buildVendorPills() {
+  const container = document.getElementById('vendorFilters');
+  ALL_VENDORS.forEach(v => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-vendor'; btn.textContent = v; btn.dataset.vendor = v;
+    btn.addEventListener('click', () => toggleVendor(v));
+    container.appendChild(btn);
+  });
+}
+
+function buildCapDropdown() {
+  const capSearchEl   = document.getElementById('capSearch');
+  const capDropdownEl = document.getElementById('capDropdown');
+  const capPillsEl    = document.getElementById('capSelectedPills');
+  const capFilterWrap = document.getElementById('capFilterWrap');
+  function renderCapDropdown(query) {
+    capDropdownEl.innerHTML = '';
+    const q = query.toLowerCase().trim();
+    const filtered = q ? ALL_CAPS.filter(c => c.cap.toLowerCase().includes(q)) : ALL_CAPS;
+    if (!filtered.length) { capDropdownEl.innerHTML = `<div class="cap-empty">No match found</div>`; return; }
+    filtered.forEach(({ cap, group }) => {
+      const item = document.createElement('div');
+      item.className = 'cap-dropdown-item' + (state.caps.has(cap) ? ' selected' : '');
+      item.innerHTML = `<span class="cap-item-name">${cap}</span><span class="cap-item-group cap-group-tag" data-g="${group}">${group}</span>`;
+      item.addEventListener('mousedown', e => { e.preventDefault(); toggleCap(cap); });
+      capDropdownEl.appendChild(item);
+    });
+  }
+  capSearchEl.addEventListener('focus', () => { capDropdownEl.classList.add('open'); renderCapDropdown(capSearchEl.value); });
+  capSearchEl.addEventListener('input', () => renderCapDropdown(capSearchEl.value));
+  capSearchEl.addEventListener('blur',  () => setTimeout(() => capDropdownEl.classList.remove('open'), 150));
+  document.addEventListener('click', e => { if (!capFilterWrap.contains(e.target)) capDropdownEl.classList.remove('open'); });
+  // Patch toggleCap to re-render pills
+  const origToggleCap = window._toggleCap || toggleCap;
+  window.toggleCap = function(capName) {
+    state.caps.has(capName) ? state.caps.delete(capName) : state.caps.add(capName);
+    // rebuild pills
+    capPillsEl.innerHTML = '';
+    state.caps.forEach(cap => {
+      const pill = document.createElement('span');
+      pill.className = 'cap-pill';
+      pill.innerHTML = `${cap}<span class="x">×</span>`;
+      pill.addEventListener('click', () => window.toggleCap(cap));
+      capPillsEl.appendChild(pill);
+    });
+    renderCapDropdown(capSearchEl.value);
+    applyFilters();
+  };
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   WEB — build cards
+   ═══════════════════════════════════════════════════════════════════════════ */
+function buildWebCards() {
+  const mainEl = document.getElementById('main');
+  DATA.forEach(groupData => {
+    const gkey = groupData.group.replace(/\s+/g, '_');
+    const section = document.createElement('div');
+    section.className = 'group-section'; section.dataset.group = groupData.group;
+    section.innerHTML = `
+      <div class="group-header" data-group="${groupData.group}">
+        <span class="group-title" data-group="${groupData.group}">${groupData.group}</span>
+        <span class="group-count" id="cnt-${gkey}"></span>
+      </div>
+      <div class="cap-grid" id="grid-${gkey}"></div>`;
+    const grid = section.querySelector('.cap-grid');
+    groupData.items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'cap-card' + (item.vendors.length === 0 ? ' no-vendor' : '');
+      card.dataset.group   = groupData.group;
+      card.dataset.cap     = item.cap;
+      card.dataset.capLow  = item.cap.toLowerCase();
+      card.dataset.vendors = JSON.stringify(item.vendors.map(v => ({ name:v.name, nameLow:v.name.toLowerCase(), type:v.type })));
+      let tagsHtml = item.vendors.length === 0
+        ? `<span class="no-vendor-label">— no vendor assigned</span>`
+        : item.vendors.map(v => `<span class="vendor-tag" data-vendor="${v.name}" data-type="${v.type}"><span class="type-badge ${v.type}">${v.type}</span>${v.name}</span>`).join('');
+      card.innerHTML = `<div class="cap-header"><span class="cap-icon">${CAP_ICONS[item.cap] || ICON_FALLBACK}</span><div class="cap-name">${item.cap}</div></div><div class="vendor-row">${tagsHtml}</div>`;
+      card.querySelectorAll('.vendor-tag').forEach(tag => tag.addEventListener('click', () => toggleVendor(tag.dataset.vendor)));
+      grid.appendChild(card);
+    });
+    mainEl.appendChild(section);
+  });
+  // wire web events
+  document.querySelectorAll('.btn-group').forEach(btn => btn.addEventListener('click', () => toggleGroup(btn.dataset.group)));
+  document.querySelectorAll('.btn-type').forEach(btn => btn.addEventListener('click', () => toggleType(btn.dataset.type)));
+  document.getElementById('searchInput').addEventListener('input', e => { state.search = e.target.value.trim(); applyFilters(); });
+  document.getElementById('clearBtn').addEventListener('click', clearAll);
+  document.getElementById('gapToggle').addEventListener('click', () => {
+    state.showGaps = !state.showGaps;
+    const btn = document.getElementById('gapToggle');
+    btn.classList.toggle('active', state.showGaps);
+    btn.innerHTML = state.showGaps
+      ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/></svg> Hide gaps`
+      : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/></svg> Show gaps`;
+    applyFilters();
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE — state (mirrors web state)
+   ═══════════════════════════════════════════════════════════════════════════ */
+const mobState = { groups: new Set(), types: new Set(), vendors: new Set(), search: '', showGaps: false };
+
+function buildMobVendorChips() {
+  const container = document.getElementById('mobVendorChips');
+  ALL_VENDORS.forEach(v => {
+    const chip = document.createElement('div');
+    chip.className = 'mob-chip mob-vendor-chip'; chip.textContent = v; chip.dataset.vendor = v;
+    chip.addEventListener('click', () => {
+      if (mobState.vendors.has(v)) { mobState.vendors.delete(v); chip.classList.remove('active'); }
+      else { mobState.vendors.add(v); chip.classList.add('active'); }
+    });
+    container.appendChild(chip);
+  });
+}
+
+function buildMobCards() {
+  const mainEl = document.getElementById('mobMain');
+  DATA.forEach(groupData => {
+    const gkey = groupData.group.replace(/\s+/g, '_');
+    const section = document.createElement('div');
+    section.className = 'mob-group-section'; section.dataset.group = groupData.group;
+    section.innerHTML = `
+      <div class="mob-group-header" data-group="${groupData.group}">
+        <span class="mob-group-title" data-group="${groupData.group}">${groupData.group}</span>
+        <span class="mob-group-count" id="mob-cnt-${gkey}"></span>
+      </div>
+      <div class="mob-cap-list" id="mob-grid-${gkey}"></div>`;
+    const list = section.querySelector('.mob-cap-list');
+    groupData.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'mob-cap-row' + (item.vendors.length === 0 ? ' no-vendor' : '');
+      row.dataset.group   = groupData.group;
+      row.dataset.cap     = item.cap;
+      row.dataset.capLow  = item.cap.toLowerCase();
+      row.dataset.vendors = JSON.stringify(item.vendors.map(v => ({ name:v.name, nameLow:v.name.toLowerCase(), type:v.type })));
+      let tagsHtml = item.vendors.length === 0
+        ? `<span class="mob-no-vendor">— no vendor assigned</span>`
+        : item.vendors.map(v => `<span class="mob-vendor-tag" data-type="${v.type}"><span class="type-badge ${v.type}">${v.type}</span>${v.name}</span>`).join('');
+      row.innerHTML = `<div class="mob-cap-header"><span class="mob-cap-icon">${CAP_ICONS[item.cap] || ICON_FALLBACK}</span><div class="mob-cap-name">${item.cap}</div></div><div class="mob-vendor-row">${tagsHtml}</div>`;
+      list.appendChild(row);
+    });
+    mainEl.appendChild(section);
+  });
+}
+
+function applyMobFilters() {
+  const q = mobState.search.toLowerCase();
+  let total = 0;
+  DATA.forEach(groupData => {
+    const gkey    = groupData.group.replace(/\s+/g, '_');
+    const section = document.querySelector(`#mobMain .mob-group-section[data-group="${groupData.group}"]`);
+    const list    = document.getElementById(`mob-grid-${gkey}`);
+    const cntEl   = document.getElementById(`mob-cnt-${gkey}`);
+    if (!section) return;
+    const groupOk = mobState.groups.size === 0 || mobState.groups.has(groupData.group);
+    section.classList.toggle('hidden', !groupOk);
+    if (!groupOk) return;
+    let vis = 0;
+    list.querySelectorAll('.mob-cap-row').forEach(row => {
+      const vendorData = JSON.parse(row.dataset.vendors || '[]');
+      const capLow     = row.dataset.capLow;
+      const isGap      = vendorData.length === 0;
+      const typeOk     = mobState.types.size === 0 || vendorData.some(v => mobState.types.has(v.type));
+      const vendorOk   = mobState.vendors.size === 0 || vendorData.some(v => mobState.vendors.has(v.name));
+      const searchOk   = !q || capLow.includes(q) || vendorData.map(v => v.nameLow).join(' ').includes(q);
+      const show = typeOk && vendorOk && searchOk;
+      if (isGap) {
+        row.classList.toggle('show-gap', mobState.showGaps && show);
+        if (mobState.showGaps && show) { vis++; total++; }
+      } else {
+        row.classList.toggle('hidden', !show);
+        if (show) { vis++; total++; }
+      }
+    });
+    const denom = mobState.showGaps ? groupData.items.length : groupData.items.filter(i => i.vendors.length > 0).length;
+    if (cntEl) cntEl.textContent = `${vis}/${denom}`;
+  });
+  const totalAll = mobState.showGaps ? DATA.reduce((s,g)=>s+g.items.length,0) : DATA.reduce((s,g)=>s+g.items.filter(i=>i.vendors.length>0).length,0);
+  const rc = document.getElementById('mobResultCount');
+  if (rc) rc.textContent = `${total}/${totalAll}`;
+  const em = document.getElementById('mobEmpty');
+  if (em) em.classList.toggle('visible', total === 0);
+  renderMobChips();
+  // update filter button badge
+  const fb = document.getElementById('mobFilterBtn');
+  const hasF = mobState.groups.size || mobState.types.size || mobState.vendors.size;
+  if (fb) fb.classList.toggle('has-filters', !!hasF);
+}
+
+function renderMobChips() {
+  const bar = document.getElementById('mobActiveChips');
+  if (!bar) return;
+  bar.querySelectorAll('.filter-chip').forEach(c => c.remove());
+  const TYPE_L = { N:'Normal', B:'Best Seller', T:'Trend' };
+  const hasAny = mobState.groups.size || mobState.types.size || mobState.vendors.size || mobState.search;
+  bar.classList.toggle('visible', !!hasAny);
+  mobState.groups.forEach(g  => bar.appendChild(mobChip(`Group: ${g}`,    () => { mobState.groups.delete(g);  syncMobChipUI(); applyMobFilters(); })));
+  mobState.types.forEach(t   => bar.appendChild(mobChip(`Type: ${TYPE_L[t]}`, () => { mobState.types.delete(t); syncMobChipUI(); applyMobFilters(); })));
+  mobState.vendors.forEach(v => bar.appendChild(mobChip(`Product: ${v}`,  () => { mobState.vendors.delete(v); syncMobChipUI(); applyMobFilters(); })));
+  if (mobState.search) bar.appendChild(mobChip(`"${mobState.search}"`, () => { mobState.search=''; document.getElementById('mobSearchInput').value=''; applyMobFilters(); }));
+}
+function mobChip(label, onRemove) {
+  const el = document.createElement('span');
+  el.className = 'filter-chip';
+  el.innerHTML = `${label}<span class="x">×</span>`;
+  el.addEventListener('click', onRemove);
+  return el;
+}
+function syncMobChipUI() {
+  document.querySelectorAll('#mobGroupChips .mob-chip').forEach(c => c.classList.toggle('active', mobState.groups.has(c.dataset.group)));
+  document.querySelectorAll('.mob-type-chip').forEach(c => {
+    c.classList.remove('type-active-B','type-active-T','type-active-N');
+    if (mobState.types.has(c.dataset.type)) c.classList.add(`type-active-${c.dataset.type}`);
+  });
+  document.querySelectorAll('#mobVendorChips .mob-chip').forEach(c => c.classList.toggle('active', mobState.vendors.has(c.dataset.vendor)));
+}
+
+/* ── mobile search */
+document.getElementById('mobSearchInput').addEventListener('input', e => {
+  mobState.search = e.target.value.trim();
+  if (mobBuilt) applyMobFilters();
+});
+
+/* ── filter drawer */
+const drawer  = document.getElementById('mobFilterDrawer');
+const overlay = document.getElementById('mobOverlay');
+function openDrawer()  { drawer.classList.add('open');    overlay.classList.add('visible');    document.body.style.overflow='hidden'; }
+function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('visible'); document.body.style.overflow=''; }
+document.getElementById('mobFilterBtn').addEventListener('click', openDrawer);
+overlay.addEventListener('click', closeDrawer);
+
+/* ── drawer group chips */
+document.querySelectorAll('#mobGroupChips .mob-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const g = chip.dataset.group;
+    if (mobState.groups.has(g)) { mobState.groups.delete(g); chip.classList.remove('active'); }
+    else { mobState.groups.add(g); chip.classList.add('active'); }
+  });
+});
+
+/* ── drawer type chips */
+document.querySelectorAll('.mob-type-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const t = chip.dataset.type;
+    if (mobState.types.has(t)) {
+      mobState.types.delete(t);
+      chip.classList.remove(`type-active-${t}`);
+    } else {
+      mobState.types.add(t);
+      chip.classList.add(`type-active-${t}`);
+    }
+  });
+});
+
+/* ── apply / clear */
+document.getElementById('mobApplyBtn').addEventListener('click', () => {
+  closeDrawer(); applyMobFilters();
+});
+document.getElementById('mobClearBtn').addEventListener('click', () => {
+  mobState.groups.clear(); mobState.types.clear(); mobState.vendors.clear();
+  mobState.search = ''; mobState.showGaps = false;
+  document.getElementById('mobSearchInput').value = '';
+  document.getElementById('mobGapBtn').classList.remove('active');
+  document.getElementById('mobGapBtn').textContent = 'Show gaps';
+  syncMobChipUI();
+  applyMobFilters();
+});
+
+/* ── gap toggle mobile */
+document.getElementById('mobGapBtn').addEventListener('click', () => {
+  mobState.showGaps = !mobState.showGaps;
+  const btn = document.getElementById('mobGapBtn');
+  btn.classList.toggle('active', mobState.showGaps);
+  btn.textContent = mobState.showGaps ? 'Hide gaps' : 'Show gaps';
+  applyMobFilters();
+});
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   INIT — auto-detect device, show picker
+   ═══════════════════════════════════════════════════════════════════════════ */
+// If narrow viewport, default-select mobile; otherwise default web
+// (user still sees picker but gets a visual hint)
+const isMobile = window.innerWidth < 768;
+if (isMobile) document.getElementById('pick-mob').style.borderColor = '#3a3a3a';
+else          document.getElementById('pick-web').style.borderColor = '#3a3a3a';
 </script>
 </body>
 </html>
