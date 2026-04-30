@@ -34,35 +34,34 @@ body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: v
 /* ── header */
 #web-view header {
   background: var(--text); color: #fff;
-  padding: 20px 32px 18px;
-  display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+  padding: 0 32px;
+  height: 52px;
+  display: flex; align-items: center; gap: 18px;
+  position: sticky; top: 0; z-index: 200;
+  flex-shrink: 0;
 }
 #web-view header h1 { font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500; letter-spacing:.04em; }
 #web-view header .hd-right { display:flex; align-items:center; gap:12px; margin-left:auto; }
 #web-view header span { font-size:11px; color:#aaa; font-family:'IBM Plex Mono',monospace; }
-.btn-switch-view { display: none; } /* replaced by shared toggle */
+.btn-switch-view { display: none; } /* replaced by inline toggle */
 
-/* ── Shared floating toggle pill ── */
-#view-toggle {
-  position: fixed;
-  top: 14px;
-  right: 18px;
-  z-index: 9000;
+/* ── Inline view toggle pill (lives inside header) ── */
+.view-toggle-pill {
   display: flex;
   align-items: center;
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 20px;
   padding: 3px;
   gap: 2px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  flex-shrink: 0;
 }
 .vt-btn {
   padding: 4px 13px;
   border-radius: 16px;
   border: none;
   background: transparent;
-  color: #666;
+  color: rgba(255,255,255,0.4);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px;
   font-weight: 500;
@@ -75,7 +74,7 @@ body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: v
   background: #fff;
   color: #111;
 }
-.vt-btn:not(.active):hover { color: #aaa; }
+.vt-btn:not(.active):hover { color: rgba(255,255,255,0.75); }
 
 /* active filters */
 .active-filters { padding:7px 32px; background:#ebebea; border-bottom:1px solid var(--border); display:none; gap:6px; align-items:center; flex-wrap:wrap; }
@@ -86,7 +85,7 @@ body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: v
 .filter-chip .x { font-size:12px; line-height:1; margin-left:1px; opacity:.7; }
 
 /* filter bar */
-.filter-bar { background:var(--surface); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; box-shadow:0 1px 6px rgba(0,0,0,.07); }
+.filter-bar { background:var(--surface); border-bottom:1px solid var(--border); position:sticky; top:52px; z-index:100; box-shadow:0 1px 6px rgba(0,0,0,.07); }
 .filter-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:9px 32px; border-bottom:1px solid var(--border); }
 .filter-row:last-child { border-bottom:none; }
 .filter-label { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; white-space:nowrap; flex-shrink:0; width:82px; }
@@ -395,18 +394,16 @@ main.web-main { padding:24px 32px 72px; }
 </head>
 <body>
 
-<!-- ═══════════ SHARED VIEW TOGGLE ═══════════ -->
-<div id="view-toggle">
-  <button class="vt-btn active" id="vt-web">Web</button>
-  <button class="vt-btn"        id="vt-mob">Mobile</button>
-</div>
-
 <!-- ═══════════ WEB VIEW ═══════════ -->
 <div id="web-view">
 <header>
   <h1>MTTH Technology — Cybersecurity &amp; Network Portfolio</h1>
   <div class="hd-right">
     <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.29</span>
+    <div class="view-toggle-pill" id="view-toggle">
+      <button class="vt-btn active" id="vt-web">Web</button>
+      <button class="vt-btn"        id="vt-mob">Mobile</button>
+    </div>
   </div>
 </header>
 <div class="active-filters" id="activeFilters"><label>Active&nbsp;filters:</label></div>
@@ -471,6 +468,10 @@ main.web-main { padding:24px 32px 72px; }
     <div class="mob-header-left">
       <h1>MTTH Cybersecurity Portfolio</h1>
       <span>FY26 Q2 · Update 26.04.29</span>
+    </div>
+    <div class="view-toggle-pill" id="view-toggle-mob">
+      <button class="vt-btn" id="vt-web-mob">Web</button>
+      <button class="vt-btn active" id="vt-mob-mob">Mobile</button>
     </div>
   </div>
   <div class="mob-search-bar">
@@ -1146,15 +1147,22 @@ function showMob() {
 
 let webBuilt = false, mobBuilt = false;
 
-/* ── View toggle pill ── */
+/* ── View toggle pills ── */
 const vtWeb = document.getElementById('vt-web');
 const vtMob = document.getElementById('vt-mob');
+const vtWebMob = document.getElementById('vt-web-mob');
+const vtMobMob = document.getElementById('vt-mob-mob');
+
 vtWeb.addEventListener('click', showWeb);
 vtMob.addEventListener('click', showMob);
+vtWebMob.addEventListener('click', showWeb);
+vtMobMob.addEventListener('click', showMob);
 
 function updateToggle(mode) {
   vtWeb.classList.toggle('active', mode === 'web');
   vtMob.classList.toggle('active', mode === 'mob');
+  vtWebMob.classList.toggle('active', mode === 'web');
+  vtMobMob.classList.toggle('active', mode === 'mob');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
