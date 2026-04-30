@@ -399,7 +399,7 @@ main.web-main { padding:24px 32px 72px; }
 <header>
   <h1>MTTH Technology — Cybersecurity &amp; Network Portfolio</h1>
   <div class="hd-right">
-    <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.29</span>
+    <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.30</span>
     <div class="view-toggle-pill" id="view-toggle">
       <button class="vt-btn active" id="vt-web">Web</button>
       <button class="vt-btn"        id="vt-mob">Mobile</button>
@@ -467,7 +467,7 @@ main.web-main { padding:24px 32px 72px; }
   <div class="mob-header">
     <div class="mob-header-left">
       <h1>MTTH Cybersecurity Portfolio</h1>
-      <span>FY26 Q2 · Update 26.04.29</span>
+      <span>FY26 Q2 · Update 26.04.30</span>
     </div>
     <div class="view-toggle-pill" id="view-toggle-mob">
       <button class="vt-btn" id="vt-web-mob">Web</button>
@@ -531,7 +531,7 @@ main.web-main { padding:24px 32px 72px; }
 <script>
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   DATA — sourced directly from MTTH_Technology_FY26Q2.xlsx  (Update 26.04.29)
+   DATA — sourced directly from MTTH_Technology_FY26Q2.xlsx  (Update 26.04.30)
    Group order: Security Product → Cloud → SOC → NOC → Operation Product
    Type: N = Normal, B = Best Seller, T = Trend
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -545,7 +545,7 @@ const DATA = [
       { cap: "EndPoint Management",                            vendors: [{ name:"Ivanti",                type:"N" }, { name:"Tanium",               type:"N" }] },
       { cap: "EndPoint Patch Management",                      vendors: [{ name:"Ivanti",                type:"T" }, { name:"Tanium",               type:"T" }] },
       { cap: "Mobile Device Management",                       vendors: [{ name:"Ivanti",                type:"N" }] },
-      { cap: "Compliance (FIM)",                               vendors: [{ name:"Fortra",                type:"B" }] },
+      { cap: "Compliance (SCM / FIM)",                         vendors: [{ name:"Fortra",                type:"B" }] },
       { cap: "Privilege Access Management (PAM)",              vendors: [{ name:"CyberArk",              type:"B" }] },
       { cap: "Secret Manager",                                 vendors: [{ name:"CyberArk",              type:"N" }] },
       { cap: "Single Sign-On (SSO)",                           vendors: [{ name:"CyberArk",              type:"N" }, { name:"RSA",                   type:"N" }] },
@@ -562,6 +562,8 @@ const DATA = [
       { cap: "API Security",                                   vendors: [{ name:"Thales / Imperva",      type:"T" }, { name:"Citrix / NetScaler",   type:"T" }] },
       { cap: "HSM / Tokenization / e-Payment",                vendors: [{ name:"Thales / Imperva",      type:"T" }] },
       { cap: "Key Management",                                 vendors: [{ name:"Thales / Imperva",      type:"N" }] },
+      { cap: "Data Encryption",                                vendors: [{ name:"Thales / Imperva",      type:"N" }] },
+      { cap: "High Speed Network Encryption",                  vendors: [{ name:"Thales / Imperva",      type:"N" }] },
       { cap: "Virtual Desktop Infrastructure (VDI)",           vendors: [{ name:"Citrix / NetScaler",    type:"B" }] },
       { cap: "Deception",                                      vendors: [] },
       { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",                 type:"N" }] },
@@ -575,7 +577,7 @@ const DATA = [
       { cap: "Offensive Security",                             vendors: [{ name:"Fortra",                type:"N" }] },
       { cap: "DNS Security (DNSsec)",                          vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Thales / Imperva",     type:"N" }, { name:"NetSkope",            type:"N" }] },
       { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",            type:"T" }, { name:"NetSkope",             type:"T" }, { name:"SentinelOne",          type:"T" }] },
-      { cap: "AI Security Gateway",                            vendors: [{ name:"Citrix / NetScaler",    type:"T" }] },
+      { cap: "AI Security-Gateway",                            vendors: [{ name:"Citrix / NetScaler",    type:"T" }] },
       { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Fortra",               type:"N" }] },
       { cap: "PQC / Quantum Safe",                             vendors: [{ name:"CheckPoint",            type:"T" }, { name:"Thales / Imperva",     type:"T" }, { name:"Citrix / NetScaler",   type:"T" }, { name:"Gigamon",              type:"T" }, { name:"Riverbed",             type:"T" }] },
     ]
@@ -587,7 +589,7 @@ const DATA = [
       { cap: "SASE / SSE",                                     vendors: [{ name:"CheckPoint",            type:"T" }, { name:"Fortra",               type:"T" }, { name:"NetSkope",            type:"T" }] },
       { cap: "CASB",                                           vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"B" }] },
       { cap: "ZTNA",                                           vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"N" }] },
-      { cap: "Remote Browser Isolation",                       vendors: [{ name:"Fortra",                type:"N" }, { name:"NetSkope",             type:"N" }] },
+      { cap: "Remote Browser Isolation (RBI)",                 vendors: [{ name:"Fortra",                type:"N" }, { name:"NetSkope",             type:"N" }] },
       { cap: "FWaaS",                                          vendors: [{ name:"Fortra",                type:"N" }, { name:"NetSkope",             type:"N" }] },
     ]
   },
@@ -894,6 +896,23 @@ const CAP_ICONS = {
 
   "Cloud Security Posture Management (CSPM)":
     `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+
+  "Compliance (SCM / FIM)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/><polyline points="9 9 10 10 12 8"/></svg>`,
+
+  "Data Encryption":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M8 16l2 2 4-4"/></svg>`,
+
+  "High Speed Network Encryption":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/><rect x="3" y="11" width="18" height="11" rx="2" stroke-dasharray="3 2"/></svg>`,
+
+  "AI Security-Gateway":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-1 2.5-2.5 3.5"/><circle cx="12" cy="16" r="0.8" fill="currentColor"/></svg>`,
+
+  "Remote Browser Isolation (RBI)":
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>`,
+
+
 };
 
 /* fallback icon for unmapped capabilities */
