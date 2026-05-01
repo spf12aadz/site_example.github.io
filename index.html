@@ -602,6 +602,7 @@ const DATA = [
       { cap: "Certificate Management",                         vendors: [{ name:"CyberArk",             type:"T" }] },
       { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                  type:"B" }] },
       { cap: "Identity Governance Lifecycle (IGL)",            vendors: [{ name:"RSA",                  type:"N" }] },
+      { cap: "Firmware Security",                              vendors: [] },
     ]
   },
 
@@ -644,7 +645,6 @@ const DATA = [
       { cap: "AI Security-Gateway",                            vendors: [{ name:"Citrix / NetScaler",   type:"T" }] },
       { cap: "PQC / Quantum Safe",                             vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Thales / Imperva",    type:"T" }, { name:"Citrix / NetScaler",  type:"T" }, { name:"Gigamon",             type:"T" }, { name:"Riverbed",            type:"T" }] },
       { cap: "OT & ICS Security",                              vendors: [] },
-      { cap: "Firmware Security",                              vendors: [] },
     ]
   },
 
@@ -689,16 +689,16 @@ const DATA = [
     group: "Detection & Response",
     items: [
       { cap: "Compliance (SCM / FIM)",                         vendors: [{ name:"Fortra",               type:"B" }] },
+      { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",             type:"N" }, { name:"SentinelOne",         type:"N" }] },
       { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",              type:"N" }, { name:"Exabeam / LR",        type:"N" }, { name:"Netwitness",          type:"N" }, { name:"SolarWinds",   type:"N" }] },
       { cap: "Threat Intelligence",                            vendors: [{ name:"Anomali",              type:"B" }, { name:"CheckPoint",          type:"N" }] },
-      { cap: "Endpoint Detection and Response (EDR)",          vendors: [{ name:"SentinelOne",          type:"B" }] },
       { cap: "Identity Security / ITDR",                       vendors: [{ name:"SentinelOne",          type:"N" }, { name:"SilverFort",          type:"B" }] },
-      { cap: "Non-Human Identity Security (NHI)",              vendors: [{ name:"SilverFort",           type:"T" }] },
+      { cap: "Non-Human Identity Security (NHI)",              vendors: [{ name:"SilverFort",           type:"T" }] },      
+      { cap: "Endpoint Detection and Response (EDR)",          vendors: [{ name:"SentinelOne",          type:"B" }] },
       { cap: "Network Packet Broker / SSL Decryption",         vendors: [{ name:"Gigamon",              type:"N" }] },
       { cap: "Network Detection and Response (NDR)",           vendors: [{ name:"Vectra",               type:"B" }] },
       { cap: "Cloud Detection and Response (CDR)",             vendors: [{ name:"Vectra",               type:"N" }] },
       { cap: "Extended Detection and Response (XDR)",          vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }, { name:"SentinelOne",    type:"N" }] },
-      { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",             type:"N" }, { name:"SentinelOne",         type:"N" }] },
       { cap: "Identity Security Posture Management (ISPM)",    vendors: [{ name:"SilverFort",           type:"T" }] },
       { cap: "Data Security Posture Management (DSPM)",        vendors: [{ name:"BigID",                type:"N" }, { name:"NetSkope",            type:"N" }] },
       { cap: "Cloud Security Posture Management (CSPM)",       vendors: [{ name:"SentinelOne",          type:"N" }] },
