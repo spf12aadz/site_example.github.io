@@ -14,11 +14,14 @@
   --text:     #1a1a1a;
   --muted:    #888880;
 
-  --sec:      #C55A11;  --sec-light:   #fdf0e8;
-  --soc:      #375623;  --soc-light:   #edf5ea;
-  --noc:      #5B2C8A;  --noc-light:   #f2ecf9;
-  --cloud:    #006B9F;  --cloud-light: #e5f3fb;
-  --ops:      #1B4E8A;  --ops-light:   #e8eef8;
+  --eii: #1B4E8A; --eii-light: #e8eef8;
+  --das: #0d6e6e; --das-light: #e6f5f5;
+  --nps: #C55A11; --nps-light: #fdf0e8;
+  --tem: #8B1A1A; --tem-light: #fae8e8;
+  --cld: #006B9F; --cld-light: #e5f3fb;
+  --ddr: #375623; --ddr-light: #edf5ea;
+  --npi: #5B2C8A; --npi-light: #f2ecf9;
+  --ito: #4a5568; --ito-light: #eef0f3;
 
   --type-n:    #555550; --type-n-bg:  #f0f0ee; --type-n-bdr: #ccccc8;
   --type-b:    #8a6200; --type-b-bg:  #fdf7e3; --type-b-bdr: #c9a227;
@@ -100,16 +103,22 @@ input[type="search"]::placeholder { color:#b5b5ad; }
 .btn-group { display:inline-flex; align-items:center; gap:6px; padding:5px 12px 5px 8px; border-radius:4px; border:1.5px solid var(--border); cursor:pointer; font-family:'IBM Plex Sans',sans-serif; font-size:11.5px; font-weight:500; background:var(--bg); color:var(--muted); transition:all .14s; white-space:nowrap; flex-shrink:0; }
 .btn-group .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; transition:transform .14s; }
 .btn-group:hover { border-color:#bbb; color:var(--text); }
-.btn-group[data-group="Security Product"] .dot { background:var(--sec); }
-.btn-group[data-group="SOC"] .dot             { background:var(--soc); }
-.btn-group[data-group="NOC"] .dot             { background:var(--noc); }
-.btn-group[data-group="Cloud"] .dot           { background:var(--cloud); }
-.btn-group[data-group="Operation Product"] .dot { background:var(--ops); }
-.btn-group.active[data-group="Security Product"]  { background:var(--sec-light);   border-color:var(--sec);   color:var(--sec); }
-.btn-group.active[data-group="SOC"]               { background:var(--soc-light);   border-color:var(--soc);   color:var(--soc); }
-.btn-group.active[data-group="NOC"]               { background:var(--noc-light);   border-color:var(--noc);   color:var(--noc); }
-.btn-group.active[data-group="Cloud"]             { background:var(--cloud-light); border-color:var(--cloud); color:var(--cloud); }
-.btn-group.active[data-group="Operation Product"] { background:var(--ops-light);   border-color:var(--ops);   color:var(--ops); }
+.btn-group[data-group="Endpoint & Identity"] .dot { background:var(--eii); }
+.btn-group[data-group="Data & Application Security"] .dot { background:var(--das); }
+.btn-group[data-group="Network & Perimeter Security"] .dot { background:var(--nps); }
+.btn-group[data-group="Threat & Exposure Management"] .dot { background:var(--tem); }
+.btn-group[data-group="Cloud Security"] .dot { background:var(--cld); }
+.btn-group[data-group="Detection & Response"] .dot { background:var(--ddr); }
+.btn-group[data-group="Network Performance & Infrastructure"] .dot { background:var(--npi); }
+.btn-group[data-group="IT Operations"] .dot { background:var(--ito); }
+.btn-group.active[data-group="Endpoint & Identity"] { background:var(--eii-light); border-color:var(--eii); color:var(--eii); }
+.btn-group.active[data-group="Data & Application Security"] { background:var(--das-light); border-color:var(--das); color:var(--das); }
+.btn-group.active[data-group="Network & Perimeter Security"] { background:var(--nps-light); border-color:var(--nps); color:var(--nps); }
+.btn-group.active[data-group="Threat & Exposure Management"] { background:var(--tem-light); border-color:var(--tem); color:var(--tem); }
+.btn-group.active[data-group="Cloud Security"] { background:var(--cld-light); border-color:var(--cld); color:var(--cld); }
+.btn-group.active[data-group="Detection & Response"] { background:var(--ddr-light); border-color:var(--ddr); color:var(--ddr); }
+.btn-group.active[data-group="Network Performance & Infrastructure"] { background:var(--npi-light); border-color:var(--npi); color:var(--npi); }
+.btn-group.active[data-group="IT Operations"] { background:var(--ito-light); border-color:var(--ito); color:var(--ito); }
 .btn-group.active .dot { transform:scale(1.25); }
 
 /* type buttons */
@@ -144,11 +153,14 @@ input#capSearch::placeholder { color:#b5b5ad; }
 .cap-dropdown-item.selected { background:#f0f0ee; }
 .cap-dropdown-item .cap-item-name { flex:1; }
 .cap-dropdown-item .cap-item-group { font-family:'IBM Plex Mono',monospace; font-size:9px; padding:2px 6px; border-radius:3px; white-space:nowrap; flex-shrink:0; }
-.cap-group-tag[data-g="Security Product"]  { background:var(--sec-light);   color:var(--sec); }
-.cap-group-tag[data-g="SOC"]               { background:var(--soc-light);   color:var(--soc); }
-.cap-group-tag[data-g="NOC"]               { background:var(--noc-light);   color:var(--noc); }
-.cap-group-tag[data-g="Cloud"]             { background:var(--cloud-light); color:var(--cloud); }
-.cap-group-tag[data-g="Operation Product"] { background:var(--ops-light);   color:var(--ops); }
+.cap-group-tag[data-g="Endpoint & Identity"] { background:var(--eii-light); color:var(--eii); }
+.cap-group-tag[data-g="Data & Application Security"] { background:var(--das-light); color:var(--das); }
+.cap-group-tag[data-g="Network & Perimeter Security"] { background:var(--nps-light); color:var(--nps); }
+.cap-group-tag[data-g="Threat & Exposure Management"] { background:var(--tem-light); color:var(--tem); }
+.cap-group-tag[data-g="Cloud Security"] { background:var(--cld-light); color:var(--cld); }
+.cap-group-tag[data-g="Detection & Response"] { background:var(--ddr-light); color:var(--ddr); }
+.cap-group-tag[data-g="Network Performance & Infrastructure"] { background:var(--npi-light); color:var(--npi); }
+.cap-group-tag[data-g="IT Operations"] { background:var(--ito-light); color:var(--ito); }
 .cap-selected-pills { display:flex; flex-wrap:wrap; gap:4px; margin-left:2px; }
 .cap-pill { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:20px; background:var(--text); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; cursor:pointer; transition:opacity .12s; white-space:nowrap; }
 .cap-pill:hover { opacity:.72; }
@@ -171,17 +183,23 @@ main.web-main { padding:24px 32px 72px; }
 .group-section { margin-bottom:28px; }
 .group-section.hidden { display:none; }
 .group-header { display:flex; align-items:center; gap:10px; margin-bottom:11px; padding-bottom:8px; border-bottom:2px solid; }
-.group-header[data-group="Security Product"]  { border-color:var(--sec); }
-.group-header[data-group="SOC"]               { border-color:var(--soc); }
-.group-header[data-group="NOC"]               { border-color:var(--noc); }
-.group-header[data-group="Cloud"]             { border-color:var(--cloud); }
-.group-header[data-group="Operation Product"] { border-color:var(--ops); }
+.group-header[data-group="Endpoint & Identity"] { border-color:var(--eii); }
+.group-header[data-group="Data & Application Security"] { border-color:var(--das); }
+.group-header[data-group="Network & Perimeter Security"] { border-color:var(--nps); }
+.group-header[data-group="Threat & Exposure Management"] { border-color:var(--tem); }
+.group-header[data-group="Cloud Security"] { border-color:var(--cld); }
+.group-header[data-group="Detection & Response"] { border-color:var(--ddr); }
+.group-header[data-group="Network Performance & Infrastructure"] { border-color:var(--npi); }
+.group-header[data-group="IT Operations"] { border-color:var(--ito); }
 .group-title { font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500; letter-spacing:.09em; text-transform:uppercase; }
-.group-title[data-group="Security Product"]  { color:var(--sec); }
-.group-title[data-group="SOC"]               { color:var(--soc); }
-.group-title[data-group="NOC"]               { color:var(--noc); }
-.group-title[data-group="Cloud"]             { color:var(--cloud); }
-.group-title[data-group="Operation Product"] { color:var(--ops); }
+.group-title[data-group="Endpoint & Identity"] { color:var(--eii); }
+.group-title[data-group="Data & Application Security"] { color:var(--das); }
+.group-title[data-group="Network & Perimeter Security"] { color:var(--nps); }
+.group-title[data-group="Threat & Exposure Management"] { color:var(--tem); }
+.group-title[data-group="Cloud Security"] { color:var(--cld); }
+.group-title[data-group="Detection & Response"] { color:var(--ddr); }
+.group-title[data-group="Network Performance & Infrastructure"] { color:var(--npi); }
+.group-title[data-group="IT Operations"] { color:var(--ito); }
 .group-count { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); margin-left:auto; }
 .cap-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:7px; }
 
@@ -193,16 +211,22 @@ main.web-main { padding:24px 32px 72px; }
 .cap-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
 .cap-icon { flex-shrink:0; width:22px; height:22px; border-radius:5px; display:flex; align-items:center; justify-content:center; opacity:.82; }
 .cap-icon svg { display:block; }
-.cap-card[data-group="Security Product"]  .cap-icon { color:var(--sec); }
-.cap-card[data-group="SOC"]               .cap-icon { color:var(--soc); }
-.cap-card[data-group="NOC"]               .cap-icon { color:var(--noc); }
-.cap-card[data-group="Cloud"]             .cap-icon { color:var(--cloud); }
-.cap-card[data-group="Operation Product"] .cap-icon { color:var(--ops); }
-.cap-card[data-group="Security Product"]  { border-left-color:var(--sec); }
-.cap-card[data-group="SOC"]               { border-left-color:var(--soc); }
-.cap-card[data-group="NOC"]               { border-left-color:var(--noc); }
-.cap-card[data-group="Cloud"]             { border-left-color:var(--cloud); }
-.cap-card[data-group="Operation Product"] { border-left-color:var(--ops); }
+.cap-card[data-group="Endpoint & Identity"] .cap-icon { color:var(--eii); }
+.cap-card[data-group="Data & Application Security"] .cap-icon { color:var(--das); }
+.cap-card[data-group="Network & Perimeter Security"] .cap-icon { color:var(--nps); }
+.cap-card[data-group="Threat & Exposure Management"] .cap-icon { color:var(--tem); }
+.cap-card[data-group="Cloud Security"] .cap-icon { color:var(--cld); }
+.cap-card[data-group="Detection & Response"] .cap-icon { color:var(--ddr); }
+.cap-card[data-group="Network Performance & Infrastructure"] .cap-icon { color:var(--npi); }
+.cap-card[data-group="IT Operations"] .cap-icon { color:var(--ito); }
+.cap-card[data-group="Endpoint & Identity"] { border-left-color:var(--eii); }
+.cap-card[data-group="Data & Application Security"] { border-left-color:var(--das); }
+.cap-card[data-group="Network & Perimeter Security"] { border-left-color:var(--nps); }
+.cap-card[data-group="Threat & Exposure Management"] { border-left-color:var(--tem); }
+.cap-card[data-group="Cloud Security"] { border-left-color:var(--cld); }
+.cap-card[data-group="Detection & Response"] { border-left-color:var(--ddr); }
+.cap-card[data-group="Network Performance & Infrastructure"] { border-left-color:var(--npi); }
+.cap-card[data-group="IT Operations"] { border-left-color:var(--ito); }
 .cap-card.no-vendor { display:none; }
 .cap-card.no-vendor.show-gap { display:flex; flex-direction:column; border-style:dashed; opacity:.5; }
 .cap-name { font-weight:500; font-size:12.5px; line-height:1.35; color:var(--text); }
@@ -302,11 +326,14 @@ main.web-main { padding:24px 32px 72px; }
   display:inline-flex; align-items:center; gap:6px;
 }
 .mob-chip .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-.mob-chip[data-group="Security Product"] .dot { background:var(--sec); }
-.mob-chip[data-group="SOC"] .dot             { background:var(--soc); }
-.mob-chip[data-group="NOC"] .dot             { background:var(--noc); }
-.mob-chip[data-group="Cloud"] .dot           { background:var(--cloud); }
-.mob-chip[data-group="Operation Product"] .dot { background:var(--ops); }
+.mob-chip[data-group="Endpoint & Identity"] .dot { background:var(--eii); }
+.mob-chip[data-group="Data & Application Security"] .dot { background:var(--das); }
+.mob-chip[data-group="Network & Perimeter Security"] .dot { background:var(--nps); }
+.mob-chip[data-group="Threat & Exposure Management"] .dot { background:var(--tem); }
+.mob-chip[data-group="Cloud Security"] .dot { background:var(--cld); }
+.mob-chip[data-group="Detection & Response"] .dot { background:var(--ddr); }
+.mob-chip[data-group="Network Performance & Infrastructure"] .dot { background:var(--npi); }
+.mob-chip[data-group="IT Operations"] .dot { background:var(--ito); }
 .mob-chip.active { background:var(--text); border-color:var(--text); color:#fff; }
 .mob-chip.active .dot { background:#fff !important; }
 .mob-type-chip { display:inline-flex; align-items:center; gap:7px; }
@@ -329,17 +356,23 @@ main.web-main { padding:24px 32px 72px; }
 .mob-group-section { margin-bottom:20px; }
 .mob-group-section.hidden { display:none; }
 .mob-group-header { display:flex; align-items:center; gap:8px; padding:10px 0 8px; border-bottom:2px solid; margin-bottom:8px; }
-.mob-group-header[data-group="Security Product"]  { border-color:var(--sec); }
-.mob-group-header[data-group="SOC"]               { border-color:var(--soc); }
-.mob-group-header[data-group="NOC"]               { border-color:var(--noc); }
-.mob-group-header[data-group="Cloud"]             { border-color:var(--cloud); }
-.mob-group-header[data-group="Operation Product"] { border-color:var(--ops); }
+.mob-group-header[data-group="Endpoint & Identity"] { border-color:var(--eii); }
+.mob-group-header[data-group="Data & Application Security"] { border-color:var(--das); }
+.mob-group-header[data-group="Network & Perimeter Security"] { border-color:var(--nps); }
+.mob-group-header[data-group="Threat & Exposure Management"] { border-color:var(--tem); }
+.mob-group-header[data-group="Cloud Security"] { border-color:var(--cld); }
+.mob-group-header[data-group="Detection & Response"] { border-color:var(--ddr); }
+.mob-group-header[data-group="Network Performance & Infrastructure"] { border-color:var(--npi); }
+.mob-group-header[data-group="IT Operations"] { border-color:var(--ito); }
 .mob-group-title { font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:500; letter-spacing:.09em; text-transform:uppercase; }
-.mob-group-title[data-group="Security Product"]  { color:var(--sec); }
-.mob-group-title[data-group="SOC"]               { color:var(--soc); }
-.mob-group-title[data-group="NOC"]               { color:var(--noc); }
-.mob-group-title[data-group="Cloud"]             { color:var(--cloud); }
-.mob-group-title[data-group="Operation Product"] { color:var(--ops); }
+.mob-group-title[data-group="Endpoint & Identity"] { color:var(--eii); }
+.mob-group-title[data-group="Data & Application Security"] { color:var(--das); }
+.mob-group-title[data-group="Network & Perimeter Security"] { color:var(--nps); }
+.mob-group-title[data-group="Threat & Exposure Management"] { color:var(--tem); }
+.mob-group-title[data-group="Cloud Security"] { color:var(--cld); }
+.mob-group-title[data-group="Detection & Response"] { color:var(--ddr); }
+.mob-group-title[data-group="Network Performance & Infrastructure"] { color:var(--npi); }
+.mob-group-title[data-group="IT Operations"] { color:var(--ito); }
 .mob-group-count { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); margin-left:auto; }
 .mob-cap-list { display:flex; flex-direction:column; gap:6px; }
 
@@ -355,23 +388,34 @@ main.web-main { padding:24px 32px 72px; }
 .mob-cap-row:active { box-shadow:0 2px 8px rgba(0,0,0,.07); }
 .mob-cap-row.no-vendor { display:none; }
 .mob-cap-row.no-vendor.show-gap { display:flex; border-style:dashed; opacity:.55; }
-.mob-cap-row[data-group="Security Product"]  { border-left-color:var(--sec); }
-.mob-cap-row[data-group="SOC"]               { border-left-color:var(--soc); }
-.mob-cap-row[data-group="NOC"]               { border-left-color:var(--noc); }
-.mob-cap-row[data-group="Cloud"]             { border-left-color:var(--cloud); }
-.mob-cap-row[data-group="Operation Product"] { border-left-color:var(--ops); }
+.mob-cap-row[data-group="Endpoint & Identity"] { border-left-color:var(--eii); }
+.mob-cap-row[data-group="Data & Application Security"] { border-left-color:var(--das); }
+.mob-cap-row[data-group="Network & Perimeter Security"] { border-left-color:var(--nps); }
+.mob-cap-row[data-group="Threat & Exposure Management"] { border-left-color:var(--tem); }
+.mob-cap-row[data-group="Cloud Security"] { border-left-color:var(--cld); }
+.mob-cap-row[data-group="Detection & Response"] { border-left-color:var(--ddr); }
+.mob-cap-row[data-group="Network Performance & Infrastructure"] { border-left-color:var(--npi); }
+.mob-cap-row[data-group="IT Operations"] { border-left-color:var(--ito); }
 .mob-cap-header { display:flex; align-items:center; gap:7px; }
 .mob-cap-icon { flex-shrink:0; color:var(--muted); opacity:.75; }
-.mob-cap-row[data-group="Security Product"]  .mob-cap-icon { color:var(--sec); }
-.mob-cap-row[data-group="SOC"]               .mob-cap-icon { color:var(--soc); }
-.mob-cap-row[data-group="NOC"]               .mob-cap-icon { color:var(--noc); }
-.mob-cap-row[data-group="Cloud"]             .mob-cap-icon { color:var(--cloud); }
-.mob-cap-row[data-group="Operation Product"] .mob-cap-icon { color:var(--ops); }
+.mob-cap-row[data-group="Endpoint & Identity"] .mob-cap-icon { color:var(--eii); }
+.mob-cap-row[data-group="Data & Application Security"] .mob-cap-icon { color:var(--das); }
+.mob-cap-row[data-group="Network & Perimeter Security"] .mob-cap-icon { color:var(--nps); }
+.mob-cap-row[data-group="Threat & Exposure Management"] .mob-cap-icon { color:var(--tem); }
+.mob-cap-row[data-group="Cloud Security"] .mob-cap-icon { color:var(--cld); }
+.mob-cap-row[data-group="Detection & Response"] .mob-cap-icon { color:var(--ddr); }
+.mob-cap-row[data-group="Network Performance & Infrastructure"] .mob-cap-icon { color:var(--npi); }
+.mob-cap-row[data-group="IT Operations"] .mob-cap-icon { color:var(--ito); }
 .mob-cap-name { font-weight:500; font-size:13px; line-height:1.3; color:var(--text); flex:1; }
 .mob-vendor-row { display:flex; flex-wrap:wrap; gap:4px; }
-.mob-vendor-tag { display:inline-flex; align-items:center; gap:4px; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:3px 8px 3px 6px; border-radius:4px; border:1px solid var(--border); color:var(--muted); background:var(--bg); }
+.mob-vendor-tag { display:inline-flex; align-items:center; gap:4px; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:3px 8px 3px 6px; border-radius:4px; border:1px solid var(--border); color:var(--muted); background:var(--bg); cursor:pointer; transition:all .12s ease; user-select:none; }
 .mob-vendor-tag[data-type="B"] { background:#fffbee; border-color:#c9a227; color:#7a5800; font-weight:500; }
 .mob-vendor-tag[data-type="T"] { background:#eff6ff; border-color:#2563eb; color:#1e3a8a; font-weight:500; }
+.mob-vendor-tag:active { opacity:.75; }
+.mob-vendor-tag.mob-highlighted { background:var(--text); color:#fff; border-color:var(--text); font-weight:400; }
+.mob-vendor-tag.mob-highlighted .type-badge { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.3); color:#fff; }
+.mob-vendor-tag.mob-highlighted .type-badge.B { color:#ffe58a; }
+.mob-vendor-tag.mob-highlighted .type-badge.T { color:#93c5fd; }
 .mob-no-vendor { font-family:'IBM Plex Mono',monospace; font-size:10px; color:#c0c0bc; font-style:italic; }
 
 /* mobile legend / bottom bar */
@@ -401,8 +445,8 @@ main.web-main { padding:24px 32px 72px; }
   <div class="hd-right">
     <span>FY26 Q2 &nbsp;·&nbsp; Update 26.04.30</span>
     <div class="view-toggle-pill" id="view-toggle">
-      <button class="vt-btn active" id="vt-web">Web</button>
-      <button class="vt-btn"        id="vt-mob">Mobile</button>
+      <button class="vt-btn"        id="vt-web">Web</button>
+      <button class="vt-btn active" id="vt-mob">Mobile</button>
     </div>
   </div>
 </header>
@@ -425,11 +469,14 @@ main.web-main { padding:24px 32px 72px; }
   </div>
   <div class="filter-row">
     <span class="filter-label">Group</span><div class="vr"></div>
-    <button class="btn-group" data-group="Security Product"><span class="dot"></span>Security Product</button>
-    <button class="btn-group" data-group="Cloud"><span class="dot"></span>Cloud</button>
-    <button class="btn-group" data-group="SOC"><span class="dot"></span>SOC</button>
-    <button class="btn-group" data-group="NOC"><span class="dot"></span>NOC</button>
-    <button class="btn-group" data-group="Operation Product"><span class="dot"></span>Operation Product</button>
+    <button class="btn-group" data-group="Endpoint & Identity"><span class="dot"></span>Endpoint &amp; Identity</button>
+    <button class="btn-group" data-group="Data & Application Security"><span class="dot"></span>Data &amp; Application Security</button>
+    <button class="btn-group" data-group="Network & Perimeter Security"><span class="dot"></span>Network &amp; Perimeter Security</button>
+    <button class="btn-group" data-group="Threat & Exposure Management"><span class="dot"></span>Threat &amp; Exposure Management</button>
+    <button class="btn-group" data-group="Cloud Security"><span class="dot"></span>Cloud Security</button>
+    <button class="btn-group" data-group="Detection & Response"><span class="dot"></span>Detection &amp; Response</button>
+    <button class="btn-group" data-group="Network Performance & Infrastructure"><span class="dot"></span>Network Performance &amp; Infrastructure</button>
+    <button class="btn-group" data-group="IT Operations"><span class="dot"></span>IT Operations</button>
   </div>
   <div class="filter-row">
     <span class="filter-label">Product Type</span><div class="vr"></div>
@@ -503,11 +550,14 @@ main.web-main { padding:24px 32px 72px; }
   <div class="mob-drawer-section">
     <div class="mob-drawer-label">Group</div>
     <div class="mob-drawer-chips" id="mobGroupChips">
-      <div class="mob-chip" data-group="Security Product"><span class="dot"></span>Security Product</div>
-      <div class="mob-chip" data-group="Cloud"><span class="dot"></span>Cloud</div>
-      <div class="mob-chip" data-group="SOC"><span class="dot"></span>SOC</div>
-      <div class="mob-chip" data-group="NOC"><span class="dot"></span>NOC</div>
-      <div class="mob-chip" data-group="Operation Product"><span class="dot"></span>Operation Product</div>
+      <div class="mob-chip" data-group="Endpoint & Identity"><span class="dot"></span>Endpoint &amp; Identity</div>
+      <div class="mob-chip" data-group="Data & Application Security"><span class="dot"></span>Data &amp; Application Security</div>
+      <div class="mob-chip" data-group="Network & Perimeter Security"><span class="dot"></span>Network &amp; Perimeter Security</div>
+      <div class="mob-chip" data-group="Threat & Exposure Management"><span class="dot"></span>Threat &amp; Exposure Management</div>
+      <div class="mob-chip" data-group="Cloud Security"><span class="dot"></span>Cloud Security</div>
+      <div class="mob-chip" data-group="Detection & Response"><span class="dot"></span>Detection &amp; Response</div>
+      <div class="mob-chip" data-group="Network Performance & Infrastructure"><span class="dot"></span>Network Performance &amp; Infra</div>
+      <div class="mob-chip" data-group="IT Operations"><span class="dot"></span>IT Operations</div>
     </div>
   </div>
   <div class="mob-drawer-section">
@@ -536,95 +586,149 @@ main.web-main { padding:24px 32px 72px; }
    Type: N = Normal, B = Best Seller, T = Trend
    ═══════════════════════════════════════════════════════════════════════════ */
 const DATA = [
+  /* ─────────────────────────────────────────────
+     1. ENDPOINT & IDENTITY
+     Endpoint devices, identity lifecycle, access management
+     ───────────────────────────────────────────── */
   {
-    group: "Security Product",
+    group: "Endpoint & Identity",
+    items: [
+      { cap: "EndPoint Management",                            vendors: [{ name:"Ivanti",               type:"N" }, { name:"Tanium",              type:"N" }] },
+      { cap: "EndPoint Patch Management",                      vendors: [{ name:"Ivanti",               type:"T" }, { name:"Tanium",              type:"T" }] },
+      { cap: "Mobile Device Management",                       vendors: [{ name:"Ivanti",               type:"N" }] },
+      { cap: "Privilege Access Management (PAM)",              vendors: [{ name:"CyberArk",             type:"B" }] },
+      { cap: "Secret Manager",                                 vendors: [{ name:"CyberArk",             type:"N" }] },
+      { cap: "Single Sign-On (SSO)",                           vendors: [{ name:"CyberArk",             type:"N" }, { name:"RSA",                  type:"N" }] },
+      { cap: "Certificate Management",                         vendors: [{ name:"CyberArk",             type:"T" }] },
+      { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                  type:"B" }] },
+      { cap: "Identity Governance Lifecycle (IGL)",            vendors: [{ name:"RSA",                  type:"N" }] },
+      { cap: "Fraud and Risk Intelligence (FRI)",              vendors: [{ name:"RSA",                  type:"N" }] },
+      { cap: "Compliance (SCM / FIM)",                         vendors: [{ name:"Fortra",               type:"B" }] },
+      { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"NetSkope",             type:"T" }, { name:"SentinelOne",        type:"T" }] },
+    ]
+  },
+
+  /* ─────────────────────────────────────────────
+     2. DATA & APPLICATION SECURITY
+     Protecting data at rest, in transit, and in apps
+     ───────────────────────────────────────────── */
+  {
+    group: "Data & Application Security",
+    items: [
+      { cap: "Data Classification",                            vendors: [{ name:"BigID",                type:"N" }, { name:"Fortra",              type:"N" }, { name:"NetSkope",            type:"N" }] },
+      { cap: "Data Loss Prevention (DLP)",                     vendors: [{ name:"BigID",                type:"N" }, { name:"Fortra",              type:"N" }, { name:"NetSkope",            type:"N" }] },
+      { cap: "Data Encryption",                                vendors: [{ name:"Thales / Imperva",     type:"N" }] },
+      { cap: "High Speed Network Encryption",                  vendors: [{ name:"Thales / Imperva",     type:"N" }] },
+      { cap: "HSM / Tokenization / e-Payment",                vendors: [{ name:"Thales / Imperva",     type:"T" }] },
+      { cap: "Key Management",                                 vendors: [{ name:"Thales / Imperva",     type:"N" }] },
+      { cap: "Database Activity Monitoring (DAM)",             vendors: [{ name:"Thales / Imperva",     type:"B" }] },
+      { cap: "Web Application Firewall (WAF)",                 vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"B" }, { name:"Citrix / NetScaler",  type:"N" }] },
+      { cap: "Runtime Application Self-Protection (RASP)",     vendors: [] },
+      { cap: "API Security",                                   vendors: [{ name:"Thales / Imperva",     type:"T" }, { name:"Citrix / NetScaler",  type:"T" }] },
+      { cap: "Application Security (DEVSECOPS)",               vendors: [{ name:"CheckPoint",           type:"N" }] },
+      { cap: "File Gateway (CDR)",                             vendors: [] },
+    ]
+  },
+
+  /* ─────────────────────────────────────────────
+     3. NETWORK & PERIMETER SECURITY
+     Network-layer defenses, perimeter protection
+     ───────────────────────────────────────────── */
+  {
+    group: "Network & Perimeter Security",
     items: [
       { cap: "Next-Gen Firewall",                              vendors: [{ name:"CheckPoint",           type:"B" }] },
-      { cap: "Web Security Gateway",                           vendors: [{ name:"NetSkope",              type:"B" }] },
-      { cap: "Email Security Gateway",                         vendors: [{ name:"CheckPoint",            type:"B" }] },
-      { cap: "EndPoint Management",                            vendors: [{ name:"Ivanti",                type:"N" }, { name:"Tanium",               type:"N" }] },
-      { cap: "EndPoint Patch Management",                      vendors: [{ name:"Ivanti",                type:"T" }, { name:"Tanium",               type:"T" }] },
-      { cap: "Mobile Device Management",                       vendors: [{ name:"Ivanti",                type:"N" }] },
-      { cap: "Compliance (SCM / FIM)",                         vendors: [{ name:"Fortra",                type:"B" }] },
-      { cap: "Privilege Access Management (PAM)",              vendors: [{ name:"CyberArk",              type:"B" }] },
-      { cap: "Secret Manager",                                 vendors: [{ name:"CyberArk",              type:"N" }] },
-      { cap: "Single Sign-On (SSO)",                           vendors: [{ name:"CyberArk",              type:"N" }, { name:"RSA",                   type:"N" }] },
-      { cap: "Certificate Management",                         vendors: [{ name:"CyberArk",              type:"T" }] },
-      { cap: "Multi Factor Authentication",                    vendors: [{ name:"RSA",                   type:"B" }] },
-      { cap: "Identity Governance Lifecycle (IGL)",            vendors: [{ name:"RSA",                   type:"N" }] },
-      { cap: "Fraud and Risk Intelligence (FRI)",              vendors: [{ name:"RSA",                   type:"N" }] },
-      { cap: "Data Classification",                            vendors: [{ name:"BigID",                 type:"N" }, { name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"N" }] },
-      { cap: "Data Loss Prevention (DLP)",                     vendors: [{ name:"BigID",                 type:"N" }, { name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"N" }] },
-      { cap: "Anti-DDoS / Anti-Bot",                           vendors: [{ name:"Thales / Imperva",      type:"N" }, { name:"Citrix / NetScaler",   type:"N" }] },
-      { cap: "Web Application Firewall (WAF)",                 vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Thales / Imperva",     type:"B" }, { name:"Citrix / NetScaler",   type:"N" }] },
-      { cap: "Database Activity Monitoring (DAM)",             vendors: [{ name:"Thales / Imperva",      type:"B" }] },
-      { cap: "Runtime Application Self-Protection (RASP)",     vendors: [] },
-      { cap: "API Security",                                   vendors: [{ name:"Thales / Imperva",      type:"T" }, { name:"Citrix / NetScaler",   type:"T" }] },
-      { cap: "HSM / Tokenization / e-Payment",                vendors: [{ name:"Thales / Imperva",      type:"T" }] },
-      { cap: "Key Management",                                 vendors: [{ name:"Thales / Imperva",      type:"N" }] },
-      { cap: "Data Encryption",                                vendors: [{ name:"Thales / Imperva",      type:"N" }] },
-      { cap: "High Speed Network Encryption",                  vendors: [{ name:"Thales / Imperva",      type:"N" }] },
-      { cap: "Virtual Desktop Infrastructure (VDI)",           vendors: [{ name:"Citrix / NetScaler",    type:"B" }] },
-      { cap: "Deception",                                      vendors: [] },
-      { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",                 type:"N" }] },
-      { cap: "File Gateway (CDR)",                             vendors: [] },
+      { cap: "Email Security Gateway",                         vendors: [{ name:"CheckPoint",           type:"B" }] },
+      { cap: "Web Security Gateway",                           vendors: [{ name:"NetSkope",             type:"B" }] },
+      { cap: "Anti-DDoS / Anti-Bot",                           vendors: [{ name:"Thales / Imperva",     type:"N" }, { name:"Citrix / NetScaler",  type:"N" }] },
+      { cap: "DNS Security (DNSsec)",                          vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"N" }, { name:"NetSkope",            type:"N" }] },
+      { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",                type:"N" }] },
+      { cap: "AI Security-Gateway",                            vendors: [{ name:"Citrix / NetScaler",   type:"T" }] },
+      { cap: "PQC / Quantum Safe",                             vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Thales / Imperva",    type:"T" }, { name:"Citrix / NetScaler",  type:"T" }, { name:"Gigamon",             type:"T" }, { name:"Riverbed",            type:"T" }] },
       { cap: "Firmware Security",                              vendors: [] },
-      { cap: "Application Security (DEVSECOPS)",               vendors: [{ name:"CheckPoint",            type:"N" }] },
+    ]
+  },
+
+  /* ─────────────────────────────────────────────
+     4. THREAT & EXPOSURE MANAGEMENT
+     Proactive hunting, red team, attack surface
+     ───────────────────────────────────────────── */
+  {
+    group: "Threat & Exposure Management",
+    items: [
       { cap: "Exposure Management (VA Scan)",                  vendors: [] },
-      { cap: "CTEM / EASM",                                    vendors: [{ name:"CheckPoint",            type:"T" }, { name:"Fortra",               type:"T" }, { name:"Watchtowr",            type:"T" }] },
+      { cap: "CTEM / EASM",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"Watchtowr",           type:"T" }] },
+      { cap: "External Penetration Test",                      vendors: [{ name:"Watchtowr",            type:"N" }] },
+      { cap: "Offensive Security",                             vendors: [{ name:"Fortra",               type:"N" }] },
+      { cap: "Deception",                                      vendors: [] },
       { cap: "OT & ICS Security",                              vendors: [] },
-      { cap: "External Penetration Test",                      vendors: [{ name:"Watchtowr",             type:"N" }] },
-      { cap: "Offensive Security",                             vendors: [{ name:"Fortra",                type:"N" }] },
-      { cap: "DNS Security (DNSsec)",                          vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Thales / Imperva",     type:"N" }, { name:"NetSkope",            type:"N" }] },
-      { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",            type:"T" }, { name:"NetSkope",             type:"T" }, { name:"SentinelOne",          type:"T" }] },
-      { cap: "AI Security-Gateway",                            vendors: [{ name:"Citrix / NetScaler",    type:"T" }] },
-      { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Fortra",               type:"N" }] },
-      { cap: "PQC / Quantum Safe",                             vendors: [{ name:"CheckPoint",            type:"T" }, { name:"Thales / Imperva",     type:"T" }, { name:"Citrix / NetScaler",   type:"T" }, { name:"Gigamon",              type:"T" }, { name:"Riverbed",             type:"T" }] },
+      { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Fortra",              type:"N" }] },
     ]
   },
+
+  /* ─────────────────────────────────────────────
+     5. CLOUD SECURITY
+     Cloud-native security controls and access
+     ───────────────────────────────────────────── */
   {
-    group: "Cloud",
+    group: "Cloud Security",
     items: [
-      { cap: "CNAPP",                                          vendors: [{ name:"SentinelOne",           type:"N" }] },
-      { cap: "SASE / SSE",                                     vendors: [{ name:"CheckPoint",            type:"T" }, { name:"Fortra",               type:"T" }, { name:"NetSkope",            type:"T" }] },
-      { cap: "CASB",                                           vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"B" }] },
-      { cap: "ZTNA",                                           vendors: [{ name:"CheckPoint",            type:"N" }, { name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"N" }] },
-      { cap: "Remote Browser Isolation (RBI)",                 vendors: [{ name:"Fortra",                type:"N" }, { name:"NetSkope",             type:"N" }] },
-      { cap: "FWaaS",                                          vendors: [{ name:"Fortra",                type:"N" }, { name:"NetSkope",             type:"N" }] },
+      { cap: "CNAPP",                                          vendors: [{ name:"SentinelOne",          type:"N" }] },
+      { cap: "SASE / SSE",                                     vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"NetSkope",            type:"T" }] },
+      { cap: "CASB",                                           vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Fortra",              type:"N" }, { name:"NetSkope",            type:"B" }] },
+      { cap: "ZTNA",                                           vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Fortra",              type:"N" }, { name:"NetSkope",            type:"N" }] },
+      { cap: "Remote Browser Isolation (RBI)",                 vendors: [{ name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"N" }] },
+      { cap: "FWaaS",                                          vendors: [{ name:"Fortra",               type:"N" }, { name:"NetSkope",            type:"N" }] },
     ]
   },
+
+  /* ─────────────────────────────────────────────
+     6. DETECTION & RESPONSE
+     SOC capabilities: detect, investigate, respond
+     ───────────────────────────────────────────── */
   {
-    group: "SOC",
+    group: "Detection & Response",
     items: [
-      { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",              type:"N" }, { name:"SentinelOne",          type:"N" }] },
-      { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",               type:"N" }, { name:"Exabeam / LR",         type:"N" }, { name:"Netwitness",           type:"N" }, { name:"SolarWinds",    type:"N" }] },
-      { cap: "Threat Intelligence",                            vendors: [{ name:"Anomali",               type:"B" }, { name:"CheckPoint",           type:"N" }] },
-      { cap: "Identity Security / ITDR",                       vendors: [{ name:"SentinelOne",           type:"N" }, { name:"SilverFort",           type:"B" }] },
-      { cap: "Non-Human Identity Security (NHI)",              vendors: [{ name:"SilverFort",            type:"T" }] },
-      { cap: "Endpoint Detection and Response (EDR)",          vendors: [{ name:"SentinelOne",           type:"B" }] },
-      { cap: "Network Packet Broker / SSL Decryption",         vendors: [{ name:"Gigamon",               type:"N" }] },
-      { cap: "Network Detection and Response (NDR)",           vendors: [{ name:"Vectra",                type:"B" }] },
-      { cap: "Cloud Detection and Response (CDR)",             vendors: [{ name:"Vectra",                type:"N" }] },
-      { cap: "Extended Detection and Response (XDR)",          vendors: [{ name:"Anomali",               type:"N" }, { name:"CheckPoint",           type:"N" }, { name:"SentinelOne",          type:"N" }] },
-      { cap: "Identity Security Posture Management (ISPM)",    vendors: [{ name:"SilverFort",            type:"T" }] },
-      { cap: "Data Security Posture Management (DSPM)",        vendors: [{ name:"BigID",                 type:"N" }, { name:"NetSkope",             type:"N" }] },
-      { cap: "Cloud Security Posture Management (CSPM)",       vendors: [{ name:"SentinelOne",           type:"N" }] },
+      { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",              type:"N" }, { name:"Exabeam / LR",        type:"N" }, { name:"Netwitness",          type:"N" }, { name:"SolarWinds",   type:"N" }] },
+      { cap: "Threat Intelligence",                            vendors: [{ name:"Anomali",              type:"B" }, { name:"CheckPoint",          type:"N" }] },
+      { cap: "Endpoint Detection and Response (EDR)",          vendors: [{ name:"SentinelOne",          type:"B" }] },
+      { cap: "Identity Security / ITDR",                       vendors: [{ name:"SentinelOne",          type:"N" }, { name:"SilverFort",          type:"B" }] },
+      { cap: "Non-Human Identity Security (NHI)",              vendors: [{ name:"SilverFort",           type:"T" }] },
+      { cap: "Network Packet Broker / SSL Decryption",         vendors: [{ name:"Gigamon",              type:"N" }] },
+      { cap: "Network Detection and Response (NDR)",           vendors: [{ name:"Vectra",               type:"B" }] },
+      { cap: "Cloud Detection and Response (CDR)",             vendors: [{ name:"Vectra",               type:"N" }] },
+      { cap: "Extended Detection and Response (XDR)",          vendors: [{ name:"Anomali",              type:"N" }, { name:"CheckPoint",          type:"N" }, { name:"SentinelOne",    type:"N" }] },
+      { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",             type:"N" }, { name:"SentinelOne",         type:"N" }] },
+      { cap: "Identity Security Posture Management (ISPM)",    vendors: [{ name:"SilverFort",           type:"T" }] },
+      { cap: "Data Security Posture Management (DSPM)",        vendors: [{ name:"BigID",                type:"N" }, { name:"NetSkope",            type:"N" }] },
+      { cap: "Cloud Security Posture Management (CSPM)",       vendors: [{ name:"SentinelOne",          type:"N" }] },
     ]
   },
+
+  /* ─────────────────────────────────────────────
+     7. NETWORK PERFORMANCE & INFRASTRUCTURE
+     Network optimization, delivery, monitoring
+     ───────────────────────────────────────────── */
   {
-    group: "NOC",
+    group: "Network Performance & Infrastructure",
     items: [
-      { cap: "NAPM / Observability",                           vendors: [{ name:"SolarWinds",            type:"B" }, { name:"Riverbed",             type:"N" }] },
-      { cap: "SD-WAN / WANO",                                 vendors: [{ name:"CheckPoint",            type:"N" }, { name:"NetSkope",             type:"N" }, { name:"Riverbed",             type:"N" }] },
-      { cap: "ADC",                                           vendors: [{ name:"Citrix / NetScaler",    type:"B" }] },
-      { cap: "Traffic / Bandwidth Management",                vendors: [{ name:"Allot",                 type:"N" }] },
+      { cap: "NAPM / Observability",                           vendors: [{ name:"SolarWinds",           type:"B" }, { name:"Riverbed",            type:"N" }] },
+      { cap: "SD-WAN / WANO",                                 vendors: [{ name:"CheckPoint",           type:"N" }, { name:"NetSkope",            type:"N" }, { name:"Riverbed",            type:"N" }] },
+      { cap: "ADC",                                           vendors: [{ name:"Citrix / NetScaler",   type:"B" }] },
+      { cap: "Traffic / Bandwidth Management",                vendors: [{ name:"Allot",                type:"N" }] },
+      { cap: "Virtual Desktop Infrastructure (VDI)",          vendors: [{ name:"Citrix / NetScaler",   type:"B" }] },
     ]
   },
+
+  /* ─────────────────────────────────────────────
+     8. IT OPERATIONS
+     Helpdesk, ITSM, service management
+     ───────────────────────────────────────────── */
   {
-    group: "Operation Product",
+    group: "IT Operations",
     items: [
-      { cap: "Remote HelpDesk",                                vendors: [{ name:"SolarWinds",            type:"N" }] },
-      { cap: "ITSM / ITAM",                                    vendors: [{ name:"Ivanti",                type:"N" }, { name:"SolarWinds",           type:"N" }] },
+      { cap: "Remote HelpDesk",                                vendors: [{ name:"SolarWinds",           type:"N" }] },
+      { cap: "ITSM / ITAM",                                    vendors: [{ name:"Ivanti",               type:"N" }, { name:"SolarWinds",          type:"N" }] },
     ]
   },
 ];
@@ -1313,8 +1417,29 @@ function buildMobCards() {
       row.dataset.vendors = JSON.stringify(item.vendors.map(v => ({ name:v.name, nameLow:v.name.toLowerCase(), type:v.type })));
       let tagsHtml = item.vendors.length === 0
         ? `<span class="mob-no-vendor">— no vendor assigned</span>`
-        : item.vendors.map(v => `<span class="mob-vendor-tag" data-type="${v.type}"><span class="type-badge ${v.type}">${v.type}</span>${v.name}</span>`).join('');
+        : item.vendors.map(v => `<span class="mob-vendor-tag" data-vendor="${v.name}" data-type="${v.type}"><span class="type-badge ${v.type}">${v.type}</span>${v.name}</span>`).join('');
       row.innerHTML = `<div class="mob-cap-header"><span class="mob-cap-icon">${CAP_ICONS[item.cap] || ICON_FALLBACK}</span><div class="mob-cap-name">${item.cap}</div></div><div class="mob-vendor-row">${tagsHtml}</div>`;
+
+      // Vendor tag tap → toggle that vendor in mobState and re-filter
+      row.querySelectorAll('.mob-vendor-tag').forEach(tag => {
+        tag.addEventListener('click', () => {
+          const v = tag.dataset.vendor;
+          if (mobState.vendors.has(v)) {
+            mobState.vendors.delete(v);
+          } else {
+            mobState.vendors.add(v);
+          }
+          // Sync drawer vendor chips
+          document.querySelectorAll('#mobVendorChips .mob-chip').forEach(chip => {
+            chip.classList.toggle('active', mobState.vendors.has(chip.dataset.vendor));
+          });
+          // Update filter button badge
+          const hasF = mobState.groups.size || mobState.types.size || mobState.vendors.size;
+          const fb = document.getElementById('mobFilterBtn');
+          if (fb) fb.classList.toggle('has-filters', !!hasF);
+          applyMobFilters();
+        });
+      });
       list.appendChild(row);
     });
     mainEl.appendChild(section);
@@ -1357,6 +1482,11 @@ function applyMobFilters() {
         row.classList.toggle('hidden', !show);
         if (show) { vis++; total++; }
       }
+
+      // Highlight vendor tags that are in active mob vendor filter
+      row.querySelectorAll('.mob-vendor-tag').forEach(tag => {
+        tag.classList.toggle('mob-highlighted', mobState.vendors.has(tag.dataset.vendor));
+      });
     });
     const denom = mobState.showGaps ? groupData.items.length : groupData.items.filter(i => i.vendors.length > 0).length;
     if (cntEl) cntEl.textContent = `${vis}/${denom}`;
@@ -1449,6 +1579,7 @@ document.getElementById('mobClearBtn').addEventListener('click', () => {
   document.getElementById('mobGapBtn').classList.remove('active');
   document.getElementById('mobGapBtn').textContent = 'Show gaps';
   syncMobChipUI();
+  document.querySelectorAll('.mob-vendor-tag').forEach(t => t.classList.remove('mob-highlighted'));
   applyMobFilters();
 });
 
@@ -1464,8 +1595,8 @@ document.getElementById('mobGapBtn').addEventListener('click', () => {
 /* ═══════════════════════════════════════════════════════════════════════════
    INIT — auto-detect device, show picker
    ═══════════════════════════════════════════════════════════════════════════ */
-// Launch web version by default
-showWeb();
+// Launch mobile version by default
+showMob();
 </script>
 </body>
 </html>
