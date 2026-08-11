@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>MTTH Technology — FY26 Q2 Portfolio</title>
+<title>MTTH Technology — FY26 Q4 Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════ SHARED TOKENS ═══════════════════════════ */
@@ -443,7 +443,7 @@ main.web-main { padding:24px 32px 72px; }
 <header>
   <h1>MTTH Technology — Cybersecurity &amp; Network Portfolio</h1>
   <div class="hd-right">
-    <span>FY26 Q2 &nbsp;·&nbsp; Update 26.06.08</span>
+    <span>FY26 Q4 &nbsp;·&nbsp; Update 26.08.11</span>
     <div class="view-toggle-pill" id="view-toggle">
       <button class="vt-btn"        id="vt-web">Web</button>
       <button class="vt-btn active" id="vt-mob">Mobile</button>
@@ -514,7 +514,7 @@ main.web-main { padding:24px 32px 72px; }
   <div class="mob-header">
     <div class="mob-header-left">
       <h1>MTTH Cybersecurity Portfolio</h1>
-      <span>FY26 Q2 · Update 26.06.08</span>
+      <span>FY26 Q4 · Update 26.08.11</span>
     </div>
     <div class="view-toggle-pill" id="view-toggle-mob">
       <button class="vt-btn" id="vt-web-mob">Web</button>
@@ -581,7 +581,7 @@ main.web-main { padding:24px 32px 72px; }
 <script>
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   DATA — sourced directly from MTTH_Technology_FY26Q2.xlsx  (Update 26.04.30)
+   DATA — sourced directly from MTTH_Technology_FY26Q4.xlsx  (Update 26.08.11)
    Group order: Security Product → Cloud → SOC → NOC → Operation Product
    Type: N = Normal, B = Best Seller, T = Trend
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -625,7 +625,7 @@ const DATA = [
       { cap: "API Security",                                   vendors: [{ name:"Thales / Imperva",     type:"T" }, { name:"Citrix / NetScaler",  type:"T" }] },
       { cap: "Application Security (DEVSECOPS)",               vendors: [{ name:"CheckPoint",           type:"N" }] },
       { cap: "File Gateway (CDR)",                             vendors: [] },
-      { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"NetSkope",             type:"T" }, { name:"SentinelOne",        type:"T" }] },
+      { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"NetSkope",             type:"T" }, { name:"SentinelOne",        type:"T" }, { name:"Proofpoint",          type:"T" }] },
     ]
   },
 
@@ -637,12 +637,12 @@ const DATA = [
     group: "Network & Perimeter Security",
     items: [
       { cap: "Next-Gen Firewall",                              vendors: [{ name:"CheckPoint",           type:"B" }] },
-      { cap: "Email Security Gateway",                         vendors: [{ name:"CheckPoint",           type:"B" }] },
+      { cap: "Email Security Gateway",                         vendors: [{ name:"CheckPoint",           type:"B" }, { name:"Proofpoint",           type:"B" }] },
       { cap: "Web Security Gateway",                           vendors: [{ name:"NetSkope",             type:"B" }] },
       { cap: "Anti-DDoS / Anti-Bot",                           vendors: [{ name:"Thales / Imperva",     type:"N" }, { name:"Citrix / NetScaler",  type:"N" }] },
       { cap: "DNS Security (DNSsec)",                          vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"N" }, { name:"NetSkope",            type:"N" }] },
       { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",                type:"N" }] },
-      { cap: "AI Security-Gateway",                            vendors: [{ name:"Citrix / NetScaler",   type:"T" }] },
+      { cap: "AI Security-Gateway",                            vendors: [{ name:"Citrix / NetScaler",   type:"T" }, { name:"NetSkope",            type:"T" }] },
       { cap: "PQC / Quantum Safe",                             vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Thales / Imperva",    type:"T" }, { name:"Citrix / NetScaler",  type:"T" }, { name:"Gigamon",             type:"T" }, { name:"Riverbed",            type:"T" }] },
       { cap: "OT & ICS Security",                              vendors: [] },
     ]
@@ -659,9 +659,9 @@ const DATA = [
       { cap: "CTEM / EASM",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Fortra",              type:"T" }, { name:"Watchtowr",           type:"T" }] },
       { cap: "External Penetration Test",                      vendors: [{ name:"Watchtowr",            type:"N" }] },
       { cap: "Offensive Security",                             vendors: [{ name:"Fortra",               type:"N" }] },
-      { cap: "Deception",                                      vendors: [] },
+      { cap: "Deception",                                      vendors: [{ name:"Proofpoint",           type:"B" }] },
       { cap: "Fraud and Risk Intelligence (FRI)",              vendors: [{ name:"RSA",                  type:"N" }] },
-      { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Fortra",              type:"N" }] },
+      { cap: "Security Awareness Training",                    vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Fortra",              type:"N" }, { name:"Proofpoint",          type:"B" }] },
     ]
   },
 
