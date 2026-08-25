@@ -497,25 +497,55 @@ ul.tsum li svg { flex-shrink:0; margin-top:1px; color:var(--accent); }
 .threat-row .st { font-family:'IBM Plex Mono',monospace; font-size:11px; color:#fff; background:#1d3557; border-radius:4px; padding:5px 9px; text-align:center; }
 .threat-row .th { font-size:12px; font-weight:500; }
 
-/* zero-trust diagram */
-.zt-wrap { display:grid; grid-template-columns:1fr minmax(180px,220px) 1fr; gap:12px; align-items:stretch; }
-.zt-col { display:flex; flex-direction:column; gap:10px; }
-.zt-node { background:var(--bg); border:1px solid var(--border); border-radius:7px; padding:11px 13px; }
-.zt-node h6 { font-size:12.5px; font-weight:600; margin-bottom:3px; }
-.zt-node .sig { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); margin-bottom:7px; line-height:1.5; }
-.zt-core {
-  background:var(--accent); color:#fff; border-radius:10px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; padding:20px 14px; gap:6px; align-self:center; min-height:150px;
+/* ── Zero Trust: hub-and-spoke policy diagram ─────────────────────────── */
+.zt2 { display:flex; flex-direction:column; }
+.zt2-bar {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:var(--accent-l); color:var(--accent);
+  border:1.5px solid var(--accent); border-radius:7px; padding:8px 14px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.07em;
+  text-transform:uppercase;
 }
-.zt-core b { font-size:14px; font-weight:600; line-height:1.3; }
-.zt-core span { font-size:11px; opacity:.86; line-height:1.4; }
-.zt-core .cap { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; opacity:.65; }
-.zt-bands { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-.zt-band { flex:1; min-width:170px; background:var(--accent-l); color:var(--accent); border-radius:6px; padding:8px 12px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-align:center; letter-spacing:.05em; }
-.zt-base { margin-top:10px; background:var(--bg); border:1px solid var(--border); border-radius:7px; padding:11px 13px; text-align:center; }
-.zt-base h6 { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; margin-bottom:8px; }
-.zt-base .vchip-row { justify-content:center; }
+.zt2-link { position:relative; height:26px; display:flex; align-items:center; justify-content:center; color:var(--accent); }
+.zt2-link::before { content:''; position:absolute; top:0; bottom:0; left:50%; border-left:2px dashed var(--accent); opacity:.35; }
+.zt2-link svg { position:relative; background:var(--surface); }
+.zt2-link.down svg { transform:rotate(90deg); }
+.zt2-link.up   svg { transform:rotate(-90deg); }
+.zt2-bands { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.zt2-band {
+  flex:1; min-width:180px; display:flex; align-items:center; justify-content:center; gap:7px;
+  background:var(--accent-l); color:var(--accent); border-radius:6px; padding:9px 12px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em;
+}
+.zt2-base { margin-top:9px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px 14px; text-align:center; }
+.zt2-base h6 { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; color:var(--muted); margin-bottom:9px; }
+.zt2-base .vchip-row { justify-content:center; }
+.zt2-heads, .zt2-row { display:grid; grid-template-columns:1fr 46px minmax(196px,232px) 46px 1fr; }
+.zt2-heads > div {
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--muted); text-align:center; padding-bottom:8px;
+}
+.zt2-col { display:flex; flex-direction:column; gap:9px; }
+.zt2-col.enforce { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; align-content:center; }
+.zt2-arrow { position:relative; display:flex; align-items:center; justify-content:center; }
+.zt2-arrow::before { content:''; position:absolute; top:12px; bottom:12px; left:50%; border-left:2px dashed var(--accent); opacity:.3; }
+.zt2-arrow i {
+  position:relative; display:flex; align-items:center; justify-content:center;
+  width:23px; height:23px; border-radius:50%; background:var(--accent); color:#fff;
+}
+.zt2-node { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:11px 12px; }
+.zt2-node .nh { display:flex; align-items:center; gap:7px; margin-bottom:3px; color:var(--accent); }
+.zt2-node .nh b { font-size:12.5px; color:var(--text); }
+.zt2-node .sig { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); line-height:1.5; margin-bottom:8px; }
+.zt2-core {
+  align-self:center; background:var(--accent); color:#fff; border-radius:13px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:7px; padding:24px 16px; min-height:172px;
+  box-shadow:0 8px 26px rgba(0,0,0,.16);
+}
+.zt2-core .ci { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.18); }
+.zt2-core b { font-size:14px; font-weight:600; line-height:1.3; }
+.zt2-core span { font-size:11px; opacity:.85; line-height:1.45; }
 
 /* CTEM lifecycle */
 .ctem-flow { display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); }
@@ -527,24 +557,431 @@ ul.tsum li svg { flex-shrink:0; margin-top:1px; color:var(--accent); }
 .ctem-phase ul { list-style:none; padding:10px 12px; display:flex; flex-direction:column; gap:6px; }
 .ctem-phase li { font-size:11.5px; line-height:1.45; color:#4a4a45; padding-left:12px; position:relative; }
 .ctem-phase li::before { content:''; position:absolute; left:1px; top:6px; width:4px; height:4px; border-radius:50%; background:var(--accent); opacity:.6; }
+.ctem-phase li .vchip-row { margin-top:5px; gap:3px; }
+.ctem-phase li .vchip { font-size:9px; padding:1px 5px; }
+.sup-box .vchip-row { margin-top:7px; }
+.sup-box .sup-none { display:block; margin-top:7px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:#bdbdb8; font-style:italic; }
 .ctem-support { display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); }
 .sup-box { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:11px 13px; }
 .sup-box b { display:block; font-size:12.5px; margin-bottom:3px; }
 .sup-box span { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); }
 
-/* resilience stack */
-.stack { display:flex; flex-direction:column; gap:7px; }
-.stk-layer { border:1px solid var(--border); border-radius:7px; overflow:hidden; background:var(--surface); }
-.stk-layer .sl-h { display:flex; align-items:center; gap:10px; padding:8px 13px; color:#fff; }
-.stk-layer .sl-h .fn { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.16em; opacity:.8; width:76px; flex-shrink:0; }
-.stk-layer .sl-h b { font-size:12.5px; font-weight:600; }
-.stk-layer .sl-b { padding:10px 13px; }
-.pillar-grid { display:grid; gap:7px; grid-template-columns:repeat(4,minmax(0,1fr)); }
-@media (max-width:1100px) { .pillar-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-.pillar { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:9px 10px; }
-.pillar b { display:block; font-size:11.5px; margin-bottom:6px; }
-.asset-band { display:flex; flex-wrap:wrap; gap:6px; }
-.asset-band span { background:var(--cld-light); color:var(--cld); border-radius:4px; padding:4px 10px; font-family:'IBM Plex Mono',monospace; font-size:10px; }
+/* ── Cyber Resilience: function × pillar matrix ───────────────────────── */
+.res-wrap { overflow-x:auto; padding-bottom:4px; }
+.res { display:grid; grid-template-columns:92px repeat(8,minmax(0,1fr)); gap:5px; min-width:930px; }
+.res-fn {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  border-radius:6px; color:#fff; padding:9px 5px; text-align:center;
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.13em;
+}
+.res-band {
+  border-radius:6px; padding:10px 14px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  border:1px solid var(--border); background:var(--surface);
+}
+.res-band .bt { font-size:12.5px; font-weight:600; }
+.res-band .bn { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); }
+.res-head {
+  background:#e7e7e4; border-radius:5px; padding:6px 4px; text-align:center;
+  font-size:10.5px; font-weight:600; line-height:1.2;
+}
+.res-cell {
+  background:var(--bg); border:1px solid var(--border); border-radius:6px;
+  padding:8px 7px; display:flex; flex-direction:column; gap:5px; min-height:56px;
+}
+.res-cell .rt { font-size:10.5px; font-weight:600; text-align:center; color:#4a4a45; }
+.res-cell .vchip-row { justify-content:center; gap:3px; }
+.res-cell .vchip { font-size:9px; padding:1px 5px; }
+.res-strip { display:flex; flex-wrap:wrap; gap:5px; }
+.res-strip span { flex:1; min-width:110px; text-align:center; background:var(--eii-light); color:var(--eii); border-radius:5px; padding:6px 9px; font-family:'IBM Plex Mono',monospace; font-size:10px; }
+.res-grc { display:flex; align-items:center; gap:14px; flex-wrap:wrap; border-radius:6px; padding:10px 14px; background:var(--eii-light); }
+.res-grc .bt { font-size:12px; font-weight:600; color:var(--eii); }
+
+/* ── Data Security: three lines of defence around the data ────────────── */
+.dsl { display:flex; flex-direction:column; }
+.dsl-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.dsl-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-top:4px solid var(--accent); border-radius:9px;
+  padding:14px 15px 13px; display:flex; flex-direction:column; gap:9px;
+}
+.dsl-card .dc-h { display:flex; align-items:center; gap:9px; }
+.dsl-card .dc-n {
+  flex-shrink:0; width:28px; height:28px; border-radius:8px;
+  background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace; font-size:11px;
+}
+.dsl-card .dc-i {
+  flex-shrink:0; width:28px; height:28px; border-radius:8px;
+  background:var(--accent-l); color:var(--accent); display:flex; align-items:center; justify-content:center;
+}
+.dsl-card .dc-h b { display:block; font-size:14.5px; font-weight:600; line-height:1.2; }
+.dsl-card .dc-sub { font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.dsl-card .dc-q { font-size:12.5px; line-height:1.5; color:#3c3c38; }
+.dsl-card .dc-stops {
+  display:flex; align-items:flex-start; gap:7px;
+  background:var(--accent-l); border-radius:6px; padding:8px 10px;
+  font-size:11.5px; line-height:1.45; color:var(--accent);
+}
+.dsl-card .dc-stops svg { flex-shrink:0; margin-top:1px; }
+.dsl-card .dc-lab {
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:-4px;
+}
+.dsl-arrows { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.dsl-arrows div { position:relative; height:26px; display:flex; align-items:center; justify-content:center; color:var(--accent); }
+.dsl-arrows div::before { content:''; position:absolute; top:0; bottom:0; left:50%; border-left:2px dashed var(--accent); opacity:.35; }
+.dsl-arrows svg { position:relative; background:var(--surface); transform:rotate(90deg); }
+.ds-core {
+  background:#3d1c5e; color:#fff; border-radius:10px; padding:17px 18px;
+  display:flex; flex-direction:column; align-items:center; gap:5px; text-align:center;
+}
+.ds-core b { font-size:15px; font-weight:600; }
+.ds-core span { font-size:11.5px; opacity:.82; line-height:1.45; }
+/* coverage by data state */
+.dss { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+.dss-card {
+  background:var(--bg); border:1px solid var(--border);
+  border-left:3px solid var(--accent); border-radius:7px; padding:11px 13px;
+}
+.dss-card b { display:block; font-size:12.5px; font-weight:600; }
+.dss-card .w { display:block; font-size:11px; color:var(--muted); line-height:1.45; margin:2px 0 8px; }
+
+/* ═══════════ SUB NAVIGATOR (shared by Trend + Standards) ═══════════ */
+.sub-nav {
+  display:flex; gap:5px; overflow-x:auto; scrollbar-width:none;
+  background:var(--surface); border:1px solid var(--border); border-radius:9px;
+  padding:6px; margin-bottom:18px;
+  position:sticky; top:var(--hdr-h); z-index:80;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.sub-nav::-webkit-scrollbar { display:none; }
+.sub-btn {
+  display:inline-flex; align-items:center; gap:8px; flex-shrink:0;
+  padding:7px 13px 7px 8px; border-radius:6px; border:1px solid transparent;
+  background:transparent; cursor:pointer; font-family:inherit; text-align:left;
+  transition:background .14s, border-color .14s;
+}
+.sub-btn .sg {
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  width:26px; height:26px; border-radius:6px;
+  background:var(--bg); color:var(--sn, var(--muted)); transition:all .14s;
+}
+.sub-btn .lb { display:flex; flex-direction:column; gap:1px; }
+.sub-btn .lb b { font-size:12.5px; font-weight:600; line-height:1.25; white-space:nowrap; color:#3c3c38; }
+.sub-btn .lb span {
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.1em;
+  text-transform:uppercase; white-space:nowrap; color:var(--muted);
+}
+.sub-btn:hover { background:var(--bg); }
+.sub-btn.active { background:var(--sn); border-color:var(--sn); }
+.sub-btn.active .lb b, .sub-btn.active .lb span { color:#fff; }
+.sub-btn.active .lb span { opacity:.72; }
+.sub-btn.active .sg { background:rgba(255,255,255,.2); color:#fff; }
+
+/* ═══════════ 2 · CYBER TREND 2026 ═══════════ */
+.trend-panel { display:none; }
+.trend-panel.active { display:block; }
+/* headline bullets from deck p.4 */
+ul.tsum { list-style:none; display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); margin-bottom:6px; }
+ul.tsum li {
+  display:flex; align-items:flex-start; gap:8px;
+  background:var(--accent-l); border-radius:6px; padding:9px 12px;
+  font-size:12px; line-height:1.45; color:#3c3c38;
+}
+ul.tsum li svg { flex-shrink:0; margin-top:1px; color:var(--accent); }
+
+/* trend detail panel */
+.tdet {
+  background:var(--surface); border:1px solid var(--border);
+  border-left:4px solid var(--accent); border-radius:7px; padding:20px 22px 22px;
+}
+.tdet-head { display:flex; align-items:flex-start; gap:12px; margin-bottom:4px; }
+.tdet-head h3 { font-size:18px; font-weight:600; letter-spacing:-.012em; }
+.tdet-head .src { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); margin-left:auto; white-space:nowrap; padding-top:5px; }
+.tdet-lead { font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:16px; max-width:80ch; }
+.tdet h5, .std-panel h5 {
+  display:flex; align-items:center; gap:7px;
+  font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted); margin:18px 0 9px;
+  padding-bottom:5px; border-bottom:1px solid var(--border);
+}
+.tdet h5 svg, .std-panel h5 svg { opacity:.65; flex-shrink:0; }
+.tdet h5.accent { color:var(--accent); }
+.tdet h5.accent svg { opacity:.9; }
+.tdet h5:first-of-type { margin-top:0; }
+
+/* generic column set used inside detail panels */
+.col-set { display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); }
+.col-box { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:12px 13px; }
+.col-box h6 { font-size:12.5px; font-weight:600; margin-bottom:5px; color:var(--accent); line-height:1.3; }
+.col-box p { font-size:11.5px; line-height:1.5; color:#4a4a45; }
+.col-box .actor { display:inline-flex; align-items:center; gap:6px; margin:8px 0 6px; padding:3px 10px; border-radius:20px; border:1.5px solid var(--accent); color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:10px; }
+.col-box .note { font-size:11px; color:var(--muted); line-height:1.45; }
+
+/* solution column strip (AI security) */
+.sol-strip { display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); }
+.sol-col { border:1px solid var(--border); border-radius:6px; overflow:hidden; background:var(--surface); }
+.sol-col .sc-h { background:#eceff3; padding:9px 11px; }
+.sol-col .sc-h b { display:block; font-size:12px; font-weight:600; line-height:1.3; }
+.sol-col .sc-h span { font-size:10.5px; color:var(--muted); }
+.sol-col .sc-b { padding:9px 11px; display:flex; flex-wrap:wrap; gap:4px; }
+
+/* numbered step cards (PQC) */
+.step-set { display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+.step-box { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:13px 14px; border-left:4px solid var(--accent); }
+.step-box .sn { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:11px; margin-bottom:8px; }
+.step-box h6 { font-size:13px; font-weight:600; margin-bottom:5px; }
+.step-box p { font-size:11.5px; line-height:1.5; color:#4a4a45; }
+
+/* threat rows (PQC) */
+.threat-rows { display:flex; flex-direction:column; gap:6px; }
+.threat-row { display:grid; grid-template-columns:150px 1fr; gap:10px; align-items:center; background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:9px 12px; }
+.threat-row .st { font-family:'IBM Plex Mono',monospace; font-size:11px; color:#fff; background:#1d3557; border-radius:4px; padding:5px 9px; text-align:center; }
+.threat-row .th { font-size:12px; font-weight:500; }
+
+/* ── Zero Trust: hub-and-spoke policy diagram ─────────────────────────── */
+.zt2 { display:flex; flex-direction:column; }
+.zt2-bar {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:var(--accent-l); color:var(--accent);
+  border:1.5px solid var(--accent); border-radius:7px; padding:8px 14px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.07em;
+  text-transform:uppercase;
+}
+.zt2-link { position:relative; height:26px; display:flex; align-items:center; justify-content:center; color:var(--accent); }
+.zt2-link::before { content:''; position:absolute; top:0; bottom:0; left:50%; border-left:2px dashed var(--accent); opacity:.35; }
+.zt2-link svg { position:relative; background:var(--surface); }
+.zt2-link.down svg { transform:rotate(90deg); }
+.zt2-link.up   svg { transform:rotate(-90deg); }
+.zt2-bands { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.zt2-band {
+  flex:1; min-width:180px; display:flex; align-items:center; justify-content:center; gap:7px;
+  background:var(--accent-l); color:var(--accent); border-radius:6px; padding:9px 12px;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em;
+}
+.zt2-base { margin-top:9px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px 14px; text-align:center; }
+.zt2-base h6 { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.08em; color:var(--muted); margin-bottom:9px; }
+.zt2-base .vchip-row { justify-content:center; }
+.zt2-heads, .zt2-row { display:grid; grid-template-columns:1fr 46px minmax(196px,232px) 46px 1fr; }
+.zt2-heads > div {
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--muted); text-align:center; padding-bottom:8px;
+}
+.zt2-col { display:flex; flex-direction:column; gap:9px; }
+.zt2-col.enforce { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; align-content:center; }
+.zt2-arrow { position:relative; display:flex; align-items:center; justify-content:center; }
+.zt2-arrow::before { content:''; position:absolute; top:12px; bottom:12px; left:50%; border-left:2px dashed var(--accent); opacity:.3; }
+.zt2-arrow i {
+  position:relative; display:flex; align-items:center; justify-content:center;
+  width:23px; height:23px; border-radius:50%; background:var(--accent); color:#fff;
+}
+.zt2-node { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:11px 12px; }
+.zt2-node .nh { display:flex; align-items:center; gap:7px; margin-bottom:3px; color:var(--accent); }
+.zt2-node .nh b { font-size:12.5px; color:var(--text); }
+.zt2-node .sig { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); line-height:1.5; margin-bottom:8px; }
+.zt2-core {
+  align-self:center; background:var(--accent); color:#fff; border-radius:13px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:7px; padding:24px 16px; min-height:172px;
+  box-shadow:0 8px 26px rgba(0,0,0,.16);
+}
+.zt2-core .ci { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.18); }
+.zt2-core b { font-size:14px; font-weight:600; line-height:1.3; }
+.zt2-core span { font-size:11px; opacity:.85; line-height:1.45; }
+
+/* CTEM lifecycle */
+.ctem-flow { display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); }
+.ctem-phase { border:1px solid var(--border); border-radius:7px; overflow:hidden; background:var(--surface); display:flex; flex-direction:column; }
+.ctem-phase .ph-h { background:var(--accent); color:#fff; padding:9px 12px; }
+.ctem-phase .ph-h .pn { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.12em; opacity:.75; }
+.ctem-phase .ph-h b { display:block; font-size:13px; font-weight:600; margin-top:2px; }
+.ctem-phase .ph-scope { padding:9px 12px; background:var(--accent-l); font-size:11px; line-height:1.45; color:#3c3c38; border-bottom:1px solid var(--border); }
+.ctem-phase ul { list-style:none; padding:10px 12px; display:flex; flex-direction:column; gap:6px; }
+.ctem-phase li { font-size:11.5px; line-height:1.45; color:#4a4a45; padding-left:12px; position:relative; }
+.ctem-phase li::before { content:''; position:absolute; left:1px; top:6px; width:4px; height:4px; border-radius:50%; background:var(--accent); opacity:.6; }
+.ctem-phase li .vchip-row { margin-top:5px; gap:3px; }
+.ctem-phase li .vchip { font-size:9px; padding:1px 5px; }
+.sup-box .vchip-row { margin-top:7px; }
+.sup-box .sup-none { display:block; margin-top:7px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:#bdbdb8; font-style:italic; }
+.ctem-support { display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); }
+.sup-box { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:11px 13px; }
+.sup-box b { display:block; font-size:12.5px; margin-bottom:3px; }
+.sup-box span { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); }
+
+/* ── Cyber Resilience: function × pillar matrix ───────────────────────── */
+.res-wrap { overflow-x:auto; padding-bottom:4px; }
+.res { display:grid; grid-template-columns:92px repeat(8,minmax(0,1fr)); gap:5px; min-width:930px; }
+.res-fn {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  border-radius:6px; color:#fff; padding:9px 5px; text-align:center;
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.13em;
+}
+.res-band {
+  border-radius:6px; padding:10px 14px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  border:1px solid var(--border); background:var(--surface);
+}
+.res-band .bt { font-size:12.5px; font-weight:600; }
+.res-band .bn { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); }
+.res-head {
+  background:#e7e7e4; border-radius:5px; padding:6px 4px; text-align:center;
+  font-size:10.5px; font-weight:600; line-height:1.2;
+}
+.res-cell {
+  background:var(--bg); border:1px solid var(--border); border-radius:6px;
+  padding:8px 7px; display:flex; flex-direction:column; gap:5px; min-height:56px;
+}
+.res-cell .rt { font-size:10.5px; font-weight:600; text-align:center; color:#4a4a45; }
+.res-cell .vchip-row { justify-content:center; gap:3px; }
+.res-cell .vchip { font-size:9px; padding:1px 5px; }
+.res-strip { display:flex; flex-wrap:wrap; gap:5px; }
+.res-strip span { flex:1; min-width:110px; text-align:center; background:var(--eii-light); color:var(--eii); border-radius:5px; padding:6px 9px; font-family:'IBM Plex Mono',monospace; font-size:10px; }
+.res-grc { display:flex; align-items:center; gap:14px; flex-wrap:wrap; border-radius:6px; padding:10px 14px; background:var(--eii-light); }
+.res-grc .bt { font-size:12px; font-weight:600; color:var(--eii); }
+
+/* ── Data Security: concentric defence-in-depth rings ─────────────────── */
+.dsr { display:flex; flex-direction:column; }
+.ring { border:2px solid; border-radius:14px; padding:26px 15px 15px; position:relative; }
+.ring > .rl {
+  position:absolute; top:-11px; left:15px; display:inline-flex; align-items:center; gap:6px;
+  padding:3px 11px; border-radius:20px; color:#fff;
+  font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.11em; text-transform:uppercase;
+}
+.ring > .rl b { font-weight:500; }
+.ring .rrow { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-bottom:14px; }
+.ring .rcaps { display:flex; flex-wrap:wrap; gap:5px; }
+.ring .rlab {
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted); flex-shrink:0;
+}
+.ring .vchip { background:#fff; }
+.ds-core {
+  background:#3d1c5e; color:#fff; border-radius:11px; padding:16px 18px; text-align:center;
+}
+.ds-core b { display:block; font-size:14px; font-weight:600; margin-bottom:9px; }
+.ds-core .states { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+.ds-core .states span {
+  background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.24); border-radius:20px;
+  padding:3px 12px; font-family:'IBM Plex Mono',monospace; font-size:10px;
+}
+
+
+/* ── PQC: threat lane converging on a crypto-agility control plane ─────── */
+.pqc-steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:3px; margin-bottom:16px; }
+.pqc-step {
+  background:var(--accent); color:#fff; padding:12px 18px 12px 28px;
+  clip-path:polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
+}
+.pqc-step:first-child { clip-path:polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%); padding-left:18px; }
+.pqc-step:last-child  { clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 15px 50%); }
+.pqc-step .sn { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; opacity:.7; }
+.pqc-step b { display:block; font-size:13px; font-weight:600; margin:2px 0 4px; }
+.pqc-step p { font-size:11px; line-height:1.45; opacity:.88; }
+.pqc-threats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+.pqc-threat { background:#1d3557; color:#fff; border-radius:8px; padding:12px 14px; }
+.pqc-threat .st { font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.1em; opacity:.7; text-transform:uppercase; }
+.pqc-threat .th { display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; margin-top:5px; }
+.pqc-conv { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.pqc-conv div { position:relative; height:24px; display:flex; align-items:center; justify-content:center; color:var(--accent); }
+.pqc-conv div::before { content:''; position:absolute; top:0; bottom:0; left:50%; border-left:2px dashed var(--accent); opacity:.35; }
+.pqc-conv svg { position:relative; background:var(--surface); transform:rotate(90deg); }
+.pqc-plane { margin-top:9px; border:2px solid var(--accent); background:var(--accent-l); border-radius:10px; padding:24px 15px 15px; position:relative; }
+.pqc-plane > .pl {
+  position:absolute; top:-11px; left:15px; background:var(--accent); color:#fff;
+  padding:3px 12px; border-radius:20px; display:inline-flex; align-items:center; gap:6px;
+  font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.11em; text-transform:uppercase;
+}
+.pqc-tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:7px; margin-bottom:12px; }
+.pqc-tile {
+  background:var(--surface); border:1px solid var(--border); border-radius:7px;
+  padding:11px 10px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px;
+}
+.pqc-tile .ti { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:8px; background:var(--accent-l); color:var(--accent); }
+.pqc-tile b { font-size:11.5px; font-weight:600; line-height:1.3; }
+.pqc-close { margin-top:12px; font-size:12px; font-weight:600; color:var(--accent); }
+
+/* ── CTEM: chevron lifecycle with a loop-back rail ─────────────────────── */
+.ct-steps, .ctem-flow { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; }
+.ct-steps { margin-bottom:8px; }
+.ct-step {
+  color:#fff; padding:10px 18px 10px 26px;
+  clip-path:polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
+}
+.ct-step:first-child { clip-path:polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%); padding-left:16px; }
+.ct-step:last-child  { clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 15px 50%); }
+.ct-step .pn { font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.14em; opacity:.72; }
+.ct-step b { display:block; font-size:13px; font-weight:600; margin-top:1px; }
+.ct-loop { display:flex; align-items:center; gap:10px; margin-top:10px; }
+.ct-loop .rail { flex:1; border-top:2px dashed var(--accent); opacity:.4; }
+.ct-loop .lbl { display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); white-space:nowrap; }
+.ct-loop .cap { display:flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; flex-shrink:0; }
+.ct-loop .cap.back svg { transform:rotate(180deg); }
+.ct-feed { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:8px; }
+
+/* ── shared: control card, group panel, stage flow, pillar row ─────────── */
+.ctl-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:9px; }
+.ctl-card {
+  background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--sc);
+  border-radius:8px; padding:12px 13px; display:flex; flex-direction:column; gap:7px;
+}
+.ctl-card .cc-h { display:flex; align-items:flex-start; gap:8px; }
+.ctl-card .cc-k {
+  flex-shrink:0; font-family:'IBM Plex Mono',monospace; font-size:9.5px;
+  background:var(--sc-l); color:var(--sc); border-radius:4px; padding:3px 7px; white-space:nowrap;
+}
+.ctl-card .cc-h b { font-size:12.5px; font-weight:600; line-height:1.3; }
+.ctl-card .cc-o { font-size:11.5px; line-height:1.5; color:#4a4a45; }
+.ctl-card .cc-obj { font-size:11.5px; line-height:1.45; color:var(--sc); font-weight:500; }
+.ctl-card .cc-ex { font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); line-height:1.5; }
+.ctl-card .row-jump { margin-top:0; }
+
+.grp-panel { border:1px solid var(--border); border-radius:10px; background:#fbfbfa; padding:0 0 12px; margin-bottom:12px; overflow:hidden; }
+.grp-head {
+  display:flex; align-items:center; gap:10px; padding:11px 14px; margin-bottom:12px;
+  background:var(--sc-l); border-bottom:1px solid var(--border);
+}
+.grp-head .gi { display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:7px; background:var(--sc); color:#fff; flex-shrink:0; }
+.grp-head .gn { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; color:var(--sc); opacity:.75; }
+.grp-head b { display:block; font-size:13.5px; font-weight:600; line-height:1.25; }
+.grp-head .gr { margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--sc); background:var(--surface); border:1px solid var(--sc); border-radius:20px; padding:3px 11px; white-space:nowrap; }
+.grp-panel .ctl-grid { padding:0 14px; }
+
+.stage-flow { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; margin-bottom:9px; }
+.stage-step {
+  background:var(--sc); color:#fff; padding:9px 16px 9px 24px;
+  clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%);
+  display:flex; align-items:center; gap:8px;
+}
+.stage-step:first-child { clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%); padding-left:15px; }
+.stage-step:last-child  { clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 14px 50%); }
+.stage-step .sn { font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:.13em; opacity:.72; }
+.stage-step b { display:block; font-size:12.5px; font-weight:600; }
+.stage-cols { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; align-items:start; }
+.stage-col { display:flex; flex-direction:column; gap:7px; }
+.stage-col .ctl-card { padding:10px 11px; gap:6px; }
+.stage-col .ctl-card .cc-h { flex-direction:column; gap:4px; }
+.stage-col .ctl-card .cc-h b { font-size:12px; }
+
+.pillar-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:9px; }
+.pillar-card {
+  background:var(--surface); border:1px solid var(--border); border-top:4px solid var(--sc);
+  border-radius:9px; padding:15px 13px 13px; display:flex; flex-direction:column; align-items:center;
+  gap:8px; text-align:center;
+}
+.pillar-card .pi { position:relative; display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--sc-l); color:var(--sc); }
+.pillar-card .pi .num {
+  position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%;
+  background:var(--sc); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px;
+  display:flex; align-items:center; justify-content:center;
+}
+.pillar-card .th { font-size:12px; line-height:1.5; color:#3c3c38; }
+.pillar-card .en { font-size:12.5px; font-weight:600; line-height:1.3; }
+.pillar-card .vchip-row { justify-content:center; }
+.pillar-base {
+  margin-top:10px; background:var(--sc); color:#fff; border-radius:8px; padding:11px 16px;
+  display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; text-align:center;
+}
+.pillar-base b { font-size:13px; font-weight:600; }
+.pillar-base span { font-family:'IBM Plex Mono',monospace; font-size:10.5px; opacity:.85; }
 
 /* ═══════════ 3 · REGULATORY STANDARDS ═══════════ */
 .std-panel { display:none; }
@@ -639,7 +1076,20 @@ table.maptable td.ex { font-family:'IBM Plex Mono',monospace; font-size:10.5px; 
   .doc-main { padding:18px 14px 76px; }
   .doc-title { font-size:19px; }
   .tdet { padding:16px 14px 18px; }
-  .zt-wrap { grid-template-columns:1fr; }
+  .zt2-heads { display:none; }
+  .zt2-row { grid-template-columns:1fr; }
+  .zt2-col.enforce { grid-template-columns:1fr; }
+  .zt2-arrow { height:30px; }
+  .zt2-arrow svg { transform:rotate(90deg); }
+  .dsl-row, .dss { grid-template-columns:1fr; }
+  .dsl-arrows { grid-template-columns:1fr; }
+  .dsl-arrows div:not(:first-child) { display:none; }
+  .pqc-steps, .pqc-threats, .pqc-conv { grid-template-columns:1fr; }
+  .pqc-step, .pqc-step:first-child, .pqc-step:last-child { clip-path:none; border-radius:7px; padding:12px 16px; }
+  .ct-steps, .ctem-flow { grid-template-columns:1fr; }
+  .ct-step, .ct-step:first-child, .ct-step:last-child { clip-path:none; border-radius:6px; padding:10px 14px; }
+  .stage-flow, .stage-cols { grid-template-columns:1fr; }
+  .stage-step, .stage-step:first-child, .stage-step:last-child { clip-path:none; border-radius:6px; padding:9px 14px; }
   .threat-row { grid-template-columns:1fr; }
   .std-stats { gap:14px; }
   .seg-strip { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -673,17 +1123,17 @@ table.maptable td.ex { font-family:'IBM Plex Mono',monospace; font-size:10.5px; 
     <small>Cyber Security &amp; Network Performance · FY26 Q4</small>
   </div>
   <nav id="section-tabs">
-    <button class="sec-tab active" data-sec="capabilities"><span class="n">00</span>Capabilities</button>
-    <button class="sec-tab" data-sec="matrix"><span class="n">01</span><span class="full">Compliance Matrix</span><span class="short">Matrix</span></button>
+    <button class="sec-tab active" data-sec="matrix"><span class="n">01</span><span class="full">Compliance Matrix</span><span class="short">Matrix</span></button>
     <button class="sec-tab" data-sec="trend"><span class="n">02</span><span class="full">Cyber Trend 2026</span><span class="short">Trend 2026</span></button>
     <button class="sec-tab" data-sec="standards"><span class="n">03</span>Standards</button>
+    <button class="sec-tab" data-sec="capabilities"><span class="n">04</span>Capabilities</button>
   </nav>
   <div class="hdr-right">
     <span class="hdr-meta">Source: FY2026 Thai Laws &amp; MTTH Products v05</span>
   </div>
 </header>
 
-<div class="app-section active" id="sec-capabilities">
+<div class="app-section" id="sec-capabilities">
 <!-- ═══════════ CAPABILITY BROWSER ═══════════ -->
 <div id="web-view">
 <div class="active-filters" id="activeFilters"><label>Active&nbsp;filters:</label></div>
@@ -747,7 +1197,7 @@ table.maptable td.ex { font-family:'IBM Plex Mono',monospace; font-size:10.5px; 
 </div><!-- #sec-capabilities -->
 
 <!-- ═══════════ DOCUMENT SECTIONS (built on first open) ═══════════ -->
-<div class="app-section" id="sec-matrix"></div>
+<div class="app-section active" id="sec-matrix"></div>
 <div class="app-section" id="sec-trend"></div>
 <div class="app-section" id="sec-standards"></div>
 
@@ -1633,27 +2083,41 @@ const TRENDS = [
         { st:"Data in use",     th:"Forged Signature / Identity" },
         { st:"Data at rest",    th:"Man in The Middle" }
       ],
-      controls:["PQC Signing","Application Security","Network Encryptor","File Encryption","Database Encryption","Enterprise KMS","HSM"],
-      ctrlVendors:["Thales"]
+      controls:[
+        { h:"PQC Signing",         ico:"pen"     },
+        { h:"Application Security",ico:"window"  },
+        { h:"Network Encryptor",   ico:"network" },
+        { h:"File Encryption",     ico:"file"    },
+        { h:"Database Encryption", ico:"data"    },
+        { h:"Enterprise KMS",      ico:"key"     },
+        { h:"HSM",                 ico:"safe"    }
+      ],
+      ctrlVendors:["Thales"],
+      closing:"The priority is crypto-agility: inventory, prioritize, migrate — without disrupting the business."
     }
   },
   {
     id:"zt", n:"03", title:"Zero Trust (Identity Security First)", accent:"#00695C", accentL:"#e0f2f1", src:"Deck p.4, 10",
     bullets:["Verify every user & device continuously","Enforce least-privilege access","Eliminate implicit trust"],
-    caps:["ZTNA","Multi Factor Authentication","Privilege Access Management (PAM)","Identity Security / ITDR","SASE / SSE","Single Sign-On (SSO)"],
+    caps:["ZTNA","Multi Factor Authentication","Privilege Access Management (PAM)","Identity Security / ITDR","SASE / SSE","Single Sign-On (SSO)",
+          "EndPoint Management","CASB","Data Classification","Data Loss Prevention (DLP)","Web Application Firewall (WAF)","API Security",
+          "Virtual Desktop Infrastructure (VDI)","Firewall Optimization and Security Policy","Network Detection and Response (NDR)",
+          "Extended Detection and Response (XDR)","SIEM / SOAR / UEBA","CTEM / EASM"],
     vendors:["RSA","Silverfort","CyberArk","Netskope","Fortra","Ivanti","Tanium","SentinelOne","Check Point","Imperva","Citrix","Tufin","Vectra","Exabeam","watchTowr"],
     detail:{
       lead:"The Adaptive Fortress — a Zero Trust architecture where every signal feeds one real-time policy decision point, and every enforcement point acts on that decision.",
       signalsIn:[
-        { h:"Identities",        sig:"Multi-factor authentication · User/session risk", v:["RSA","Silverfort","CyberArk","Netskope"] },
-        { h:"Devices / Endpoints", sig:"Device risk state · Device inventory",          v:["Fortra","Ivanti","Tanium","SentinelOne","Netskope"] }
+        { h:"Identities",        ico:"user",   sig:"Multi-factor authentication · User/session risk", v:["RSA","Silverfort","CyberArk","Netskope"] },
+        { h:"Devices / Endpoints", ico:"laptop", sig:"Device risk state · Device inventory",            v:["Fortra","Ivanti","Tanium","SentinelOne","Netskope"] }
       ],
-      core:{ b:"Security policy enforcement", s:"Real-time policy evaluation", inputs:"Organization policy · Threat intelligence" },
+      core:{ b:"Security policy enforcement", s:"Real-time policy evaluation" },
+      contextTop:"Organization policy",
+      contextBottom:"Threat intelligence",
       enforce:[
-        { h:"Data",           sig:"Classify, label, encrypt",     v:["Fortra","Imperva","Netskope"] },
-        { h:"Apps",           sig:"Adaptive access",              v:["Check Point","Imperva","Netskope","Citrix"] },
-        { h:"Infrastructure", sig:"Access and runtime control",   v:["Citrix"] },
-        { h:"Network",        sig:"Threat protection",            v:["Fortra","Tufin","Check Point","Vectra"] }
+        { h:"Data",           ico:"data",    sig:"Classify, label, encrypt",   v:["Fortra","Imperva","Netskope"] },
+        { h:"Apps",           ico:"window",  sig:"Adaptive access",            v:["Check Point","Imperva","Netskope","Citrix"] },
+        { h:"Infrastructure", ico:"server",  sig:"Access and runtime control", v:["Citrix"] },
+        { h:"Network",        ico:"network", sig:"Threat protection",          v:["Fortra","Tufin","Check Point","Vectra"] }
       ],
       bands:["Visibility and Analytics","Automation"],
       base:{ h:"SIEM / SOAR / XDR / CTEM", v:["Exabeam","Check Point","watchTowr"] }
@@ -1662,64 +2126,78 @@ const TRENDS = [
   {
     id:"ctem", n:"04", title:"CTEM", accent:"#8B1A1A", accentL:"#fae8e8", src:"Deck p.4, 12–13",
     bullets:["Continuously monitor attack surface","Prioritize & remediate exposures","Validate posture regularly"],
-    caps:["CTEM / EASM","Exposure Management (VA Scan)","External Penetration Test","Offensive Security","EndPoint Patch Management"],
+    caps:["CTEM / EASM","Exposure Management (VA Scan)","External Penetration Test","Offensive Security","EndPoint Patch Management",
+          "EndPoint Management","Endpoint Detection and Response (EDR)","NAPM / Observability","Network Packet Broker / SSL Decryption",
+          "CASB","CNAPP","Network Detection and Response (NDR)","Data Classification","Data Security Posture Management (DSPM)",
+          "API Security","SIEM / SOAR / UEBA","Firewall Optimization and Security Policy","Extended Detection and Response (XDR)",
+          "Next-Gen Firewall","Web Application Firewall (WAF)","Threat Intelligence","Identity Governance Lifecycle (IGL)",
+          "Privilege Access Management (PAM)","Secret Manager","Identity Security / ITDR",
+          "Identity Security Posture Management (ISPM)","Single Sign-On (SSO)","Multi Factor Authentication"],
     vendors:["Check Point","Fortra","watchTowr","Tanium","Ivanti","SolarWinds","Tufin","Imperva","Vectra","Exabeam","Netskope","RSA","CyberArk","Silverfort"],
     detail:{
       lead:"Continuous Threat Exposure Management runs as a continuous five-phase loop. Every phase depends on an identity foundation — IGA, PAM and ITDR — sitting under an authentication layer and a Zero Trust gateway.",
       phases:[
         { n:"Phase 1", h:"Scoping", scope:"Attack Surface — External, Exposed, Internal, Cloud, OT/IoT", items:[
-          "Real-time asset inventory & endpoint visibility every device",
-          "Network discovery & topology mapping, Deep packet inspection",
-          "Discover and secure cloud app and workload boundaries",
-          "Network traffic visibility" ] },
+          { t:"Real-time asset inventory & endpoint visibility every device", v:["Tanium","Ivanti"], c:["EndPoint Management"] },
+          { t:"Network discovery & topology mapping, Deep packet inspection", v:["SolarWinds","Gigamon"], c:["NAPM / Observability","Network Packet Broker / SSL Decryption"] },
+          { t:"Discover and secure cloud app and workload boundaries", v:["Netskope","SentinelOne"], c:["CASB","CNAPP"] },
+          { t:"Network traffic visibility", v:["Gigamon","Vectra"], c:["Network Packet Broker / SSL Decryption","Network Detection and Response (NDR)"] } ] },
+
         { n:"Phase 2", h:"Discovery", scope:"Vulnerability, Misconfiguration, Credential, Unpatched System", items:[
-          "Vulnerability & patch discovery real-time on endpoint",
-          "External Attack Surface scan",
-          "Data classification · Data discovery · Data security posture mgmt",
-          "API Discovery / Security",
-          "Vulnerability Scan" ] },
+          { t:"Vulnerability & patch discovery real-time on endpoint", v:["Tanium","Ivanti"], c:["EndPoint Patch Management"] },
+          { t:"External Attack Surface scan", v:["watchTowr","Check Point","Fortra"], c:["CTEM / EASM"] },
+          { t:"Data classification · Data discovery · Data security posture mgmt", v:["Fortra","Netskope"], c:["Data Classification","Data Security Posture Management (DSPM)"] },
+          { t:"API Discovery / Security", v:["Imperva","NetScaler"], c:["API Security"] },
+          { t:"Vulnerability Scan", v:["Fortra","watchTowr"], c:["Exposure Management (VA Scan)","Offensive Security","External Penetration Test"] } ] },
+
         { n:"Phase 3", h:"Prioritization", scope:"Prioritize Business Context + Threat Intel + Exploitability", items:[
-          "Risk-based patch prioritization by asset criticality",
-          "Vulnerability Assessment, Correlation & Prioritization",
-          "AI SIEM — prioritize alert by behavior analytics",
-          "Network policy risk scoring — firewall rule analysis" ] },
+          { t:"Risk-based patch prioritization by asset criticality", v:["Tanium","Ivanti"], c:["EndPoint Patch Management"] },
+          { t:"Vulnerability Assessment, Correlation & Prioritization", v:["Fortra","Check Point"], c:["CTEM / EASM"] },
+          { t:"AI SIEM — prioritize alert by behavior analytics", v:["Exabeam","Anomali","NetWitness"], c:["SIEM / SOAR / UEBA"] },
+          { t:"Network policy risk scoring — firewall rule analysis", v:["Tufin"], c:["Firewall Optimization and Security Policy"] } ] },
+
         { n:"Phase 4", h:"Validation", scope:"Control and Validation", items:[
-          "Breach and attack simulation (BAS)",
-          "Continuous automated red teaming (CART)",
-          "Verify detection coverage via XDR telemetry",
-          "AI-driven network detection validation",
-          "Firewall and policy validation" ] },
+          { t:"Breach and attack simulation (BAS)", v:["Fortra"], c:["Offensive Security"] },
+          { t:"Continuous automated red teaming (CART)", v:["watchTowr","Fortra"], c:["External Penetration Test","Offensive Security"] },
+          { t:"Verify detection coverage via XDR telemetry", v:["SentinelOne","Check Point","Anomali"], c:["Extended Detection and Response (XDR)"] },
+          { t:"AI-driven network detection validation", v:["Vectra"], c:["Network Detection and Response (NDR)"] },
+          { t:"Firewall and policy validation", v:["Tufin"], c:["Firewall Optimization and Security Policy"] } ] },
+
         { n:"Phase 5", h:"Mobilization", scope:"Patch, Reconfigure, Harden Identity and Update Policy", items:[
-          "Auto patch deployment every endpoint every times",
-          "Utilizing Intelligence By Feeding IoCs for Prevention & Blocking",
-          "Auto-remediate endpoint threats",
-          "Auto firewall rule change & policy enforcement",
-          "WAF virtual Patch" ] }
+          { t:"Auto patch deployment every endpoint every times", v:["Ivanti","Tanium"], c:["EndPoint Patch Management"] },
+          { t:"Utilizing Intelligence By Feeding IoCs for Prevention & Blocking", v:["Anomali","Check Point"], c:["Threat Intelligence"] },
+          { t:"Auto-remediate endpoint threats", v:["SentinelOne","Tanium"], c:["Endpoint Detection and Response (EDR)","EndPoint Management"] },
+          { t:"Auto firewall rule change & policy enforcement", v:["Tufin","Check Point"], c:["Firewall Optimization and Security Policy","Next-Gen Firewall"] },
+          { t:"WAF virtual Patch", v:["Imperva","Check Point","NetScaler"], c:["Web Application Firewall (WAF)"] } ] }
       ],
       support:[
-        { b:"Threat Intelligence",  s:"Dark web · TIP" },
-        { b:"Attack Surface Mgmt",  s:"EASM · External scan" }
+        { b:"Threat Intelligence", s:"Dark web · TIP",        v:["Anomali","Check Point"], c:["Threat Intelligence"] },
+        { b:"Attack Surface Mgmt", s:"EASM · External scan",  v:["watchTowr","Check Point","Fortra"], c:["CTEM / EASM"] }
       ],
       identity:[
-        { b:"IGA",  s:"Who has what access" },
-        { b:"PAM",  s:"Privileged Access Control" },
-        { b:"ITDR", s:"Detect Identity Attacks" }
+        { b:"IGA",  s:"Who has what access",        v:["RSA"], c:["Identity Governance Lifecycle (IGL)"] },
+        { b:"PAM",  s:"Privileged Access Control",  v:["CyberArk"], c:["Privilege Access Management (PAM)","Secret Manager"] },
+        { b:"ITDR", s:"Detect Identity Attacks",    v:["Silverfort","SentinelOne"], c:["Identity Security / ITDR","Identity Security Posture Management (ISPM)"] }
       ],
       layers:[
-        { b:"Authentication Layer", s:"Microsoft AD · Entra ID" },
-        { b:"Zero Trust Gateway",   s:"SSO · MFA · Passwordless" }
+        { b:"Authentication Layer", s:"Microsoft AD · Entra ID", v:[], note:"Customer-owned directory — outside the MTTH portfolio" },
+        { b:"Zero Trust Gateway",   s:"SSO · MFA · Passwordless", v:["RSA","Silverfort","CyberArk"], c:["Single Sign-On (SSO)","Multi Factor Authentication"] }
       ]
     }
   },
   {
     id:"resilience", n:"05", title:"Cyber Resilience", accent:"#375623", accentL:"#edf5ea", src:"Deck p.4, 15",
     bullets:["Build rapid detection & response","Automate backup & restoration","Test incident response plans"],
-    caps:["SIEM / SOAR / UEBA","Extended Detection and Response (XDR)","Endpoint Detection and Response (EDR)","Network Detection and Response (NDR)","Compliance (SCM / FIM)"],
+    caps:["SIEM / SOAR / UEBA","Extended Detection and Response (XDR)","Endpoint Detection and Response (EDR)","Network Detection and Response (NDR)","Compliance (SCM / FIM)",
+          "Next-Gen Firewall","EndPoint Management","EndPoint Patch Management","Network Packet Broker / SSL Decryption",
+          "Firewall Optimization and Security Policy","Web Application Firewall (WAF)","Database Activity Monitoring (DAM)",
+          "Virtual Desktop Infrastructure (VDI)","Privilege Access Management (PAM)","Multi Factor Authentication",
+          "Identity Security / ITDR","CASB","Data Classification","Traffic / Bandwidth Management","NAPM / Observability"],
     vendors:["Exabeam","Tanium","Check Point","Fortra","SolarWinds","Vectra","Gigamon","Tufin","Citrix","CyberArk","Imperva","Netskope","Silverfort","Ivanti","RSA","Allot","Riverbed"],
     detail:{
       lead:"Thailand Cybersecurity Act, B.E. 2562 (2019) — the five-function stack, from asset identification at the base through to recovery playbooks at the top, with the MTTH portfolio mapped onto each layer.",
       stack:[
-        { fn:"RECOVERY", h:"Recovery", color:"#4a8b3b", items:[], note:"Backup & restore · Incident kit · Playbook", v:[] },
+        { fn:"RECOVERY", h:"Recovery", color:"#4a8b3b", note:"Backup & restore · Incident kit · Playbook", v:[] },
         { fn:"RESPONSE", h:"Cyber Resilience", color:"#d32f2f", v:["Exabeam","Tanium"] },
         { fn:"DETECT",   h:"Security Analytics / Threat Protection", color:"#e0a800", v:["Check Point","Fortra","Exabeam","SolarWinds","Vectra"] },
         { fn:"PROTECT",  h:"Security Protection", color:"#6a1b9a", pillars:[
@@ -1733,24 +2211,52 @@ const TRENDS = [
             { b:"User",           v:["Check Point","Citrix","RSA","Silverfort"] }
           ] },
         { fn:"IDENTIFY", h:"Asset & Governance Baseline", color:"#1668c1",
-          assets:["Infrastructure","Network","Application","Cloud","OT","Data","Endpoint","User"],
+          assets:[
+            { b:"Infrastructure", v:["Allot","SolarWinds","Riverbed"] },
+            { b:"Network",        v:["Citrix"] },
+            { b:"Application",    v:[] }, { b:"Cloud", v:[] }, { b:"OT", v:[] },
+            { b:"Data",           v:[] }, { b:"Endpoint", v:[] }, { b:"User", v:[] }
+          ],
           bands:["Private Cloud","Public Cloud","Process","Information","Workspace","Asset"],
-          grc:{ h:"Governance Risk and Compliance (GRC)", v:["Fortra","RSA"] },
-          v:["Allot","SolarWinds","Riverbed","Citrix"] }
+          grc:{ h:"Governance Risk and Compliance (GRC)", v:["Fortra","RSA"] } }
       ]
     }
   },
   {
     id:"data", n:"06", title:"Data Security", accent:"#5B2C8A", accentL:"#f2ecf9", src:"Deck p.4",
     bullets:["Encrypt data at rest & in transit","Classify & control sensitive data","Prevent unauthorized exfiltration"],
-    caps:["Data Classification","Data Loss Prevention (DLP)","Data Encryption","Key Management","Database Activity Monitoring (DAM)","Data Security Posture Management (DSPM)","High Speed Network Encryption","HSM / Tokenization / e-Payment"],
+    caps:["Data Classification","Data Loss Prevention (DLP)","Data Encryption","Key Management","Database Activity Monitoring (DAM)","Data Security Posture Management (DSPM)","High Speed Network Encryption","HSM / Tokenization / e-Payment","CASB","Web Security Gateway"],
     vendors:["Fortra","Netskope","Thales","Imperva","Check Point"],
     detail:{
       lead:"The data-security trend line from the deck, mapped onto the MTTH capabilities that deliver each of the three objectives.",
-      objectives:[
-        { h:"Encrypt data at rest & in transit", caps:["Data Encryption","High Speed Network Encryption","Key Management","HSM / Tokenization / e-Payment"], v:["Thales","Imperva"] },
-        { h:"Classify & control sensitive data", caps:["Data Classification","Database Activity Monitoring (DAM)","Data Security Posture Management (DSPM)"], v:["Fortra","Netskope","Imperva"] },
-        { h:"Prevent unauthorized exfiltration", caps:["Data Loss Prevention (DLP)","Web Security Gateway","CASB"], v:["Fortra","Netskope","Check Point"] }
+      core:{ b:"Sensitive Data",
+             sub:"Customer records · payment data · intellectual property · PII" },
+      /* three plain-language lines of defence, in the order a programme runs */
+      defence:[
+        { n:"01", h:"Find it", sub:"Discover &amp; Classify", ico:"search",
+          q:"Where is our sensitive data, and who is touching it?",
+          stops:"Shadow data nobody knew existed",
+          caps:["Data Classification","Data Security Posture Management (DSPM)","Database Activity Monitoring (DAM)"],
+          v:["Fortra","Netskope","Imperva"] },
+        { n:"02", h:"Lock it", sub:"Encrypt &amp; Tokenize", ico:"pqc",
+          q:"If it is taken, is it useless to whoever took it?",
+          stops:"Readable data in a breach",
+          caps:["Data Encryption","High Speed Network Encryption","Key Management","HSM / Tokenization / e-Payment"],
+          v:["Thales","Imperva"] },
+        { n:"03", h:"Watch the exit", sub:"Control Egress", ico:"shieldout",
+          q:"Can it leave the organisation without permission?",
+          stops:"Exfiltration by a user, an app or a cloud service",
+          caps:["Data Loss Prevention (DLP)","Web Security Gateway","CASB"],
+          v:["Fortra","Netskope","Check Point"] }
+      ],
+      /* which capabilities cover each state the data can be in */
+      states:[
+        { b:"Data at rest", w:"Databases, file shares, backups, endpoints",
+          caps:["Data Encryption","HSM / Tokenization / e-Payment","Data Classification","Data Security Posture Management (DSPM)"] },
+        { b:"Data in transit", w:"Between sites, out to cloud, across the internet",
+          caps:["High Speed Network Encryption","Web Security Gateway","CASB","Data Loss Prevention (DLP)"] },
+        { b:"Data in use", w:"Open in an application or being queried live",
+          caps:["Database Activity Monitoring (DAM)","Data Loss Prevention (DLP)","Key Management"] }
       ]
     }
   }
@@ -1777,16 +2283,16 @@ const STANDARDS = [
     rows:[
       { grp:"A.5 Organisational — 7 / 37 controls" },
       { k:"A.5.7",  dom:"Threat intelligence", caps:["Threat Intelligence Platforms (TIP)","Indicators of Compromise (IoC) feeds","Automated threat hunting"], v:["Check Point"], mcaps:["Threat Intelligence"] },
-      { k:"A.5.9",  dom:"Inventory of information and other associated assets", caps:["IT Asset Management (ITAM)","Cyber Asset Attack Surface Management (CAASM)","CMDB integration"], v:["Tanium","SolarWinds"], mcaps:["ITSM / ITAM","CTEM / EASM"] },
+      { k:"A.5.9",  dom:"Inventory of information and other associated assets", caps:["IT Asset Management (ITAM)","Cyber Asset Attack Surface Management (CAASM)","CMDB integration"], v:["Tanium","SolarWinds"], mcaps:["ITSM / ITAM","CTEM / EASM","EndPoint Management"] },
       { k:"A.5.12", dom:"Classification of information", caps:["Data Classification Engines","Automated tagging","Metadata labeling","Content scanning"], v:["Fortra","BigID"], mcaps:["Data Classification"] },
       { k:"A.5.15", dom:"Access control", caps:["Identity & Access Management (IAM)","Role-Based Access Control (RBAC)","Single Sign-On (SSO)"], v:["RSA","CyberArk"], mcaps:["Single Sign-On (SSO)","Privilege Access Management (PAM)"] },
-      { k:"A.5.16", dom:"Identity management", caps:["Identity Governance & Administration (IGA)","Automated provisioning","Lifecycle management"], v:["RSA","Silverfort"], mcaps:["Identity Governance Lifecycle (IGL)"] },
+      { k:"A.5.16", dom:"Identity management", caps:["Identity Governance & Administration (IGA)","Automated provisioning","Lifecycle management"], v:["RSA","Silverfort"], mcaps:["Identity Governance Lifecycle (IGL)","Identity Security Posture Management (ISPM)","Non-Human Identity Security (NHI)"] },
       { k:"A.5.23", dom:"Information security for use of cloud services", caps:["Cloud Access Security Broker (CASB)","Cloud Security Posture Management (CSPM)","CNAPP"], v:["Netskope","SentinelOne"], mcaps:["CASB","Cloud Security Posture Management (CSPM)","CNAPP"] },
       { k:"A.5.34", dom:"Privacy and protection of PII", caps:["Privacy Management Software","Data Discovery","Consent Management","Anonymization tools"], v:["Fortra","BigID"], mcaps:["Data Classification","Data Security Posture Management (DSPM)"] },
 
       { grp:"A.6 People — 2 / 8 controls" },
       { k:"A.6.3",  dom:"Information security awareness, education and training", caps:["Security Awareness Training (SAT)","Phishing Simulation Engines","Learning Management Systems"], v:["Check Point","Fortra"], mcaps:["Security Awareness Training"] },
-      { k:"A.6.7",  dom:"Remote working", caps:["Zero Trust Network Access (ZTNA)","Secure Access Service Edge (SASE)","Virtual Private Networks (VPN)"], v:["Netskope","Check Point","Citrix"], mcaps:["ZTNA","SASE / SSE"] },
+      { k:"A.6.7",  dom:"Remote working", caps:["Zero Trust Network Access (ZTNA)","Secure Access Service Edge (SASE)","Virtual Private Networks (VPN)"], v:["Netskope","Check Point","Citrix"], mcaps:["ZTNA","SASE / SSE","Virtual Desktop Infrastructure (VDI)"] },
 
       { grp:"A.7 Physical — 0 / 14 controls · no product mapping in this release" },
 
@@ -1794,10 +2300,10 @@ const STANDARDS = [
       { k:"A.8.1",  dom:"User endpoint devices", caps:["Endpoint Detection and Response (EDR)","Next-Gen Antivirus (NGAV)","Unified Endpoint Management"], v:["Tanium","Ivanti","SentinelOne"], mcaps:["EndPoint Management","Endpoint Detection and Response (EDR)"] },
       { k:"A.8.2",  dom:"Privileged access rights", caps:["Privileged Access Management (PAM)","Session Recording","Credential Vaulting","Just-in-Time Access"], v:["CyberArk"], mcaps:["Privilege Access Management (PAM)","Secret Manager"] },
       { k:"A.8.5",  dom:"Secure authentication", caps:["Multi-Factor Authentication (MFA)","Passwordless Authentication","FIDO2 tokens"], v:["RSA","Silverfort"], mcaps:["Multi Factor Authentication"] },
-      { k:"A.8.7",  dom:"Protection against malware", caps:["Antivirus engines","Network Sandboxing","Content Disarm and Reconstruction (CDR)"], v:["SentinelOne","Check Point"], mcaps:["Endpoint Detection and Response (EDR)","File Gateway (CDR)"] },
+      { k:"A.8.7",  dom:"Protection against malware", caps:["Antivirus engines","Network Sandboxing","Content Disarm and Reconstruction (CDR)"], v:["SentinelOne","Check Point"], mcaps:["Endpoint Detection and Response (EDR)","File Gateway (CDR)","Next-Gen Firewall","Email Security Gateway"] },
       { k:"A.8.8",  dom:"Management of technical vulnerabilities", caps:["Vulnerability Assessment (VA)","Risk Prioritization","Patch Deployment orchestration"], v:["Tanium","Ivanti"], mcaps:["Exposure Management (VA Scan)","EndPoint Patch Management"] },
       { k:"A.8.9",  dom:"Configuration management", caps:["Infrastructure as Code (IaC)","Configuration Compliance Management","Automation Engines"], v:["Fortra"], mcaps:["Compliance (SCM / FIM)"] },
-      { k:"A.8.11", dom:"Data masking", caps:["Static/Dynamic Data Masking (SDM/DDM)","Tokenization","Data Format Preserving Encryption"], v:["Thales"], mcaps:["HSM / Tokenization / e-Payment"] },
+      { k:"A.8.11", dom:"Data masking", caps:["Static/Dynamic Data Masking (SDM/DDM)","Tokenization","Data Format Preserving Encryption"], v:["Thales"], mcaps:["HSM / Tokenization / e-Payment","Database Activity Monitoring (DAM)"] },
       { k:"A.8.12", dom:"Data leakage prevention", caps:["Data Loss Prevention (DLP) across Email, Endpoint, Cloud, and Network"], v:["Fortra","Netskope"], mcaps:["Data Loss Prevention (DLP)"] },
       { k:"A.8.15", dom:"Logging", caps:["Centralized Log Collection","Log Management","Security Analytics"], v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA","Data Pipeline Management"] },
       { k:"A.8.20", dom:"Network security", caps:["Next-Generation Firewalls (NGFW)","Intrusion Prevention (IPS)","Software-Defined Networking"], v:["Check Point"], mcaps:["Next-Gen Firewall","SD-WAN / WANO"] },
@@ -1813,20 +2319,35 @@ const STANDARDS = [
     color:"var(--pci)", colorL:"var(--pci-l)", src:"Deck p.24–25",
     blurb:"PCI DSS v4.0.1 Compliance Mapping Framework — each security domain tied to its PCI requirement, control objective, and the recommended MTTH solution type.",
     stats:[ {v:"12", k:"Security domains"}, {v:"Req. 1–12", k:"Coverage"}, {v:"auto", k:"MTTH vendors"} ],
+    layout:"goals",
+    goals:[
+      { n:"1", h:"Build and Maintain a Secure Network and Systems", req:"Req. 1–2", ico:"network",
+        doms:["Network Security & Segmentation","Secure Configuration Management"] },
+      { n:"2", h:"Protect Account Data", req:"Req. 3–4", ico:"pqc",
+        doms:["Data Protection & Encryption"] },
+      { n:"3", h:"Maintain a Vulnerability Management Program", req:"Req. 5–6", ico:"bug",
+        doms:["Anti-Malware & Endpoint Security","Secure SDLC / Application Security","Vulnerability Management"] },
+      { n:"4", h:"Implement Strong Access Control Measures", req:"Req. 7–9", ico:"key",
+        doms:["Identity & Access Management","Privileged Access Management (PAM)"] },
+      { n:"5", h:"Regularly Monitor and Test Networks", req:"Req. 10–11", ico:"eye",
+        doms:["Security Monitoring & Logging","File Integrity Monitoring (FIM)","Penetration Testing & Validation"] },
+      { n:"6", h:"Maintain an Information Security Policy", req:"Req. 12", ico:"policy",
+        doms:["Incident Response & Governance"] }
+    ],
     cols:["Requirement","Security Domain","Control Objective","Recommended Solution"],
     rows:[
       { k:"Req. 1",        dom:"Network Security & Segmentation", obj:"Protect CDE & restrict inbound/outbound traffic", v:["Check Point"], mcaps:["Next-Gen Firewall","Firewall Optimization and Security Policy"] },
       { k:"Req. 2",        dom:"Secure Configuration Management", obj:"Eliminate insecure default settings & enforce hardening baseline", v:["Fortra"], note:"Tripwire", mcaps:["Compliance (SCM / FIM)"] },
-      { k:"Req. 3, 4",     dom:"Data Protection & Encryption", obj:"Protect CHD at rest & in transit", v:["Fortra"], note:"DLP", mcaps:["Data Loss Prevention (DLP)","Data Encryption"] },
+      { k:"Req. 3, 4",     dom:"Data Protection & Encryption", obj:"Protect CHD at rest & in transit", v:["Fortra","Thales"], note:"DLP · CipherTrust", mcaps:["Data Loss Prevention (DLP)","Data Encryption","HSM / Tokenization / e-Payment"] },
       { k:"Req. 5",        dom:"Anti-Malware & Endpoint Security", obj:"Detect & prevent malware execution", v:["Ivanti","SentinelOne","Tanium"], mcaps:["Endpoint Detection and Response (EDR)","EndPoint Management"] },
-      { k:"Req. 6",        dom:"Secure SDLC / Application Security", obj:"Secure development & vulnerability remediation", v:["Imperva"], mcaps:["Application Security (DEVSECOPS)","Web Application Firewall (WAF)"] },
+      { k:"Req. 6",        dom:"Secure SDLC / Application Security", obj:"Secure development & vulnerability remediation", v:["Imperva","Check Point"], mcaps:["Application Security (DEVSECOPS)","Web Application Firewall (WAF)"] },
       { k:"Req. 7, 8",     dom:"Identity & Access Management", obj:"Enforce least privilege & MFA", v:["RSA","Silverfort"], mcaps:["Multi Factor Authentication","Identity Governance Lifecycle (IGL)"] },
-      { k:"Req. 7, 8, 10", dom:"Privileged Access Management (PAM)", obj:"Control & monitor privileged accounts", v:["CyberArk","Silverfort"], mcaps:["Privilege Access Management (PAM)","Secret Manager"] },
+      { k:"Req. 7, 8, 10", dom:"Privileged Access Management (PAM)", obj:"Control & monitor privileged accounts", v:["CyberArk","Silverfort"], mcaps:["Privilege Access Management (PAM)","Secret Manager","Multi Factor Authentication","Identity Security / ITDR"] },
       { k:"Req. 10",       dom:"Security Monitoring & Logging", obj:"Centralized log monitoring & alerting", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA"] },
       { k:"Req. 11",       dom:"File Integrity Monitoring (FIM)", obj:"Detect unauthorized file/config changes", v:["Fortra"], note:"Tripwire", mcaps:["Compliance (SCM / FIM)"] },
       { k:"Req. 6, 11",    dom:"Vulnerability Management", obj:"Identify & remediate vulnerabilities", v:["Ivanti","Tanium"], mcaps:["Exposure Management (VA Scan)","EndPoint Patch Management"] },
       { k:"Req. 11",       dom:"Penetration Testing & Validation", obj:"Validate segmentation & security posture", v:["Fortra"], note:"Offensive", mcaps:["Offensive Security","External Penetration Test"] },
-      { k:"Req. 12",       dom:"Incident Response & Governance", obj:"Maintain security policy & IR readiness", v:["Ivanti"], mcaps:["ITSM / ITAM"] }
+      { k:"Req. 12",       dom:"Incident Response & Governance", obj:"Maintain security policy & IR readiness", v:["Ivanti"], mcaps:["ITSM / ITAM","SIEM / SOAR / UEBA"] }
     ]
   },
 
@@ -1839,12 +2360,12 @@ const STANDARDS = [
     stats:[ {v:"6", k:"Mandatory areas"}, {v:"บังคับใช้กับทุกราย", k:"Applies to"}, {v:"auto", k:"MTTH vendors"} ],
     layout:"bot",
     botItems:[
-      { n:1, th:"การตั้งค่าระบบ ให้มีความปลอดภัย", en:"Security Baseline and Hardening", v:["Fortra"], mcaps:["Compliance (SCM / FIM)"] },
-      { n:2, th:"การป้องกันระบบจาก Malware", en:"Malware Protection", v:["SentinelOne"], mcaps:["Endpoint Detection and Response (EDR)"] },
-      { n:3, th:"การบริหารจัดการช่องโหว่", en:"Security Patch Management", v:["Tanium","SolarWinds"], mcaps:["EndPoint Patch Management"] },
-      { n:4, th:"การจัดการสิทธิสูงของระบบ", en:"Privilege User ID Management", v:["CyberArk","Silverfort"], mcaps:["Privilege Access Management (PAM)","Secret Manager"] },
-      { n:5, th:"การพิสูจน์ตัวตนอย่างปลอดภัย", en:"Multi-Factor Authentication", v:["RSA","Silverfort"], mcaps:["Multi Factor Authentication"] },
-      { n:6, th:"การทดสอบหาช่องโหว่", en:"Vulnerability Management & Pentest", v:["Tanium","Fortra","watchTowr"], mcaps:["Exposure Management (VA Scan)","External Penetration Test","Offensive Security"] }
+      { n:1, ico:"wrench", th:"การตั้งค่าระบบ ให้มีความปลอดภัย", en:"Security Baseline and Hardening", v:["Fortra"], mcaps:["Compliance (SCM / FIM)"] },
+      { n:2, ico:"bug", th:"การป้องกันระบบจาก Malware", en:"Malware Protection", v:["SentinelOne"], mcaps:["Endpoint Detection and Response (EDR)"] },
+      { n:3, ico:"patch", th:"การบริหารจัดการช่องโหว่", en:"Security Patch Management", v:["Tanium","SolarWinds"], mcaps:["EndPoint Patch Management","ITSM / ITAM"] },
+      { n:4, ico:"key", th:"การจัดการสิทธิสูงของระบบ", en:"Privilege User ID Management", v:["CyberArk","Silverfort"], mcaps:["Privilege Access Management (PAM)","Secret Manager","Identity Security / ITDR","Identity Security Posture Management (ISPM)"] },
+      { n:5, ico:"fingerprint", th:"การพิสูจน์ตัวตนอย่างปลอดภัย", en:"Multi-Factor Authentication", v:["RSA","Silverfort"], mcaps:["Multi Factor Authentication"] },
+      { n:6, ico:"search", th:"การทดสอบหาช่องโหว่", en:"Vulnerability Management & Pentest", v:["Tanium","Fortra","watchTowr"], mcaps:["Exposure Management (VA Scan)","External Penetration Test","Offensive Security","EndPoint Patch Management"] }
     ]
   },
 
@@ -1855,11 +2376,24 @@ const STANDARDS = [
     color:"var(--oic)", colorL:"var(--oic-l)", src:"Deck p.28–29",
     blurb:"Cybersecurity Solutions Mapping to Thailand OIC Requirements — 14 OIC control domains, each with its regulatory expectation, control objective, and the MTTH solution that satisfies it.",
     stats:[ {v:"14", k:"Control domains"}, {v:"Non-Life", k:"Insurance scope"}, {v:"auto", k:"MTTH vendors"} ],
+    layout:"groups",
+    groups:[
+      { n:"01", h:"Governance &amp; Risk", ico:"policy",
+        doms:["IT Governance","Risk Management"] },
+      { n:"02", h:"Protect", ico:"zt",
+        doms:["Information Security","Access Control","Data Protection","Cloud Governance"] },
+      { n:"03", h:"Detect &amp; Test", ico:"eye",
+        doms:["Cybersecurity Monitoring","Vulnerability Management","Penetration Testing","Logging &amp; Audit Trail"] },
+      { n:"04", h:"Respond &amp; Recover", ico:"loop",
+        doms:["Incident Response","Business Continuity (BCM)"] },
+      { n:"05", h:"People &amp; Third Party", ico:"users",
+        doms:["Outsourcing / Third-Party Risk","Awareness &amp; Training"] }
+    ],
     cols:["OIC Control Domain","Regulatory Expectation","Control Objective","Cybersecurity Solution","Example Technology / Control"],
     rows:[
       { dom:"IT Governance",              obj:"Establish clear IT governance structure and oversight", co:"Policy & Oversight",                  sol:"GRC Platform",              ex:"Risk Register, Policy Management", v:[] },
       { dom:"Risk Management",            obj:"Identify, assess, and manage IT risks",                 co:"Risk Identification & Monitoring",    ex:"Risk Dashboard",  v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA"] },
-      { dom:"Information Security",       obj:"Protect customer and critical insurance data",          co:"Confidentiality, Integrity & Availability", ex:"AES-256, TLS, RBAC", v:["Fortra"], mcaps:["Data Classification","Data Loss Prevention (DLP)"] },
+      { dom:"Information Security",       obj:"Protect customer and critical insurance data",          co:"Confidentiality, Integrity & Availability", ex:"AES-256, TLS, RBAC", v:["Fortra","Thales"], mcaps:["Data Classification","Data Loss Prevention (DLP)","Data Encryption"] },
       { dom:"Access Control",             obj:"Limit access rights based on job responsibilities",     co:"Least Privilege Enforcement",         ex:"SSO, Privileged Access Vault", v:["CyberArk","RSA"], mcaps:["Privilege Access Management (PAM)","Single Sign-On (SSO)"] },
       { dom:"Cybersecurity Monitoring",   obj:"Detect and respond to cybersecurity threats",           co:"Threat Detection & Response",         ex:"SOC Monitoring", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA","Extended Detection and Response (XDR)"] },
       { dom:"Vulnerability Management",   obj:"Assess and remediate vulnerabilities in a timely manner", co:"Continuous Security Assessment",    ex:"CVE Monitoring, Patch Deployment", v:["Ivanti","Tanium"], mcaps:["Exposure Management (VA Scan)","EndPoint Patch Management"] },
@@ -1880,11 +2414,19 @@ const STANDARDS = [
     color:"var(--pdpa)", colorL:"var(--pdpa-l)", src:"Deck p.16–17",
     blurb:"Mapping: Cybersecurity Solutions by Thailand PDPA Sections — key legal requirement, control objective, and the relevant solution for each section.",
     stats:[ {v:"12", k:"PDPA sections"}, {v:"Required", k:"All segments"}, {v:"auto", k:"MTTH vendors"} ],
+    layout:"stages",
+    stages:[
+      { n:"01", h:"Collect",            ico:"file",   keys:["Section 19","Section 23"] },
+      { n:"02", h:"Process &amp; Protect",  ico:"zt",     keys:["Section 37(1)","Section 37(2)","Section 39","Sections 50–51"] },
+      { n:"03", h:"Retain &amp; Transfer",  ico:"globe",  keys:["Section 37(3)","Section 49"] },
+      { n:"04", h:"Detect &amp; Notify",    ico:"alert",  keys:["Section 37(4)"] },
+      { n:"05", h:"Govern &amp; Prove",     ico:"policy", keys:["Section 40","Section 41","Sections 42–43"] }
+    ],
     cols:["PDPA Section","Key Legal Requirement","Control Objective","Relevant Solution","Technology / Control"],
     rows:[
       { k:"Section 19",     obj:"Collecting Consent",              co:"Collect consent properly & auditably", sol:"Consent Management Platform", ex:"Consent DB, Audit Trail", v:[] },
       { k:"Section 23",     obj:"Purpose Notification",            co:"Transparency & Notice Control",        sol:"Privacy Management System",   ex:"Privacy Portal", v:[] },
-      { k:"Section 37(1)",  obj:"Maintain appropriate security measures", co:"Protect data from loss / improper access", ex:"AES-256, TLS, NGFW", v:["Check Point","Fortra"], mcaps:["Next-Gen Firewall","Data Encryption"] },
+      { k:"Section 37(1)",  obj:"Maintain appropriate security measures", co:"Protect data from loss / improper access", ex:"AES-256, TLS, NGFW", v:["Check Point","Fortra"], mcaps:["Next-Gen Firewall","Data Encryption","Data Loss Prevention (DLP)","Data Classification"] },
       { k:"Section 37(2)",  obj:"Prevent unauthorized data access or disclosure", co:"Access Control & Monitoring", ex:"SSO, RBAC, Privileged Vault", v:["CyberArk","RSA"], mcaps:["Privilege Access Management (PAM)","Single Sign-On (SSO)"] },
       { k:"Section 37(3)",  obj:"Set up data retention & disposal mechanism", co:"Data Retention & Disposal",    sol:"Data Lifecycle Management",   ex:"Retention Policy Engine", v:[] },
       { k:"Section 37(4)",  obj:"Notify data breach within 72 hours", co:"Breach Detection & Response",         ex:"Incident Workflow", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA"] },
@@ -1942,12 +2484,32 @@ const GLYPH = {
   grid:`<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>`,
   table:`<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>`,
   info:`<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>`,
-  cursor:`<path d="m4 3 7 17 2.3-6.7L20 11z"/>`
+  cursor:`<path d="m4 3 7 17 2.3-6.7L20 11z"/>`,
+  user:`<circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>`,
+  laptop:`<rect x="4" y="4" width="16" height="11" rx="1.6"/><path d="M2 19h20"/>`,
+  window:`<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.2" cy="6.5" r=".6"/>`,
+  server:`<rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/>`,
+  network:`<rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 7v4M5 16v-3h14v3"/>`,
+  shieldout:`<path d="M12 2 4 5v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V5z"/><path d="M12 8v6m0 0-2.2-2.2M12 14l2.2-2.2"/>`,
+  tag:`<path d="M20.6 12.6 12.6 20.6a2 2 0 0 1-2.8 0l-6.4-6.4a2 2 0 0 1-.6-1.4V4.4A1.4 1.4 0 0 1 4.4 3h8.4a2 2 0 0 1 1.4.6l6.4 6.4a2 2 0 0 1 0 2.6z"/><circle cx="7.5" cy="7.5" r="1.3"/>`,
+  chev:`<path d="m9 6 6 6-6 6"/>`,
+  policy:`<path d="M12 2 4 5v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V5z"/><path d="M9 11h6M9 14h4"/>`,
+  pen:`<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/><path d="m14.5 5.5 3 3"/>`,
+  file:`<path d="M14 2H6.5A1.5 1.5 0 0 0 5 3.5v17A1.5 1.5 0 0 0 6.5 22h11a1.5 1.5 0 0 0 1.5-1.5V7z"/><path d="M14 2v5h5"/>`,
+  safe:`<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="3.6"/><path d="M12 8.4V6M17 12h2"/>`,
+  bug:`<rect x="8" y="7" width="8" height="12" rx="4"/><path d="M8 11H4M20 11h-4M8 16H4.5M20 16h-3.5M9.5 7 8 4.5M14.5 7 16 4.5"/>`,
+  wrench:`<path d="M14.5 4.5a5 5 0 0 0-6.3 6.3L3 16v5h5l5.2-5.2a5 5 0 0 0 6.3-6.3l-3 3-2.8-2.8z"/>`,
+  patch:`<rect x="2.5" y="9" width="19" height="6" rx="3"/><path d="M9 2.5 15 21"/><path d="m10 12 1.6 1.6L15 10"/>`,
+  fingerprint:`<path d="M12 4a6 6 0 0 1 6 6v3M6 10a6 6 0 0 1 3-5.2"/><path d="M6 13.5V10M9 20a12 12 0 0 0 1.5-6v-4a1.5 1.5 0 0 1 3 0v4a12 12 0 0 1-.6 4"/><path d="M15.5 20a16 16 0 0 0 .8-3"/>`,
+  search:`<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>`,
+  eye:`<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>`,
+  globe:`<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/>`,
+  users:`<circle cx="9" cy="8" r="3.6"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 4.8a3.6 3.6 0 0 1 0 6.9M17 14.4a6.5 6.5 0 0 1 4.5 5.6"/>`
 };
 const g = (name, size = 15, sw = 1.8) =>
   `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${GLYPH[name] || ''}</svg>`;
 
-const SECTIONS = ['capabilities','matrix','trend','standards'];
+const SECTIONS = ['matrix','trend','standards','capabilities'];
 
 function showSection(id) {
   SECTIONS.forEach(s => {
@@ -1993,13 +2555,45 @@ function jumpToCaps({ vendors = [], caps = [], } = {}) {
   applyFilters();
 }
 
-/* vendor chip → clickable when the vendor exists in the MTTH portfolio */
+/* Every portfolio capability each vendor actually delivers. Built once from
+   DATA so the cross-filter can never be narrower than reality. */
+const VENDOR_CAPS = {};
+DATA.forEach(gr => gr.items.forEach(i => i.vendors.forEach(v => {
+  (VENDOR_CAPS[v.name] = VENDOR_CAPS[v.name] || []).push(i.cap);
+})));
+
+/* Does this (vendors AND caps) pair match at least one capability card? */
+function jumpHits(vendors, caps) {
+  const V = (vendors || []).map(n => VENDOR_ALIAS[n]).filter(k => k && VENDOR_CAPS[k]);
+  const C = (caps || []).filter(c => ALL_CAPS.some(x => x.cap === c));
+  if (!V.length && !C.length) return false;
+  if (!V.length) return true;
+  if (!C.length) return true;
+  return V.some(k => VENDOR_CAPS[k].some(c => C.includes(c)));
+}
+
+/* Row / section button: keep both filters when they intersect; when they do
+   not, the control's capabilities are the more useful answer — keep those. */
+function jumpPayload(vendors, caps) {
+  return esc(JSON.stringify(
+    jumpHits(vendors, caps) ? { vendors: vendors || [], caps: caps || [] }
+                            : { vendors: [], caps: caps || [] }));
+}
+
+/* Vendor chip → filters by that vendor, narrowed to the capabilities it
+   actually delivers inside this section (vendor-only when there is no
+   overlap, so a chip is never a dead end). */
 function vchip(name, caps) {
   const key = VENDOR_ALIAS[name];
   if (!key || !ALL_VENDORS.includes(key))
     return `<span class="vchip ext" title="Referenced in the deck — not an MTTH portfolio vendor">${esc(name)}</span>`;
-  const payload = esc(JSON.stringify({ vendors:[name], caps: caps || [] }));
-  return `<span class="vchip" data-jump="${payload}" title="Filter the portfolio by ${esc(key)}">${esc(name)}</span>`;
+  const own = VENDOR_CAPS[key] || [];
+  const hit = [...new Set((caps || []).filter(c => own.includes(c)))];
+  const payload = esc(JSON.stringify({ vendors:[name], caps: hit }));
+  const tip = hit.length
+    ? `${key} — ${hit.length} matching capabilit${hit.length > 1 ? 'ies' : 'y'} in this section`
+    : `Show every ${key} capability in the portfolio`;
+  return `<span class="vchip" data-jump="${payload}" title="${esc(tip)}">${esc(name)}</span>`;
 }
 function vchips(list, caps) {
   if (!list || !list.length) return `<span class="no-vendor-label">— no product assigned</span>`;
@@ -2180,7 +2774,7 @@ function openTrend(id) {
 
 function trendPanel(t) {
   const prods    = portfolioNames(t.vendors);
-  const filterAll = esc(JSON.stringify({ vendors: t.vendors, caps: t.caps }));
+  const filterAll = jumpPayload(t.vendors, t.caps);
   return `<div class="tdet" style="--accent:${t.accent};--accent-l:${t.accentL}">
     <div class="tdet-head">
       <h3>${esc(t.title)}</h3>
@@ -2212,63 +2806,134 @@ function trendBody(t) {
   }
 
   if (d.steps) {
-    h += `<h5>${g('steps',13)}Migration path</h5><div class="step-set">` + d.steps.map((s, i) => `
-      <div class="step-box"><span class="sn">${i + 1}</span><h6>${esc(s.h)}</h6><p>${esc(s.p)}</p></div>`).join('') + `</div>`;
-    h += `<h5>${g('alert',13)}What is at risk</h5><div class="threat-rows">` + d.threats.map(x => `
-      <div class="threat-row"><span class="st">${esc(x.st)}</span><span class="th">${esc(x.th)}</span></div>`).join('') + `</div>`;
-    h += `<h5>${g('key',13)}Crypto-agility control set</h5><div class="vchip-row">` +
-      d.controls.map(c => `<span class="vchip ext" style="opacity:1;font-style:normal">${esc(c)}</span>`).join('') + `</div>`;
+    h += `<h5>${g('steps',13)}Migration path</h5><div class="pqc-steps">` + d.steps.map((x, i) => `
+      <div class="pqc-step"><span class="sn">Step ${i + 1}</span><b>${esc(x.h)}</b><p>${esc(x.p)}</p></div>`).join('') + `</div>`;
+    h += `<h5>${g('alert',13)}Quantum exposure by data state</h5><div class="pqc-threats">` + d.threats.map(x => `
+      <div class="pqc-threat"><div class="st">${esc(x.st)}</div><div class="th">${g('alert',14)}${esc(x.th)}</div></div>`).join('') + `</div>
+      <div class="pqc-conv">${d.threats.map(() => `<div>${g('chev',14,2.4)}</div>`).join('')}</div>
+      <div class="pqc-plane">
+        <span class="pl">${g('key',12)}Crypto-agility control plane</span>
+        <div class="pqc-tiles">${d.controls.map(c => `
+          <div class="pqc-tile"><span class="ti">${g(c.ico,16)}</span><b>${esc(c.h)}</b></div>`).join('')}</div>
+        ${vchips(d.ctrlVendors, t.caps)}
+      </div>
+      <div class="pqc-close">${esc(d.closing)}</div>`;
   }
 
-  if (d.core) {
-    h += `<h5>${g('arch',13)}Zero Trust architecture</h5><div class="zt-wrap">
-      <div class="zt-col">${d.signalsIn.map(x => `
-        <div class="zt-node"><h6>${esc(x.h)}</h6><div class="sig">${esc(x.sig)}</div>${vchips(x.v, t.caps)}</div>`).join('')}</div>
-      <div class="zt-core"><span class="cap">${esc(d.core.inputs)}</span><b>${esc(d.core.b)}</b><span>${esc(d.core.s)}</span></div>
-      <div class="zt-col">${d.enforce.map(x => `
-        <div class="zt-node"><h6>${esc(x.h)}</h6><div class="sig">${esc(x.sig)}</div>${vchips(x.v, t.caps)}</div>`).join('')}</div>
+  if (d.signalsIn) {
+    const node = x => `<div class="zt2-node">
+        <div class="nh">${g(x.ico || 'check', 15)}<b>${esc(x.h)}</b></div>
+        <div class="sig">${esc(x.sig)}</div>${vchips(x.v, t.caps)}</div>`;
+    h += `<h5>${g('arch',13)}Zero Trust architecture — the Adaptive Fortress</h5>
+    <div class="zt2">
+      <div class="zt2-bar">${g('policy',13)}${esc(d.contextTop)}</div>
+      <div class="zt2-link down">${g('chev',15)}</div>
+      <div class="zt2-heads"><div>Signal sources</div><div></div><div>Policy decision</div><div></div><div>Enforcement points</div></div>
+      <div class="zt2-row">
+        <div class="zt2-col">${d.signalsIn.map(node).join('')}</div>
+        <div class="zt2-arrow"><i>${g('chev',12,2.4)}</i></div>
+        <div class="zt2-core">
+          <span class="ci">${g('zt',18)}</span>
+          <b>${esc(d.core.b)}</b><span>${esc(d.core.s)}</span>
+        </div>
+        <div class="zt2-arrow"><i>${g('chev',12,2.4)}</i></div>
+        <div class="zt2-col enforce">${d.enforce.map(node).join('')}</div>
+      </div>
+      <div class="zt2-link up">${g('chev',15)}</div>
+      <div class="zt2-bar">${g('target',13)}${esc(d.contextBottom)}</div>
     </div>
-    <div class="zt-bands">${d.bands.map(b => `<div class="zt-band">${esc(b)}</div>`).join('')}</div>
-    <div class="zt-base"><h6>${esc(d.base.h)}</h6>${vchips(d.base.v, t.caps)}</div>`;
+    <div class="zt2-bands">${d.bands.map(b => `<div class="zt2-band">${esc(b)}</div>`).join('')}</div>
+    <div class="zt2-base"><h6>${esc(d.base.h)}</h6>${vchips(d.base.v, t.caps)}</div>`;
   }
 
   if (d.phases) {
-    h += `<h5>${g('loop',13)}CTEM lifecycle — continuous loop</h5><div class="ctem-flow">` + d.phases.map(p => `
-      <div class="ctem-phase"><div class="ph-h"><div class="pn">${esc(p.n)}</div><b>${esc(p.h)}</b></div>
-        <div class="ph-scope">${esc(p.scope)}</div>
-        <ul>${p.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + `</div>`;
-    h += `<h5>${g('target',13)}Supporting feeds</h5><div class="ctem-support">` + d.support.map(s => `
-      <div class="sup-box"><b>${esc(s.b)}</b><span>${esc(s.s)}</span></div>`).join('') + `</div>`;
-    h += `<h5>${g('key',13)}Identity foundation — every phase needs identity</h5><div class="ctem-support">` + d.identity.map(s => `
-      <div class="sup-box"><b>${esc(s.b)}</b><span>${esc(s.s)}</span></div>`).join('') + `</div>`;
-    h += `<div class="ctem-support" style="margin-top:8px">` + d.layers.map(s => `
-      <div class="sup-box"><b>${esc(s.b)}</b><span>${esc(s.s)}</span></div>`).join('') + `</div>`;
+    const shades = ["#6E1414", "#7E1717", "#8B1A1A", "#9C2020", "#AC2828"];
+    const box = x => `<div class="sup-box"><b>${esc(x.b)}</b><span>${esc(x.s)}</span>
+        ${x.v && x.v.length ? vchips(x.v, x.c) : `<span class="sup-none">${esc(x.note || 'no MTTH product')}</span>`}</div>`;
+    h += `<h5>${g('target',13)}Input feeds</h5><div class="ct-feed">` + d.support.map(box).join('') + `</div>`;
+    h += `<h5>${g('loop',13)}CTEM lifecycle — five phases, one continuous loop</h5>
+      <div class="ct-steps">${d.phases.map((p, i) => `
+        <div class="ct-step" style="background:${shades[i]}"><div class="pn">${esc(p.n)}</div><b>${esc(p.h)}</b></div>`).join('')}</div>
+      <div class="ctem-flow">${d.phases.map(p => `
+        <div class="ctem-phase">
+          <div class="ph-scope">${esc(p.scope)}</div>
+          <ul>${p.items.map(i => `<li>${esc(i.t)}${vchips(i.v, i.c)}</li>`).join('')}</ul>
+        </div>`).join('')}</div>
+      <div class="ct-loop">
+        <span class="cap back">${g('chev',12,2.4)}</span>
+        <span class="rail"></span>
+        <span class="lbl">${g('loop',12)}Continuous loop — Mobilization feeds back into Scoping</span>
+        <span class="rail"></span>
+        <span class="cap">${g('chev',12,2.4)}</span>
+      </div>`;
+    h += `<h5>${g('key',13)}Identity foundation — every phase needs identity</h5>
+      <div class="ctem-support">` + d.identity.map(box).join('') + `</div>`;
+    h += `<div class="ctem-support" style="margin-top:8px">` + d.layers.map(box).join('') + `</div>`;
   }
 
   if (d.stack) {
-    h += `<h5>${g('stack',13)}Thailand Cybersecurity Act B.E. 2562 — function stack</h5><div class="stack">` + d.stack.map(l => {
-      let inner = '';
-      if (l.pillars) inner = `<div class="pillar-grid">${l.pillars.map(p =>
-        `<div class="pillar"><b>${esc(p.b)}</b>${vchips(p.v, t.caps)}</div>`).join('')}</div>`;
-      else if (l.assets) inner = `
-        <div class="asset-band" style="margin-bottom:8px">${l.assets.map(a => `<span>${esc(a)}</span>`).join('')}</div>
-        <div class="asset-band" style="margin-bottom:10px">${l.bands.map(a => `<span style="background:var(--eii-light);color:var(--eii)">${esc(a)}</span>`).join('')}</div>
-        ${vchips(l.v, t.caps)}
-        <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border)">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:6px">${esc(l.grc.h)}</div>
-          ${vchips(l.grc.v, t.caps)}</div>`;
-      else if (l.note) inner = `<div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)">${esc(l.note)}</div>`;
-      else inner = vchips(l.v, t.caps);
-      return `<div class="stk-layer"><div class="sl-h" style="background:${l.color}"><span class="fn">${esc(l.fn)}</span><b>${esc(l.h)}</b></div><div class="sl-b">${inner}</div></div>`;
-    }).join('') + `</div>`;
+    /* function × pillar matrix — rows are fixed, so every cell is placed
+       explicitly and nothing can reflow into the wrong lane */
+    const cells = [];
+    let row = 0;
+    d.stack.forEach(l => {
+      if (l.pillars) {
+        row += 1;
+        cells.push(`<div class="res-fn" style="background:${l.color};grid-row:${row} / span 2;grid-column:1">${esc(l.fn)}</div>`);
+        l.pillars.forEach((p, i) =>
+          cells.push(`<div class="res-head" style="grid-row:${row};grid-column:${i + 2}">${esc(p.b)}</div>`));
+        row += 1;
+        l.pillars.forEach((p, i) =>
+          cells.push(`<div class="res-cell" style="grid-row:${row};grid-column:${i + 2}">${vchips(p.v, t.caps)}</div>`));
+      } else if (l.assets) {
+        row += 1;
+        cells.push(`<div class="res-fn" style="background:${l.color};grid-row:${row} / span 3;grid-column:1">${esc(l.fn)}</div>`);
+        l.assets.forEach((a, i) =>
+          cells.push(`<div class="res-cell" style="grid-row:${row};grid-column:${i + 2}">
+            <span class="rt">${esc(a.b)}</span>${a.v.length ? vchips(a.v, t.caps) : ''}</div>`));
+        row += 1;
+        cells.push(`<div class="res-strip" style="grid-row:${row};grid-column:2 / -1">${l.bands.map(b => `<span>${esc(b)}</span>`).join('')}</div>`);
+        row += 1;
+        cells.push(`<div class="res-grc" style="grid-row:${row};grid-column:2 / -1">
+          <span class="bt">${esc(l.grc.h)}</span>${vchips(l.grc.v, t.caps)}</div>`);
+      } else {
+        row += 1;
+        cells.push(`<div class="res-fn" style="background:${l.color};grid-row:${row};grid-column:1">${esc(l.fn)}</div>`);
+        cells.push(`<div class="res-band" style="grid-row:${row};grid-column:2 / -1">
+          <span class="bt">${esc(l.h)}</span>
+          ${l.note ? `<span class="bn">${esc(l.note)}</span>` : vchips(l.v, t.caps)}</div>`);
+      }
+    });
+    h += `<h5>${g('stack',13)}Thailand Cybersecurity Act B.E. 2562 — function × pillar matrix</h5>
+      <div class="res-wrap"><div class="res">${cells.join('')}</div></div>`;
   }
 
-  if (d.objectives) {
-    h += `<h5>${g('target',13)}Objectives → capabilities</h5><div class="col-set">` + d.objectives.map(o => `
-      <div class="col-box"><h6>${esc(o.h)}</h6>
-        <div class="vchip-row" style="margin:8px 0">${o.caps.map(capchip).join('')}</div>
-        ${vchips(o.v, o.caps)}</div>`).join('') + `</div>`;
+  if (d.defence) {
+    /* three lines of defence, all converging on the asset they protect */
+    h += `<h5>${g('target',13)}Three lines of defence around the data</h5>
+      <div class="dsl">
+        <div class="dsl-row">${d.defence.map(x => `
+          <div class="dsl-card">
+            <div class="dc-h">
+              <span class="dc-n">${x.n}</span>
+              <span class="dc-i">${g(x.ico,16)}</span>
+              <span><b>${x.h}</b><span class="dc-sub">${x.sub}</span></span>
+            </div>
+            <p class="dc-q">${esc(x.q)}</p>
+            <div class="dc-stops">${g('alert',13)}<span><b>Stops:</b> ${esc(x.stops)}</span></div>
+            <div class="dc-lab">Product Capability</div>
+            <div class="vchip-row">${x.caps.map(capchip).join('')}</div>
+            <div class="dc-lab">Product Name</div>
+            ${vchips(x.v, x.caps)}
+          </div>`).join('')}</div>
+        <div class="dsl-arrows">${d.defence.map(() => `<div>${g('chev',14,2.4)}</div>`).join('')}</div>
+        <div class="ds-core"><b>${esc(d.core.b)}</b><span>${esc(d.core.sub)}</span></div>
+      </div>`;
+    h += `<h5>${g('data',13)}Coverage by data state</h5><div class="dss">` + d.states.map(x => `
+      <div class="dss-card"><b>${esc(x.b)}</b><span class="w">${esc(x.w)}</span>
+        <div class="vchip-row">${x.caps.map(capchip).join('')}</div></div>`).join('') + `</div>`;
   }
+
   return h;
 }
 
@@ -2324,8 +2989,7 @@ function buildStandards() {
         <div class="std-stats">${s.stats.map(x => `<div class="std-stat"><div class="v">${esc(x.v === 'auto' ? stdVendorCount(s) : x.v)}</div><div class="k">${esc(x.k)}</div></div>`).join('')}</div>
       </div>
       ${s.isoCats ? isoCoverage(s) : ''}
-      <h5>${g('table',13)}Control mapping</h5>
-      ${s.layout === 'bot' ? botCards(s) : mapTable(s)}
+      ${stdBody(s)}
       <h5>${g('capability',13)}Product Capability</h5>
       <div class="vchip-row">${roll.caps.map(capchip).join('')}</div>
       <h5>${g('product',13)}Product Name</h5>
@@ -2368,7 +3032,7 @@ function isoCoverage(s) {
       const n = i + 1, on = c.on.includes(n), key = `${c.key}.${n}`;
       const row = byNum[key];
       if (!on || !row) return `<div class="ctrl-cell">${n}</div>`;
-      const payload = esc(JSON.stringify({ vendors: row.v || [], caps: row.mcaps || [] }));
+      const payload = jumpPayload(row.v, row.mcaps);
       return `<div class="ctrl-cell on" data-jump="${payload}" title="${esc(key)} — ${esc(row.dom)}">${n}</div>`;
     }).join('');
     return `<div class="iso-cat"><h6>${esc(c.h)}</h6>
@@ -2376,6 +3040,96 @@ function isoCoverage(s) {
       <div class="ctrl-grid">${cells}</div></div>`;
   }).join('');
   return `<h5>${g('grid',13)}Annex A control coverage</h5><div class="iso-cats">${cats}</div>`;
+}
+
+/* ── layout dispatcher ──────────────────────────────────────────────────── */
+function stdBody(s) {
+  if (s.layout === 'goals')  return pciGoals(s);      /* PCI DSS  — 6 control goals   */
+  if (s.layout === 'bot')    return botPillars(s);    /* BOT      — 6 hygiene pillars */
+  if (s.layout === 'groups') return oicGroups(s);     /* OIC      — 5 domain groups   */
+  if (s.layout === 'stages') return pdpaStages(s);    /* PDPA     — data lifecycle    */
+  return `<h5>${g('table',13)}Control mapping</h5>` + mapTable(s);
+}
+
+/* one control card, shared by the grouped and staged layouts */
+function ctlCard(r, opts = {}) {
+  const jump = (r.v && r.v.length) || (r.mcaps && r.mcaps.length)
+    ? `<button class="row-jump" data-jump="${jumpPayload(r.v, r.mcaps)}">${g('cursor',10)} show in portfolio</button>` : '';
+  const key  = opts.key === false ? '' : `<span class="cc-k">${esc(r.k || '')}</span>`;
+  const head = opts.title || r.dom || r.obj || '';
+  const sub  = opts.sub;
+  return `<div class="ctl-card">
+    <div class="cc-h">${r.k ? key : ''}<b>${esc(head)}</b></div>
+    ${sub ? `<div class="cc-o">${esc(sub)}</div>` : ''}
+    ${r.co ? `<div class="cc-obj">${esc(r.co)}</div>` : ''}
+    ${r.sol ? `<div class="cc-o">${esc(r.sol)}</div>` : ''}
+    ${vchips(r.v, r.mcaps)}
+    ${r.note ? `<div class="cc-ex">${esc(r.note)}</div>` : ''}
+    ${r.ex ? `<div class="cc-ex">${g('info',10)} ${esc(r.ex)}</div>` : ''}
+    ${jump}
+  </div>`;
+}
+
+/* PCI DSS — the six official PCI control goals, each holding its domains */
+function pciGoals(s) {
+  const byDom = {}; s.rows.forEach(r => { byDom[r.dom] = r; });
+  return `<h5>${g('pci',13)}The six PCI DSS control goals</h5>` + s.goals.map(go => `
+    <div class="grp-panel">
+      <div class="grp-head">
+        <span class="gi">${g(go.ico,15)}</span>
+        <span><span class="gn">Goal ${go.n}</span><b>${go.h}</b></span>
+        <span class="gr">${esc(go.req)}</span>
+      </div>
+      <div class="ctl-grid">${go.doms.map(dm => {
+        const r = byDom[dm];
+        return r ? ctlCard(r, { title: r.dom, sub: r.obj }) : '';
+      }).join('')}</div>
+    </div>`).join('');
+}
+
+/* BOT — six mandatory hygiene areas standing on the mandate */
+function botPillars(s) {
+  return `<h5>${g('bot',13)}Six mandatory Cyber Hygiene areas</h5>
+    <div class="pillar-row">${s.botItems.map(b => `
+      <div class="pillar-card">
+        <span class="pi">${g(b.ico,21)}<span class="num">${b.n}</span></span>
+        <div class="th">${esc(b.th)}</div>
+        <div class="en">${esc(b.en)}</div>
+        ${vchips(b.v, b.mcaps)}
+        <button class="row-jump" data-jump="${jumpPayload(b.v, b.mcaps)}">${g('cursor',10)} show in portfolio</button>
+      </div>`).join('')}</div>
+    <div class="pillar-base">${g('bot',15)}<b>บังคับใช้กับทุกราย</b>
+      <span>Mandatory for every e-Payment service provider · BOT B.E. 2564</span></div>`;
+}
+
+/* OIC — 14 control domains gathered into five groups */
+function oicGroups(s) {
+  const byDom = {}; s.rows.forEach(r => { byDom[r.dom.replace(/&/g, '&amp;')] = r; byDom[r.dom] = r; });
+  return `<h5>${g('oic',13)}Fourteen control domains, five groups</h5>` + s.groups.map(go => `
+    <div class="grp-panel">
+      <div class="grp-head">
+        <span class="gi">${g(go.ico,15)}</span>
+        <span><span class="gn">Group ${go.n}</span><b>${go.h}</b></span>
+        <span class="gr">${go.doms.length} domain${go.doms.length > 1 ? 's' : ''}</span>
+      </div>
+      <div class="ctl-grid">${go.doms.map(dm => {
+        const r = byDom[dm];
+        return r ? ctlCard(r, { title: r.dom, sub: r.obj }) : '';
+      }).join('')}</div>
+    </div>`).join('');
+}
+
+/* PDPA — the personal-data lifecycle, sections placed on the stage they govern */
+function pdpaStages(s) {
+  const byKey = {}; s.rows.forEach(r => { byKey[r.k] = r; });
+  return `<h5>${g('pdpa',13)}Personal-data lifecycle — where each section applies</h5>
+    <div class="stage-flow">${s.stages.map(st => `
+      <div class="stage-step">${g(st.ico,15)}<span><span class="sn">Stage ${st.n}</span><b>${st.h}</b></span></div>`).join('')}</div>
+    <div class="stage-cols">${s.stages.map(st => `
+      <div class="stage-col">${st.keys.map(k => {
+        const r = byKey[k];
+        return r ? ctlCard(r, { title: r.obj }) : '';
+      }).join('')}</div>`).join('')}</div>`;
 }
 
 /* ── mapping tables ─────────────────────────────────────────────────────────
@@ -2400,7 +3154,7 @@ function mapTable(s) {
 
   const cell = (r, kind) => {
     const jump = (r.v && r.v.length) || (r.mcaps && r.mcaps.length)
-      ? `<button class="row-jump" data-jump="${esc(JSON.stringify({ vendors: r.v || [], caps: r.mcaps || [] }))}">${g('cursor',10)} show in portfolio</button>` : '';
+      ? `<button class="row-jump" data-jump="${jumpPayload(r.v, r.mcaps)}">${g('cursor',10)} show in portfolio</button>` : '';
     const note = r.note
       ? `<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:4px">${esc(r.note)}</div>` : '';
     switch (kind) {
@@ -2460,7 +3214,9 @@ if (window.ResizeObserver) new ResizeObserver(syncHdrHeight).observe(hdrEl);
 window.addEventListener('resize', syncHdrHeight);
 window.addEventListener('load', syncHdrHeight);
 
-showSection('capabilities');
+/* Compliance Matrix is the landing section */
+buildMatrix();
+showSection('matrix');
 syncHdrHeight();
 
 </script>
