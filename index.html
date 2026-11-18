@@ -899,6 +899,21 @@ ul.tsum li svg { flex-shrink:0; margin-top:1px; color:var(--accent); }
 .pqc-tile b { font-size:11.5px; font-weight:600; line-height:1.3; }
 .pqc-close { margin-top:12px; font-size:12px; font-weight:600; color:var(--accent); }
 
+/* CBOM question grid + per-tile products (PQC) */
+.cbom-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:8px; }
+.cbom-q {
+  display:flex; align-items:flex-start; gap:9px;
+  background:var(--surface); border:1px solid var(--border);
+  border-left:3px solid var(--accent); border-radius:7px;
+  padding:11px 13px; font-size:12px; line-height:1.45; color:#3c3c38;
+}
+.cbom-q svg { flex-shrink:0; margin-top:1px; color:var(--accent); }
+.cbom-foot { display:flex; align-items:center; gap:10px; margin-top:9px; flex-wrap:wrap; }
+.cbom-foot .dc-lab { margin-bottom:0; }
+.pqc-tile .vchip-row { justify-content:center; gap:3px; margin-top:2px; }
+.pqc-tile .vchip { font-size:9px; padding:1px 5px; }
+.pqc-tile .no-vendor-label { font-size:9px; }
+
 /* ── CTEM: chevron lifecycle with a loop-back rail ─────────────────────── */
 .ct-steps, .ctem-flow { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; }
 .ct-steps { margin-bottom:8px; }
@@ -1240,14 +1255,14 @@ const DATA = [
     items: [
       { cap: "Data Classification",                            vendors: [{ name:"Fortra",              type:"N" }, { name:"NetSkope",            type:"N" }] },
       { cap: "Data Loss Prevention (DLP)",                     vendors: [{ name:"Fortra",              type:"N" }, { name:"NetSkope",            type:"N" }] },
-      { cap: "Data Encryption",                                vendors: [{ name:"Thales / Imperva",     type:"N" }] },
-      { cap: "High Speed Network Encryption",                  vendors: [{ name:"Thales / Imperva",     type:"N" }] },
-      { cap: "HSM / Tokenization / e-Payment",                vendors: [{ name:"Thales / Imperva",     type:"T" }] },
-      { cap: "Key Management",                                 vendors: [{ name:"Thales / Imperva",     type:"N" }] },
-      { cap: "Database Activity Monitoring (DAM)",             vendors: [{ name:"Thales / Imperva",     type:"B" }] },
-      { cap: "Web Application Firewall (WAF)",                 vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"B" }, { name:"Citrix / NetScaler",  type:"N" }] },
+      { cap: "Data Encryption",                                vendors: [] },
+      { cap: "High Speed Network Encryption",                  vendors: [] },
+      { cap: "HSM / Tokenization / e-Payment",                vendors: [] },
+      { cap: "Key Management",                                 vendors: [] },
+      { cap: "Database Activity Monitoring (DAM)",             vendors: [] },
+      { cap: "Web Application Firewall (WAF)",                 vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Citrix / NetScaler",  type:"N" }] },
       { cap: "Runtime Application Self-Protection (RASP)",     vendors: [] },
-      { cap: "API Security",                                   vendors: [{ name:"Thales / Imperva",     type:"T" }, { name:"Citrix / NetScaler",  type:"T" }] },
+      { cap: "API Security",                                   vendors: [{ name:"Citrix / NetScaler",  type:"T" }] },
       { cap: "Application Security (DEVSECOPS)",               vendors: [{ name:"CheckPoint",           type:"N" }] },
       { cap: "File Gateway (CDR)",                             vendors: [] },
       { cap: "AI Security",                                    vendors: [{ name:"CheckPoint",           type:"T" }, { name:"NetSkope",             type:"T" }, { name:"SentinelOne",        type:"T" }, { name:"Proofpoint",          type:"T" }] },
@@ -1264,11 +1279,11 @@ const DATA = [
       { cap: "Next-Gen Firewall",                              vendors: [{ name:"CheckPoint",           type:"B" }] },
       { cap: "Email Security Gateway",                         vendors: [{ name:"CheckPoint",           type:"B" }, { name:"Proofpoint",           type:"B" }] },
       { cap: "Web Security Gateway",                           vendors: [{ name:"NetSkope",             type:"B" }] },
-      { cap: "Anti-DDoS / Anti-Bot",                           vendors: [{ name:"Thales / Imperva",     type:"N" }, { name:"Citrix / NetScaler",  type:"N" }] },
-      { cap: "DNS Security (DNSsec)",                          vendors: [{ name:"CheckPoint",           type:"N" }, { name:"Thales / Imperva",    type:"N" }, { name:"NetSkope",            type:"N" }] },
+      { cap: "Anti-DDoS / Anti-Bot",                           vendors: [{ name:"Citrix / NetScaler",  type:"N" }] },
+      { cap: "DNS Security (DNSsec)",                          vendors: [{ name:"CheckPoint",           type:"N" }, { name:"NetSkope",            type:"N" }] },
       { cap: "Firewall Optimization and Security Policy",      vendors: [{ name:"Tufin",                type:"N" }] },
       { cap: "AI Security-Gateway",                            vendors: [{ name:"Citrix / NetScaler",   type:"T" }, { name:"NetSkope",            type:"T" }] },
-      { cap: "PQC / Quantum Safe",                             vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Thales / Imperva",    type:"T" }, { name:"Citrix / NetScaler",  type:"T" }, { name:"Gigamon",             type:"T" }, { name:"Riverbed",            type:"T" }] },
+      { cap: "PQC / Quantum Safe",                             vendors: [{ name:"CheckPoint",           type:"T" }, { name:"Citrix / NetScaler",  type:"T" }, { name:"Gigamon",             type:"T" }, { name:"Riverbed",            type:"T" }] },
       { cap: "OT & ICS Security",                              vendors: [] },
     ]
   },
@@ -1315,7 +1330,7 @@ const DATA = [
     items: [
       { cap: "Compliance (SCM / FIM)",                         vendors: [{ name:"Fortra",               type:"B" }] },
       { cap: "Data Pipeline Management",                       vendors: [{ name:"Databahn",             type:"N" }, { name:"SentinelOne",         type:"N" }] },
-      { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",              type:"N" }, { name:"Exabeam / LR",        type:"N" }, { name:"Netwitness",          type:"N" }, { name:"SolarWinds",   type:"N" }] },
+      { cap: "SIEM / SOAR / UEBA",                            vendors: [{ name:"Anomali",              type:"N" }, { name:"Exabeam / LR",        type:"N" }, { name:"SolarWinds",   type:"N" }] },
       { cap: "Threat Intelligence",                            vendors: [{ name:"Anomali",              type:"B" }, { name:"CheckPoint",          type:"N" }] },
       { cap: "Identity Security / ITDR",                       vendors: [{ name:"SentinelOne",          type:"N" }, { name:"SilverFort",          type:"B" }] },
       { cap: "Non-Human Identity Security (NHI)",              vendors: [{ name:"SilverFort",           type:"T" }] },      
@@ -1986,11 +2001,9 @@ const VENDOR_ALIAS = {
   "SentinelOne": "SentinelOne",
   "Proofpoint": "Proofpoint",
   "Citrix": "Citrix / NetScaler", "NetScaler": "Citrix / NetScaler", "Citrix / NetScaler": "Citrix / NetScaler",
-  "Thales": "Thales / Imperva", "Imperva": "Thales / Imperva", "Thales / Imperva": "Thales / Imperva",
   "CyberArk": "IDIRA / CyberArk", "IDIRA": "IDIRA / CyberArk",
   "Silverfort": "SilverFort", "SilverFort": "SilverFort",
   "Exabeam": "Exabeam / LR",
-  "NetWitness": "Netwitness", "Netwitness": "Netwitness",
   "Tanium": "Tanium", "Ivanti": "Ivanti", "Fortra": "Fortra", "RSA": "RSA",
   "SolarWinds": "SolarWinds", "Tufin": "Tufin", "Gigamon": "Gigamon",
   "Vectra": "Vectra", "Vectra AI": "Vectra", "Riverbed": "Riverbed",
@@ -2069,30 +2082,40 @@ const TRENDS = [
   {
     id:"pqc", n:"02", title:"PQC Readiness", accent:"#1565C0", accentL:"#e3f0fc", src:"Deck p.4, 8",
     bullets:["Inventory cryptographic assets","Migrate to quantum-safe algorithms","Track NIST PQC standards"],
-    caps:["PQC / Quantum Safe","Data Encryption","Key Management","High Speed Network Encryption","HSM / Tokenization / e-Payment"],
-    vendors:["Check Point","Thales","NetScaler","Gigamon","Riverbed"],
+    caps:["Certificate Management","Secret Manager","PQC / Quantum Safe"],
+    vendors:["CyberArk","Check Point","NetScaler","Gigamon","Riverbed"],
     detail:{
-      lead:"Protect long-lived data and digital trust now; with agility built in. The priority is crypto-agility: inventory, prioritize, migrate — without disrupting the business.",
+      lead:"Protect long-lived data and digital trust now, with agility built in. PQC readiness starts with a CBOM — a Cryptographic Bill of Materials naming every certificate, key and algorithm in use and what each one protects — and ends with a certificate estate agile enough to swap algorithms without downtime. IDIRA / CyberArk anchors both ends.",
       steps:[
-        { h:"Know what is at risk", p:"Create crypto & data inventory. Identify long-lived and high-value." },
-        { h:"Prioritize",           p:"Rank exposure by data lifetime, business impact and external attack surface." },
-        { h:"PQC Mobilize",         p:"Set a hybrid-PQC pilot and require vendor roadmaps, controls and milestones." }
+        { h:"Build the CBOM", p:"Discover every certificate, key and algorithm, and the system each one protects. The inventory is what the whole migration runs on." },
+        { h:"Prioritize by exposure", p:"Rank by data lifetime, business impact and external attack surface. Long-lived data and public-facing certificates move first." },
+        { h:"Mobilize crypto-agility", p:"Automate certificate lifecycle so algorithms can be swapped on demand. Pilot hybrid-PQC and require vendor roadmaps and milestones." }
       ],
+      cbom:{
+        h:"What the CBOM has to answer",
+        qs:[
+          { q:"Which algorithms and key lengths are in use, and where?", ico:"search" },
+          { q:"Which certificates expire when, and who owns them?",      ico:"file"   },
+          { q:"Which systems can be re-keyed without downtime?",         ico:"loop"   },
+          { q:"Which data must stay confidential beyond 2030?",          ico:"alert"  }
+        ],
+        v:["CyberArk"], c:["Certificate Management","Secret Manager"]
+      },
       threats:[
         { st:"Data in transit", th:"Harvest NOW, Decrypt LATER" },
         { st:"Data in use",     th:"Forged Signature / Identity" },
         { st:"Data at rest",    th:"Man in The Middle" }
       ],
       controls:[
-        { h:"PQC Signing",         ico:"pen"     },
-        { h:"Application Security",ico:"window"  },
-        { h:"Network Encryptor",   ico:"network" },
-        { h:"File Encryption",     ico:"file"    },
-        { h:"Database Encryption", ico:"data"    },
-        { h:"Enterprise KMS",      ico:"key"     },
-        { h:"HSM",                 ico:"safe"    }
+        { h:"Certificate Discovery (CBOM)",      ico:"search",      v:["CyberArk"], c:["Certificate Management"] },
+        { h:"Certificate Lifecycle Automation",  ico:"loop",        v:["CyberArk"], c:["Certificate Management"] },
+        { h:"Crypto-Agility Policy",             ico:"wrench",      v:["CyberArk"], c:["Certificate Management"] },
+        { h:"Machine Identity Governance",       ico:"fingerprint", v:["CyberArk"], c:["Certificate Management","Secret Manager"] },
+        { h:"Secrets &amp; Key Rotation",            ico:"key",     v:["CyberArk"], c:["Secret Manager"] },
+        { h:"PQC-Ready Issuance",                ico:"pen",         v:["CyberArk"], c:["Certificate Management"] },
+        { h:"Quantum-Safe Network",              ico:"network",     v:["Check Point","NetScaler","Gigamon","Riverbed"], c:["PQC / Quantum Safe"] }
       ],
-      ctrlVendors:["Thales"],
+      ctrlVendors:[],
       closing:"The priority is crypto-agility: inventory, prioritize, migrate — without disrupting the business."
     }
   },
@@ -2103,7 +2126,7 @@ const TRENDS = [
           "EndPoint Management","CASB","Data Classification","Data Loss Prevention (DLP)","Web Application Firewall (WAF)","API Security",
           "Virtual Desktop Infrastructure (VDI)","Firewall Optimization and Security Policy","Network Detection and Response (NDR)",
           "Extended Detection and Response (XDR)","SIEM / SOAR / UEBA","CTEM / EASM"],
-    vendors:["RSA","Silverfort","CyberArk","Netskope","Fortra","Ivanti","Tanium","SentinelOne","Check Point","Imperva","Citrix","Tufin","Vectra","Exabeam","watchTowr"],
+    vendors:["RSA","Silverfort","CyberArk","Netskope","Fortra","Ivanti","Tanium","SentinelOne","Check Point","Citrix","Tufin","Vectra","Exabeam","watchTowr"],
     detail:{
       lead:"The Adaptive Fortress — a Zero Trust architecture where every signal feeds one real-time policy decision point, and every enforcement point acts on that decision.",
       signalsIn:[
@@ -2114,8 +2137,8 @@ const TRENDS = [
       contextTop:"Organization policy",
       contextBottom:"Threat intelligence",
       enforce:[
-        { h:"Data",           ico:"data",    sig:"Classify, label, encrypt",   v:["Fortra","Imperva","Netskope"] },
-        { h:"Apps",           ico:"window",  sig:"Adaptive access",            v:["Check Point","Imperva","Netskope","Citrix"] },
+        { h:"Data",           ico:"data",    sig:"Classify, label, encrypt",   v:["Fortra","Netskope"] },
+        { h:"Apps",           ico:"window",  sig:"Adaptive access",            v:["Check Point","Netskope","Citrix"] },
         { h:"Infrastructure", ico:"server",  sig:"Access and runtime control", v:["Citrix"] },
         { h:"Network",        ico:"network", sig:"Threat protection",          v:["Fortra","Tufin","Check Point","Vectra"] }
       ],
@@ -2133,7 +2156,7 @@ const TRENDS = [
           "Next-Gen Firewall","Web Application Firewall (WAF)","Threat Intelligence","Identity Governance Lifecycle (IGL)",
           "Privilege Access Management (PAM)","Secret Manager","Identity Security / ITDR",
           "Identity Security Posture Management (ISPM)","Single Sign-On (SSO)","Multi Factor Authentication"],
-    vendors:["Check Point","Fortra","watchTowr","Tanium","Ivanti","SolarWinds","Tufin","Imperva","Vectra","Exabeam","Netskope","RSA","CyberArk","Silverfort"],
+    vendors:["Check Point","Fortra","watchTowr","Tanium","Ivanti","SolarWinds","Tufin","Vectra","Exabeam","Netskope","RSA","CyberArk","Silverfort"],
     detail:{
       lead:"Continuous Threat Exposure Management runs as a continuous five-phase loop. Every phase depends on an identity foundation — IGA, PAM and ITDR — sitting under an authentication layer and a Zero Trust gateway.",
       phases:[
@@ -2147,13 +2170,13 @@ const TRENDS = [
           { t:"Vulnerability & patch discovery real-time on endpoint", v:["Tanium","Ivanti"], c:["EndPoint Patch Management"] },
           { t:"External Attack Surface scan", v:["watchTowr","Check Point","Fortra"], c:["CTEM / EASM"] },
           { t:"Data classification · Data discovery · Data security posture mgmt", v:["Fortra","Netskope"], c:["Data Classification","Data Security Posture Management (DSPM)"] },
-          { t:"API Discovery / Security", v:["Imperva","NetScaler"], c:["API Security"] },
+          { t:"API Discovery / Security", v:["NetScaler"], c:["API Security"] },
           { t:"Vulnerability Scan", v:["Fortra","watchTowr"], c:["Exposure Management (VA Scan)","Offensive Security","External Penetration Test"] } ] },
 
         { n:"Phase 3", h:"Prioritization", scope:"Prioritize Business Context + Threat Intel + Exploitability", items:[
           { t:"Risk-based patch prioritization by asset criticality", v:["Tanium","Ivanti"], c:["EndPoint Patch Management"] },
           { t:"Vulnerability Assessment, Correlation & Prioritization", v:["Fortra","Check Point"], c:["CTEM / EASM"] },
-          { t:"AI SIEM — prioritize alert by behavior analytics", v:["Exabeam","Anomali","NetWitness"], c:["SIEM / SOAR / UEBA"] },
+          { t:"AI SIEM — prioritize alert by behavior analytics", v:["Exabeam","Anomali"], c:["SIEM / SOAR / UEBA"] },
           { t:"Network policy risk scoring — firewall rule analysis", v:["Tufin"], c:["Firewall Optimization and Security Policy"] } ] },
 
         { n:"Phase 4", h:"Validation", scope:"Control and Validation", items:[
@@ -2168,7 +2191,7 @@ const TRENDS = [
           { t:"Utilizing Intelligence By Feeding IoCs for Prevention & Blocking", v:["Anomali","Check Point"], c:["Threat Intelligence"] },
           { t:"Auto-remediate endpoint threats", v:["SentinelOne","Tanium"], c:["Endpoint Detection and Response (EDR)","EndPoint Management"] },
           { t:"Auto firewall rule change & policy enforcement", v:["Tufin","Check Point"], c:["Firewall Optimization and Security Policy","Next-Gen Firewall"] },
-          { t:"WAF virtual Patch", v:["Imperva","Check Point","NetScaler"], c:["Web Application Firewall (WAF)"] } ] }
+          { t:"WAF virtual Patch", v:["Check Point","NetScaler"], c:["Web Application Firewall (WAF)"] } ] }
       ],
       support:[
         { b:"Threat Intelligence", s:"Dark web · TIP",        v:["Anomali","Check Point"], c:["Threat Intelligence"] },
@@ -2193,7 +2216,7 @@ const TRENDS = [
           "Firewall Optimization and Security Policy","Web Application Firewall (WAF)","Database Activity Monitoring (DAM)",
           "Virtual Desktop Infrastructure (VDI)","Privilege Access Management (PAM)","Multi Factor Authentication",
           "Identity Security / ITDR","CASB","Data Classification","Traffic / Bandwidth Management","NAPM / Observability"],
-    vendors:["Exabeam","Tanium","Check Point","Fortra","SolarWinds","Vectra","Gigamon","Tufin","Citrix","CyberArk","Imperva","Netskope","Silverfort","Ivanti","RSA","Allot","Riverbed"],
+    vendors:["Exabeam","Tanium","Check Point","Fortra","SolarWinds","Vectra","Gigamon","Tufin","Citrix","CyberArk","Netskope","Silverfort","Ivanti","RSA","Allot","Riverbed"],
     detail:{
       lead:"Thailand Cybersecurity Act, B.E. 2562 (2019) — the five-function stack, from asset identification at the base through to recovery playbooks at the top, with the MTTH portfolio mapped onto each layer.",
       stack:[
@@ -2203,10 +2226,10 @@ const TRENDS = [
         { fn:"PROTECT",  h:"Security Protection", color:"#6a1b9a", pillars:[
             { b:"Infrastructure", v:["Check Point","Tanium"] },
             { b:"Network",        v:["Check Point","Gigamon","Tufin"] },
-            { b:"Application",    v:["Citrix","CyberArk","Imperva"] },
-            { b:"Cloud",          v:["Check Point","Imperva","Netskope"] },
+            { b:"Application",    v:["Citrix","CyberArk"] },
+            { b:"Cloud",          v:["Check Point","Netskope"] },
             { b:"OT",             v:["Check Point","CyberArk","Silverfort"] },
-            { b:"Data",           v:["Check Point","Imperva"] },
+            { b:"Data",           v:["Check Point"] },
             { b:"Endpoint",       v:["Check Point","CyberArk","Tanium","Ivanti"] },
             { b:"User",           v:["Check Point","Citrix","RSA","Silverfort"] }
           ] },
@@ -2226,7 +2249,7 @@ const TRENDS = [
     id:"data", n:"06", title:"Data Security", accent:"#5B2C8A", accentL:"#f2ecf9", src:"Deck p.4",
     bullets:["Encrypt data at rest & in transit","Classify & control sensitive data","Prevent unauthorized exfiltration"],
     caps:["Data Classification","Data Loss Prevention (DLP)","Data Encryption","Key Management","Database Activity Monitoring (DAM)","Data Security Posture Management (DSPM)","High Speed Network Encryption","HSM / Tokenization / e-Payment","CASB","Web Security Gateway"],
-    vendors:["Fortra","Netskope","Thales","Imperva","Check Point"],
+    vendors:["Fortra","Netskope","Check Point","CyberArk"],
     detail:{
       lead:"The data-security trend line from the deck, mapped onto the MTTH capabilities that deliver each of the three objectives.",
       core:{ b:"Sensitive Data",
@@ -2237,12 +2260,12 @@ const TRENDS = [
           q:"Where is our sensitive data, and who is touching it?",
           stops:"Shadow data nobody knew existed",
           caps:["Data Classification","Data Security Posture Management (DSPM)","Database Activity Monitoring (DAM)"],
-          v:["Fortra","Netskope","Imperva"] },
+          v:["Fortra","Netskope"] },
         { n:"02", h:"Lock it", sub:"Encrypt &amp; Tokenize", ico:"pqc",
           q:"If it is taken, is it useless to whoever took it?",
           stops:"Readable data in a breach",
-          caps:["Data Encryption","High Speed Network Encryption","Key Management","HSM / Tokenization / e-Payment"],
-          v:["Thales","Imperva"] },
+          caps:["Secret Manager","Certificate Management","Data Encryption","High Speed Network Encryption","Key Management","HSM / Tokenization / e-Payment"],
+          v:["CyberArk"] },
         { n:"03", h:"Watch the exit", sub:"Control Egress", ico:"shieldout",
           q:"Can it leave the organisation without permission?",
           stops:"Exfiltration by a user, an app or a cloud service",
@@ -2256,7 +2279,7 @@ const TRENDS = [
         { b:"Data in transit", w:"Between sites, out to cloud, across the internet",
           caps:["High Speed Network Encryption","Web Security Gateway","CASB","Data Loss Prevention (DLP)"] },
         { b:"Data in use", w:"Open in an application or being queried live",
-          caps:["Database Activity Monitoring (DAM)","Data Loss Prevention (DLP)","Key Management"] }
+          caps:["Data Loss Prevention (DLP)","Secret Manager","Database Activity Monitoring (DAM)","Key Management"] }
       ]
     }
   }
@@ -2303,12 +2326,12 @@ const STANDARDS = [
       { k:"A.8.7",  dom:"Protection against malware", caps:["Antivirus engines","Network Sandboxing","Content Disarm and Reconstruction (CDR)"], v:["SentinelOne","Check Point"], mcaps:["Endpoint Detection and Response (EDR)","File Gateway (CDR)","Next-Gen Firewall","Email Security Gateway"] },
       { k:"A.8.8",  dom:"Management of technical vulnerabilities", caps:["Vulnerability Assessment (VA)","Risk Prioritization","Patch Deployment orchestration"], v:["Tanium","Ivanti"], mcaps:["Exposure Management (VA Scan)","EndPoint Patch Management"] },
       { k:"A.8.9",  dom:"Configuration management", caps:["Infrastructure as Code (IaC)","Configuration Compliance Management","Automation Engines"], v:["Fortra"], mcaps:["Compliance (SCM / FIM)"] },
-      { k:"A.8.11", dom:"Data masking", caps:["Static/Dynamic Data Masking (SDM/DDM)","Tokenization","Data Format Preserving Encryption"], v:["Thales"], mcaps:["HSM / Tokenization / e-Payment","Database Activity Monitoring (DAM)"] },
+      { k:"A.8.11", dom:"Data masking", caps:["Static/Dynamic Data Masking (SDM/DDM)","Tokenization","Data Format Preserving Encryption"], v:[], mcaps:["HSM / Tokenization / e-Payment","Database Activity Monitoring (DAM)"] },
       { k:"A.8.12", dom:"Data leakage prevention", caps:["Data Loss Prevention (DLP) across Email, Endpoint, Cloud, and Network"], v:["Fortra","Netskope"], mcaps:["Data Loss Prevention (DLP)"] },
       { k:"A.8.15", dom:"Logging", caps:["Centralized Log Collection","Log Management","Security Analytics"], v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA","Data Pipeline Management"] },
       { k:"A.8.20", dom:"Network security", caps:["Next-Generation Firewalls (NGFW)","Intrusion Prevention (IPS)","Software-Defined Networking"], v:["Check Point"], mcaps:["Next-Gen Firewall","SD-WAN / WANO"] },
       { k:"A.8.23", dom:"Web filtering", caps:["Secure Web Gateways (SWG)","URL Filtering engines","DNS Layer Security"], v:["Check Point","Netskope"], mcaps:["Web Security Gateway","DNS Security (DNSsec)"] },
-      { k:"A.8.24", dom:"Use of Cryptography", caps:["Cloud Key Management Services (KMS)","Hardware Security Modules (HSM)","Data-at-Rest Encryption","SSL/TLS Offloading"], v:["Thales","CyberArk"], mcaps:["Key Management","Data Encryption","Certificate Management"] },
+      { k:"A.8.24", dom:"Use of Cryptography", caps:["Cloud Key Management Services (KMS)","Hardware Security Modules (HSM)","Data-at-Rest Encryption","SSL/TLS Offloading"], v:["CyberArk"], mcaps:["Key Management","Data Encryption","Certificate Management"] },
       { k:"A.8.32", dom:"Change Management", caps:["ITIL Change Approval workflows","CI/CD code change tracking","Automated infrastructure deployment guardrails"], v:["Ivanti","SolarWinds"], mcaps:["ITSM / ITAM"] }
     ]
   },
@@ -2338,12 +2361,12 @@ const STANDARDS = [
     rows:[
       { k:"Req. 1",        dom:"Network Security & Segmentation", obj:"Protect CDE & restrict inbound/outbound traffic", v:["Check Point"], mcaps:["Next-Gen Firewall","Firewall Optimization and Security Policy"] },
       { k:"Req. 2",        dom:"Secure Configuration Management", obj:"Eliminate insecure default settings & enforce hardening baseline", v:["Fortra"], note:"Tripwire", mcaps:["Compliance (SCM / FIM)"] },
-      { k:"Req. 3, 4",     dom:"Data Protection & Encryption", obj:"Protect CHD at rest & in transit", v:["Fortra","Thales"], note:"DLP · CipherTrust", mcaps:["Data Loss Prevention (DLP)","Data Encryption","HSM / Tokenization / e-Payment"] },
+      { k:"Req. 3, 4",     dom:"Data Protection & Encryption", obj:"Protect CHD at rest & in transit", v:["Fortra"], note:"DLP", mcaps:["Data Loss Prevention (DLP)","Data Encryption","HSM / Tokenization / e-Payment"] },
       { k:"Req. 5",        dom:"Anti-Malware & Endpoint Security", obj:"Detect & prevent malware execution", v:["Ivanti","SentinelOne","Tanium"], mcaps:["Endpoint Detection and Response (EDR)","EndPoint Management"] },
-      { k:"Req. 6",        dom:"Secure SDLC / Application Security", obj:"Secure development & vulnerability remediation", v:["Imperva","Check Point"], mcaps:["Application Security (DEVSECOPS)","Web Application Firewall (WAF)"] },
+      { k:"Req. 6",        dom:"Secure SDLC / Application Security", obj:"Secure development & vulnerability remediation", v:["Check Point"], mcaps:["Application Security (DEVSECOPS)","Web Application Firewall (WAF)"] },
       { k:"Req. 7, 8",     dom:"Identity & Access Management", obj:"Enforce least privilege & MFA", v:["RSA","Silverfort"], mcaps:["Multi Factor Authentication","Identity Governance Lifecycle (IGL)"] },
       { k:"Req. 7, 8, 10", dom:"Privileged Access Management (PAM)", obj:"Control & monitor privileged accounts", v:["CyberArk","Silverfort"], mcaps:["Privilege Access Management (PAM)","Secret Manager","Multi Factor Authentication","Identity Security / ITDR"] },
-      { k:"Req. 10",       dom:"Security Monitoring & Logging", obj:"Centralized log monitoring & alerting", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA"] },
+      { k:"Req. 10",       dom:"Security Monitoring & Logging", obj:"Centralized log monitoring & alerting", v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA"] },
       { k:"Req. 11",       dom:"File Integrity Monitoring (FIM)", obj:"Detect unauthorized file/config changes", v:["Fortra"], note:"Tripwire", mcaps:["Compliance (SCM / FIM)"] },
       { k:"Req. 6, 11",    dom:"Vulnerability Management", obj:"Identify & remediate vulnerabilities", v:["Ivanti","Tanium"], mcaps:["Exposure Management (VA Scan)","EndPoint Patch Management"] },
       { k:"Req. 11",       dom:"Penetration Testing & Validation", obj:"Validate segmentation & security posture", v:["Fortra"], note:"Offensive", mcaps:["Offensive Security","External Penetration Test"] },
@@ -2392,18 +2415,18 @@ const STANDARDS = [
     cols:["OIC Control Domain","Regulatory Expectation","Control Objective","Cybersecurity Solution","Example Technology / Control"],
     rows:[
       { dom:"IT Governance",              obj:"Establish clear IT governance structure and oversight", co:"Policy & Oversight",                  sol:"GRC Platform",              ex:"Risk Register, Policy Management", v:[] },
-      { dom:"Risk Management",            obj:"Identify, assess, and manage IT risks",                 co:"Risk Identification & Monitoring",    ex:"Risk Dashboard",  v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA"] },
-      { dom:"Information Security",       obj:"Protect customer and critical insurance data",          co:"Confidentiality, Integrity & Availability", ex:"AES-256, TLS, RBAC", v:["Fortra","Thales"], mcaps:["Data Classification","Data Loss Prevention (DLP)","Data Encryption"] },
+      { dom:"Risk Management",            obj:"Identify, assess, and manage IT risks",                 co:"Risk Identification & Monitoring",    ex:"Risk Dashboard",  v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA"] },
+      { dom:"Information Security",       obj:"Protect customer and critical insurance data",          co:"Confidentiality, Integrity & Availability", ex:"AES-256, TLS, RBAC", v:["Fortra"], mcaps:["Data Classification","Data Loss Prevention (DLP)","Data Encryption"] },
       { dom:"Access Control",             obj:"Limit access rights based on job responsibilities",     co:"Least Privilege Enforcement",         ex:"SSO, Privileged Access Vault", v:["CyberArk","RSA"], mcaps:["Privilege Access Management (PAM)","Single Sign-On (SSO)"] },
-      { dom:"Cybersecurity Monitoring",   obj:"Detect and respond to cybersecurity threats",           co:"Threat Detection & Response",         ex:"SOC Monitoring", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA","Extended Detection and Response (XDR)"] },
+      { dom:"Cybersecurity Monitoring",   obj:"Detect and respond to cybersecurity threats",           co:"Threat Detection & Response",         ex:"SOC Monitoring", v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA","Extended Detection and Response (XDR)"] },
       { dom:"Vulnerability Management",   obj:"Assess and remediate vulnerabilities in a timely manner", co:"Continuous Security Assessment",    ex:"CVE Monitoring, Patch Deployment", v:["Ivanti","Tanium"], mcaps:["Exposure Management (VA Scan)","EndPoint Patch Management"] },
       { dom:"Penetration Testing",        obj:"Perform regular security testing",                      co:"Security Validation",                 ex:"SOC Monitoring", v:["Fortra"], mcaps:["Offensive Security","External Penetration Test"] },
-      { dom:"Incident Response",          obj:"Establish and maintain cyber incident response capability", co:"Incident Handling & Breach Management", ex:"Incident Workflow, Forensic Logging", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA"] },
+      { dom:"Incident Response",          obj:"Establish and maintain cyber incident response capability", co:"Incident Handling & Breach Management", ex:"Incident Workflow, Forensic Logging", v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA"] },
       { dom:"Business Continuity (BCM)",  obj:"Ensure operational resilience and rate continuity",     co:"Disaster Recovery & Business Continuity", sol:"Backup + Replication + DR Site", ex:"DR Site / Cloud DIR", v:[] },
       { dom:"Outsourcing / Third-Party Risk", obj:"Control risks from service providers",              co:"Vendor Risk Control",                 ex:"SaaS Monitoring, Third Party Assessment", v:["Netskope"], mcaps:["CASB","SASE / SSE"] },
       { dom:"Cloud Governance",           obj:"Secure and monitor cloud environment",                  co:"Secure Cloud Architecture",           ex:"Cloud Configuration", v:["Netskope"], mcaps:["Cloud Security Posture Management (CSPM)","CASB"] },
       { dom:"Data Protection",            obj:"Protect policyholder and personal data",                co:"Data Privacy & Encryption",           ex:"Data Discovery & Classification", v:["Fortra"], mcaps:["Data Classification","Data Encryption"] },
-      { dom:"Logging & Audit Trail",      obj:"Maintain audit logs and traceability",                  co:"Auditability & Compliance",           ex:"Log Retention Policy", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA","Data Pipeline Management"] },
+      { dom:"Logging & Audit Trail",      obj:"Maintain audit logs and traceability",                  co:"Auditability & Compliance",           ex:"Log Retention Policy", v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA","Data Pipeline Management"] },
       { dom:"Awareness & Training",       obj:"Improve cybersecurity awareness among staff",           co:"Human Risk Reduction",                ex:"Phishing Simulation", v:["Fortra"], mcaps:["Security Awareness Training"] }
     ]
   },
@@ -2429,7 +2452,7 @@ const STANDARDS = [
       { k:"Section 37(1)",  obj:"Maintain appropriate security measures", co:"Protect data from loss / improper access", ex:"AES-256, TLS, NGFW", v:["Check Point","Fortra"], mcaps:["Next-Gen Firewall","Data Encryption","Data Loss Prevention (DLP)","Data Classification"] },
       { k:"Section 37(2)",  obj:"Prevent unauthorized data access or disclosure", co:"Access Control & Monitoring", ex:"SSO, RBAC, Privileged Vault", v:["CyberArk","RSA"], mcaps:["Privilege Access Management (PAM)","Single Sign-On (SSO)"] },
       { k:"Section 37(3)",  obj:"Set up data retention & disposal mechanism", co:"Data Retention & Disposal",    sol:"Data Lifecycle Management",   ex:"Retention Policy Engine", v:[] },
-      { k:"Section 37(4)",  obj:"Notify data breach within 72 hours", co:"Breach Detection & Response",         ex:"Incident Workflow", v:["Exabeam","NetWitness"], mcaps:["SIEM / SOAR / UEBA"] },
+      { k:"Section 37(4)",  obj:"Notify data breach within 72 hours", co:"Breach Detection & Response",         ex:"Incident Workflow", v:["Exabeam"], mcaps:["SIEM / SOAR / UEBA"] },
       { k:"Section 39",     obj:"Appoint data Processor",          co:"Third-party Risk Control",               ex:"SaaS Monitoring", v:["Netskope"], mcaps:["CASB"] },
       { k:"Section 40",     obj:"Maintain Records of Processing Activities (ROPA)", co:"Auditability & Traceability", sol:"GRC / Compliance Platform", ex:"Evidence Repository", v:[] },
       { k:"Section 41",     obj:"Appoint DPO",                     co:"Governance & Oversight",                 sol:"Compliance Workflow Tool",    ex:"Task Tracking", v:[] },
@@ -2534,10 +2557,16 @@ function jumpToCaps({ vendors = [], caps = [], } = {}) {
   state.vendors = new Set(vres);
   state.caps    = new Set(cres);
   state.search  = '';
+  /* a targeted capability may be a portfolio gap (no vendor assigned) —
+     reveal gaps so the link always lands on something */
+  const GAPS = new Set(DATA.flatMap(gr => gr.items.filter(i => !i.vendors.length).map(i => i.cap)));
+  state.showGaps = [...state.caps].some(c => GAPS.has(c));
 
   showSection('capabilities');
 
   const si = document.getElementById('searchInput'); if (si) si.value = '';
+  const gb = document.getElementById('gapToggle');
+  if (gb) gb.classList.toggle('active', state.showGaps);
   document.querySelectorAll('.btn-group, .btn-type').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.btn-vendor').forEach(b =>
     b.classList.toggle('active', state.vendors.has(b.dataset.vendor)));
@@ -2589,7 +2618,7 @@ function vchip(name, caps) {
     return `<span class="vchip ext" title="Referenced in the deck — not an MTTH portfolio vendor">${esc(name)}</span>`;
   const own = VENDOR_CAPS[key] || [];
   const hit = [...new Set((caps || []).filter(c => own.includes(c)))];
-  const payload = esc(JSON.stringify({ vendors:[name], caps: hit }));
+  const payload = esc(JSON.stringify({ vendors:[], caps: hit }));
   const tip = hit.length
     ? `${key} — ${hit.length} matching capabilit${hit.length > 1 ? 'ies' : 'y'} in this section`
     : `Show every ${key} capability in the portfolio`;
@@ -2808,14 +2837,16 @@ function trendBody(t) {
   if (d.steps) {
     h += `<h5>${g('steps',13)}Migration path</h5><div class="pqc-steps">` + d.steps.map((x, i) => `
       <div class="pqc-step"><span class="sn">Step ${i + 1}</span><b>${esc(x.h)}</b><p>${esc(x.p)}</p></div>`).join('') + `</div>`;
+    h += `<h5>${g('search',13)}${d.cbom.h}</h5><div class="cbom-grid">` + d.cbom.qs.map(x => `
+      <div class="cbom-q">${g(x.ico,15)}<span>${esc(x.q)}</span></div>`).join('') + `</div>
+      <div class="cbom-foot"><span class="dc-lab">Answered by</span>${vchips(d.cbom.v, d.cbom.c)}</div>`;
     h += `<h5>${g('alert',13)}Quantum exposure by data state</h5><div class="pqc-threats">` + d.threats.map(x => `
       <div class="pqc-threat"><div class="st">${esc(x.st)}</div><div class="th">${g('alert',14)}${esc(x.th)}</div></div>`).join('') + `</div>
       <div class="pqc-conv">${d.threats.map(() => `<div>${g('chev',14,2.4)}</div>`).join('')}</div>
       <div class="pqc-plane">
-        <span class="pl">${g('key',12)}Crypto-agility control plane</span>
+        <span class="pl">${g('key',12)}CBOM &amp; crypto-agility control plane</span>
         <div class="pqc-tiles">${d.controls.map(c => `
-          <div class="pqc-tile"><span class="ti">${g(c.ico,16)}</span><b>${esc(c.h)}</b></div>`).join('')}</div>
-        ${vchips(d.ctrlVendors, t.caps)}
+          <div class="pqc-tile"><span class="ti">${g(c.ico,16)}</span><b>${c.h}</b>${vchips(c.v, c.c)}</div>`).join('')}</div>
       </div>
       <div class="pqc-close">${esc(d.closing)}</div>`;
   }
